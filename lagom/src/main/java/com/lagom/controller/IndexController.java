@@ -1,18 +1,40 @@
 package com.lagom.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import com.lagom.domain.ProductDTO;
+import com.lagom.service.index.IndexService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
 public class IndexController {
-	@GetMapping("/")
+	//@inject, @Autowired, @Resource중 1개라도 붙어있으면 의존성 주입
+	
+	//@Inject와 @Autowired는 타입(변수타입)으로 의존성 주입
+	//타입으로 가져오기때문에 IndexService 이부분이 중요하지 iService는 노중요
+	//IndexService는 인터페이스... IndexServiec, IndexServiceImpl도 가능함 왜냐면 타입으로 의존해서
+	//@Resource는 변수명으로 의존성 주입
+	
+	@Autowired
+	IndexService iService;
+	// iService에 indexServiceImpl Beans가 들어가있는것
+	
+	@GetMapping("/index")
 	public String indexView(Model model) {
 		log.info(">>>>> INDEX PAGE 출력");
 		
+		//1.view단에 출력할 데이터
+		model.addAttribute("BestPdt", iService.bestPdtList()); //이름표, 담을데이터
+		
+		//2.출력할 화면을 결정
+		//1,2 가지고 dispatcher고고
 		return "index";
 	}
 
