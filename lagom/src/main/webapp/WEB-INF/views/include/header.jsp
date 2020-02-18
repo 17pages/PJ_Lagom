@@ -11,6 +11,9 @@
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/common.css">
 	<style type="text/css">
 		div.header_wrap {
+			position : fixed;
+			top : 0;
+			z-index:999;
 			width: 100%;
 			background-color: white;
 			box-shadow: 0 0 1px 1px rgba(20, 23, 28, .1), 0 3px 1px 0 rgba(20,23,28,.1);

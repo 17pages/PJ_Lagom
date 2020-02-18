@@ -6,12 +6,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="${path}/resources/css/common.css">
-<script src="https://kit.fontawesome.com/825f57de13.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css"
+	href="${path}/resources/css/common.css">
+<script src="https://kit.fontawesome.com/825f57de13.js"
+	crossorigin="anonymous"></script>
 <style type="text/css">
 div.content_wrap {
+	margin-top: 65px;
 	width: 100%;
-	background-color: white;
+	background-color: #f1f1f2;
 }
 
 div.content {
@@ -20,7 +23,6 @@ div.content {
 	max-width: 100%;
 	min-height: 1px;
 	box-sizing: border-box;
-	border: 1px solid red;
 }
 
 a {
@@ -56,13 +58,18 @@ a {
 }
 
 .shortcut_list_item_link_img {
-	background-color: #ededed;
+	
 	border-radius: 5px;
 	width: 100px;
 	height: 80px;
 	padding: 0 10px;
-	margin: 2px;
+	margin: 4px;
+	transition: all ease 0.7s;
 }
+.shortcut_list_item_link_img:hover{
+		transform: scale(1.1);
+}
+
 
 .round {
 	overflow: hidden;
@@ -76,14 +83,14 @@ a {
 	-moz-align-items: center;
 	align-items: center;
 	margin-bottom: 15px;
-	display: flex;
+	
 }
 
 .today_home_sweet_home {
 	font-weight: 700;
 	font-size: 18px;
 	color: #000;
-	margin: 0 180px;
+	margin-top : 7px;
 	margin-bottom: 10px;
 }
 
@@ -151,7 +158,8 @@ a {
 	box-sizing: border-box;
 	margin-right: -10px;
 	margin-left: -10px;
-	margin: 0 180px;
+	padding : 0 10px;
+	
 }
 
 .col-md-3 {
@@ -204,7 +212,6 @@ a {
 	display: flex;
 	flex-direction: column;
 	margin: -.5px 0;
-	border-radius: 6px;
 	overflow: hidden;
 	align-items: stretch;
 	width: 170px;
@@ -213,20 +220,26 @@ a {
 }
 
 .sweet_content_choice {
-	justify-content: center;
+	height: 45px;
+	align-items: center;
+	diplay: flex;
+	justify-content: left;
 	margin: .5px 0;
-	padding: 12.5px 10%;
-	background-color: #f5f5f5;
+	padding-left: 13px;
+	padding-top: 13px;
+	background-color: #ededed;
 	transition: background-color .1s;
 }
 
 .sweet_content_choice:hover {
-	background-color: #ededed;
+	background-color: #dadada;
 }
 
 .sweet_content_content {
+	align-items: center;
 	display: flex;
 	justify-content: space-between;
+	padding-right : 13px;
 }
 
 .sweet_content_content>.title {
@@ -236,7 +249,7 @@ a {
 	color: #424242;
 }
 
-.sweet_content_content>.title>.arrow {
+.sweet_content_content>.title>.arrow_in {
 	flex: 0 0 auto;
 	margin-left: 3px;
 	vertical-align: 1px;
@@ -267,23 +280,29 @@ a {
 
 .today_home_reco, .today_special_reco {
 	display: flex;
-	margin-right: 195px;
+	margin-right: 15px;
+}
+.today_reco, .home_jarang, .special_reco{
+width : 1040px;
+background-color : white;
+margin-left : 174px;
+margin-bottom : 15px;
 }
 
 .today_reco_itemwrap {
-	margin: 0 180px;
+	
 	display: flex;
 }
 
 .today_special_itemwrap {
-	margin: 0 180px;
+	
 	display: flex;
 	justify-content: center;
 }
 
 .item_wrap {
 	width: 300px;
-	height: 400px;
+	height: 300px;
 	padding: 0 10px;
 }
 
@@ -536,6 +555,10 @@ body, hmtl {
 	box-shadow: rgba(0, 0, 0, 0.1) 1px 1px 0px;
 }
 
+.fa-arrow-left, .fa-arrow-right {
+	margin-top: 25px;
+}
+
 /*Header*/
 h1, h2 {
 	text-shadow: none;
@@ -572,7 +595,8 @@ h2 {
 					<a href="#">
 						<ul id="slider">
 							<li><img src="${path}/resources/img/wall-416060_1280.png"></li>
-							<li><img src="${path}/resources/img/kitchen-2165756_1280.png"></li>
+							<li><img
+								src="${path}/resources/img/kitchen-2165756_1280.png"></li>
 							<li><img src="${path}/resources/img/pillow-1890940_1280.png"></li>
 						</ul>
 					</a>
@@ -597,8 +621,8 @@ h2 {
 						class="shortcut_list_item_link">
 							<div class="round">
 								<div class="shortcut_list_item_link_img">
-									<img src="${path}/resources/img/icons8-discount-100.png" width="80px"
-										height="80px">
+									<img src="${path}/resources/img/icons8-discount-100.png"
+										width="80px" height="80px">
 								</div>
 							</div>
 							<div class="shortcut_list_item_link_title">핫딜</div>
@@ -607,8 +631,8 @@ h2 {
 						class="shortcut_list_item_link">
 							<div class="round">
 								<div class="shortcut_list_item_link_img">
-									<img src="${path}/resources/img/icons8-gold-medal-80.png" width="80px"
-										height="80px">
+									<img src="${path}/resources/img/icons8-gold-medal-80.png"
+										width="80px" height="80px">
 								</div>
 							</div>
 							<div class="shortcut_list_item_link_title">베스트</div>
@@ -618,8 +642,8 @@ h2 {
 						class="shortcut_list_item_link">
 							<div class="round">
 								<div class="shortcut_list_item_link_img">
-									<img src="${path}/resources/img/icons8-person-at-home-100.png" width="80px"
-										height="80px">
+									<img src="${path}/resources/img/icons8-person-at-home-100.png"
+										width="80px" height="80px">
 								</div>
 							</div>
 							<div class="shortcut_list_item_link_title">나혼자산다</div>
@@ -628,8 +652,8 @@ h2 {
 						class="shortcut_list_item_link">
 							<div class="round">
 								<div class="shortcut_list_item_link_img">
-									<img src="${path}/resources/img/icons8-two-hearts-100.png" width="80px"
-										height="80px">
+									<img src="${path}/resources/img/icons8-two-hearts-100.png"
+										width="80px" height="80px">
 								</div>
 							</div>
 							<div class="shortcut_list_item_link_title">신혼가구</div>
@@ -638,8 +662,8 @@ h2 {
 						class="shortcut_list_item_link">
 							<div class="round">
 								<div class="shortcut_list_item_link_img">
-									<img src="${path}/resources/img/icons8-event-accepted-160.png" width="80px"
-										height="80px">
+									<img src="${path}/resources/img/icons8-event-accepted-160.png"
+										width="80px" height="80px">
 								</div>
 							</div>
 							<div class="shortcut_list_item_link_title">이벤트</div>
@@ -647,6 +671,43 @@ h2 {
 
 				</ul>
 			</nav>
+			
+			<div class="today_reco">
+				<header class="today_home_reco">
+					<h2 class="col today_home_sweet_home">신상품</h2>
+					<a href="#" class="more_plus">더보기</a>
+				</header>
+				<div class="today_reco_itemwrap">
+					<c:forEach items="${NewPdt}" var="pdt">
+						<div class="item_wrap">
+							<a href="#" class="item_click">
+								<div class="item_content_wrap">
+									<article class="reco_item">
+										<div class="item_img">
+											<img src= "${path}/resources/img/${pdt.p_img}"
+												class="item_img_p">
+										</div>
+
+										<div class="item_content">
+											<div class="item_header">
+												<span class="item_brand">${pdt.pmemo}</span> <span class="item_name">${pdt.pname}
+												</span>
+											</div>
+											<span class="item_content_content"> <span
+												class="item_discount">30%</span> <span class="item_price"><fmt:formatNumber type="number" maxFractionDigits="3" value="${pdt.price}"/></span>
+												
+											</span>
+										</div>
+									</article>
+								</div>
+							</a>
+						</div>
+					</c:forEach>
+
+
+
+				</div>
+			</div>
 			<div class="home_jarang">
 				<header class="today_home_jarang"></header>
 				<h2 class="col today_home_sweet_home">홈 스윗 홈</h2>
@@ -677,14 +738,13 @@ h2 {
 						<article class="sweet_story">
 							<a href="#" class="sweet_story_link">
 								<div class="sweet_story_imgwrap">
-									<img src="${path}/resources/img/home-1680800_1280.jpg" height="180px"
-										width="270px" class="sweet_story_img">
+									<img src="${path}/resources/img/home-1680800_1280.jpg"
+										height="180px" width="270px" class="sweet_story_img">
 								</div>
 								<div class="sweet_story_contentwrap">
 									<div class="sweet_story_content">
 										<div class="sweet_story_content_title">
-											하루종일 햇살이 가득한 집안!<br>
-											<br>
+											하루종일 햇살이 가득한 집안!<br> <br>
 										</div>
 										<div class="sweet_story_profile">
 											<img src="${path}/resources/img/1574398519_121336_1.png"
@@ -700,8 +760,8 @@ h2 {
 						<article class="sweet_story">
 							<a href="#" class="sweet_story_link">
 								<div class="sweet_story_imgwrap">
-									<img src="${path}/resources/img/living-room-2155353_640.jpg" height="180px"
-										width="270px" class="sweet_story_img">
+									<img src="${path}/resources/img/living-room-2155353_640.jpg"
+										height="180px" width="270px" class="sweet_story_img">
 								</div>
 								<div class="sweet_story_contentwrap">
 									<div class="sweet_story_content">
@@ -724,24 +784,27 @@ h2 {
 
 								<div class="sweet_content_content">
 									<span class="text">집구경</span>
-									<div class="arrow">
-										<img src="${path}/resources/img/icons8-double-right-24.png" class="arrow_img">
+									<div class="arrow_in">
+										<img src="${path}/resources/img/icons8-double-right-24.png"
+											class="arrow_img">
 									</div>
 								</div>
 							</a> <a href="#" class="sweet_content_choice">
 
 								<div class="sweet_content_content">
 									<span class="text">노하우</span>
-									<div class="arrow">
-										<img src="${path}/resources/img/icons8-double-right-24.png" class="arrow_img">
+									<div class="arrow_in">
+										<img src="${path}/resources/img/icons8-double-right-24.png"
+											class="arrow_img">
 									</div>
 								</div>
 							</a> <a href="#" class="sweet_content_choice">
 
 								<div class="sweet_content_content">
 									<span class="text">물건 보러가기</span>
-									<div class="arrow">
-										<img src="${path}/resources/img/icons8-double-right-24.png" class="arrow_img">
+									<div class="arrow_in">
+										<img src="${path}/resources/img/icons8-double-right-24.png"
+											class="arrow_img">
 									</div>
 								</div>
 							</a>
@@ -757,90 +820,33 @@ h2 {
 					<a href="#" class="more_plus">더보기</a>
 				</header>
 				<div class="today_reco_itemwrap">
-					<div class="item_wrap">
-						<a href="#" class="item_click">
-							<div class="item_content_wrap">
-								<article class="reco_item">
-									<div class="item_img">
-										<img src="${path}/resources/img/1539326526483_Ff7v.png" class="item_img_p">
-									</div>
-
-									<div class="item_content">
-										<div class="item_header">
-											<span class="item_brand">마틸라</span> <span class="item_name">[자취특가]
-												디저트 프리미엄 차렵이불 8종</span>
+					<c:forEach items="${BestPdt}" var="pdt">
+						<div class="item_wrap">
+							<a href="#" class="item_click">
+								<div class="item_content_wrap">
+									<article class="reco_item">
+										<div class="item_img">
+											<img src= "${path}/resources/img/${pdt.p_img}"
+												class="item_img_p">
 										</div>
-										<span class="item_content_content"> <span
-											class="item_discount">30%</span> <span class="item_price">34,000</span>
-										</span>
-									</div>
-								</article>
-							</div>
-						</a>
-					</div>
-					<div class="item_wrap">
-						<a href="#" class="item_click">
-							<div class="item_content_wrap">
-								<article class="reco_item">
-									<div class="item_img">
-										<img src="${path}/resources/img/156326726207924806.png" class="item_img_p">
-									</div>
 
-									<div class="item_content">
-										<div class="item_header">
-											<span class="item_brand">데코뷰</span> <span class="item_name">인기
-												시폰커튼/린넨커튼/암막커튼 24종</span>
+										<div class="item_content">
+											<div class="item_header">
+												<span class="item_brand">마틸라</span> <span class="item_name">${pdt.pname}
+												</span>
+											</div>
+											<span class="item_content_content"> <span
+												class="item_discount">30%</span> <span class="item_price"><fmt:formatNumber type="number" maxFractionDigits="3" value="${pdt.price}"/></span>
+											</span>
 										</div>
-										<span class="item_content_content"> <span
-											class="item_discount">61%</span> <span class="item_price">19,900</span>
-										</span>
-									</div>
-								</article>
-							</div>
-						</a>
-					</div>
-					<div class="item_wrap">
-						<a href="#" class="item_click">
-							<div class="item_content_wrap">
-								<article class="reco_item">
-									<div class="item_img">
-										<img src="${path}/resources/img/1553668694409_J.png" class="item_img_p">
-									</div>
+									</article>
+								</div>
+							</a>
+						</div>
+					</c:forEach>
 
-									<div class="item_content">
-										<div class="item_header">
-											<span class="item_brand">프랑코</span> <span class="item_name">원터치
-												슬림휴지통 틈새휴지통(10L)</span>
-										</div>
-										<span class="item_content_content"> <span
-											class="item_discount">36%</span> <span class="item_price">15,900</span>
-										</span>
-									</div>
-								</article>
-							</div>
-						</a>
-					</div>
-					<div class="item_wrap">
-						<a href="#" class="item_click">
-							<div class="item_content_wrap">
-								<article class="reco_item">
-									<div class="item_img">
-										<img src="${path}/resources/img/1574398519_121336_1.png" class="item_img_p">
-									</div>
 
-									<div class="item_content">
-										<div class="item_header">
-											<span class="item_brand">까알개</span> <span class="item_name">[자취특가]
-												선데이 러그 7size 3colors</span>
-										</div>
-										<span class="item_content_content"> <span
-											class="item_discount">30%</span> <span class="item_price">34,000</span>
-										</span>
-									</div>
-								</article>
-							</div>
-						</a>
-					</div>
+
 				</div>
 			</div>
 
@@ -856,7 +862,8 @@ h2 {
 							<div class="special_content_wrap">
 								<article class="special_item">
 									<div class="special_img">
-										<img src="${path}/resources/img/desk.png" class="special_img_p">
+										<img src="${path}/resources/img/desk.png"
+											class="special_img_p">
 									</div>
 									<div class="special_content">
 										<div class="special_header">
@@ -892,7 +899,8 @@ h2 {
 							<div class="special_content_wrap">
 								<article class="special_item">
 									<div class="special_img">
-										<img src="${path}/resources/img/elec.png" class="special_img_p">
+										<img src="${path}/resources/img/elec.png"
+											class="special_img_p">
 									</div>
 									<div class="special_content">
 										<div class="special_header">
