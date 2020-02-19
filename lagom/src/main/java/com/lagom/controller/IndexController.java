@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.lagom.domain.ProductDTO;
 import com.lagom.service.index.IndexService;
@@ -26,7 +27,7 @@ public class IndexController {
 	IndexService iService;
 	// iService에 indexServiceImpl Beans가 들어가있는것
 	
-	@GetMapping("/index")
+	@RequestMapping("/")
 	public String indexView(Model model) {
 		log.info(">>>>> INDEX PAGE 출력");
 		

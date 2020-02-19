@@ -413,7 +413,7 @@
 					<span class="si">|</span>&nbsp;
 					<a href="#">비밀번호찾기</a>&nbsp;
 					<span class="si">|</span>&nbsp;
-					<a href="#">회원가입</a>
+					<a href="${path}/member/constract">회원가입</a>
 				</div>
 
 				
@@ -512,7 +512,7 @@
 				</div>
 					<!-- div는 diplay특성이 inline-block -->
 					<div><button type="button" class="btn btn-basic login_open">로그인</button></div>
-					<div><button type="button" class="btn btn-primary">회원가입</button>
+					<div><button type="button" class="btn btn-primary" id="header_btn_join">회원가입</button>
 					</div>
 				 </div>
 		    </div>
@@ -606,6 +606,10 @@
 		//태그의 옵션(attribute)을 가져오고 싶을때
 		// $('.dobby').attr('type'); 
 		// $('.dobby').attr('class'); 
+	});
+	
+	$(document).on('click', '#header_btn_join', function(){
+		location.href="${path}/member/constract";
 	});
 </script>
 </html>
