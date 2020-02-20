@@ -165,6 +165,8 @@ var joinValidate = {//this로 호출하면 joinValidate가 찾아짐
 			return this.resultCode.space_length_val;
 		}else if(!id.match(regId)){
 			return this.resultCode.invalid_email;
+		}else if(idCheck(id)){
+			return this.resultCode.overlap_id;
 		}else{
 			return this.resultCode.success_email;
 		}
@@ -278,4 +280,27 @@ var joinValidate = {//this로 호출하면 joinValidate가 찾아짐
 			return this.resultCode.success_addr;
 		}
 	}
+}
+	
+	function idCheck(id){
+		var return_val = true;
+		
+		$.ajax({
+			type: 'POST',
+			url: 'idoverlap?id='+id,
+			async: false,
+			success: function(data) {
+				console.log(data);
+				if(data>= 1){
+					return_val = true;
+				}else{
+					return_val = false;
+				}
+			},
+			error: function(){
+				alert('System ERROR:(');
+			}
+			});
+		return return_val;
+	
 }

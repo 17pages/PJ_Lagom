@@ -486,7 +486,7 @@ a {
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
 </script>
-<script src="../../../js/validation.js"></script>
+<script src="${path}/resources/js/validation.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#selmail').change(function(){
@@ -674,7 +674,7 @@ a {
 
 		});
 		//버튼 활성화
-		$('.int').blur(function(){
+		$('.int').keyup(function(){
 			var checkAll = true;
 
 			for(var i = 0; i<checkArr.length; i++) {
