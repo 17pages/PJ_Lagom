@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ include file="../include/include.jsp"%>
 <!-- 헤더추가할사람 -->
 
@@ -336,13 +337,14 @@ a {
 		<header>
 			<div class="header">
 				<h1 class="Lagom_logo">
-					<a href="#" class="l_logo"></a>
+					<a href="${path}/" class="l_logo"></a>
 				</h1>
 			</div>
 		</header>
 
 		<section>
-			<form name="frm_join" action="" method="POST">
+			<%--<form name="frm_member" action="${path}/member/join" method="POST" id="frm_member">--%>
+			<form:form id="frm_member" modelAttribute="memberDTO" autocomplete="on">
 				<div class="container">
 					<div class="join_content">
 						<div class="join_sns" id="simple">
@@ -350,7 +352,7 @@ a {
 							<span class="simple">SNS계정으로 간편하게 회원가입</span>
 							<div class="sns_wrap">
 								<div class="sns_logo">
-									<a href="#" class="naver"> <img
+									<a href="${path}/" class="naver"> <img
 										src="${path}/resources/img/naver_round.png" width="48px" height="48px">
 									</a>
 								</div>
@@ -377,7 +379,7 @@ a {
 									<label for="id">이메일</label>
 								</h3>
 								<span class="ps_box int_id"> <input type="email" id="uid"
-									name="uid" class="int">
+									name="id" class="int">
 								</span> <span class="error_next_box">필수 정보입니다.</span>
 							</div>
 
@@ -388,7 +390,7 @@ a {
 								</h3>
 								<span class="pw">8자이상, 영문 대 소문자, 숫자, 특수문자를 사용하세요.</span> <span
 									class="ps_box int_pass"> <input type="text" id="upw"
-									name="upw" class="int"> <span class="step_url">
+									name="pw" class="int"> <span class="step_url">
 										<span class="pw_lock"></span>
 								</span>
 								</span> <span class="error_next_box">필수 정보입니다.</span>
@@ -400,7 +402,7 @@ a {
 									<label for="pswd2">비밀번호 재확인</label>
 								</h3>
 								<span class="ps_box int_pass"> <input type="text"
-									id="urpw" name="urpw" class="int"> <span
+									id="urpw" name="rpw" class="int"> <span
 									class="step_url"> <span class="repw_lock"></span>
 								</span>
 								</span> <span class="error_next_box">필수 정보입니다.</span>
@@ -414,7 +416,7 @@ a {
 									<label for="name">이름</label>
 								</h3>
 								<span class="ps_box"> <input type="text" id="uname"
-									name="uname" class="int">
+									name="name" class="int">
 								</span> <span class="error_next_box">필수 정보입니다.</span>
 							</div>
 
@@ -425,7 +427,7 @@ a {
 									<label for="email">본인 확인 이메일</label>
 								</h3>
 								<span class="ps_box"> <input type="text" id="uemail"
-									name="ueamil" class="int" placeholder="e-mail">
+									name="email" class="int" placeholder="e-mail">
 								</span> <span class="error_next_box">필수 정보입니다.</span>
 							</div>
 
@@ -434,7 +436,7 @@ a {
 									<label for="phone">휴대전화</label>
 								</h3>
 								<span class="ps_box"> <input type="tel" id="uphone"
-									name="uphone" class="int" placeholder="'-'없이 입력 예)01012345678">
+									name="phone" class="int" placeholder="'-'없이 입력 예)01012345678">
 								</span> <span class="error_next_box">필수 정보입니다.</span>
 							</div>
 
@@ -445,7 +447,8 @@ a {
 								</h3>
 								<div class="addr_wrap">
 									<div class="addr_mail">
-										<span class="ps_box ps_box1"> <input type="text"
+										<span class="ps_box ps_box1"> 
+										<input name = "postcode" type="text"
 											id="sample6_postcode" class="int addr_only"
 											placeholder="우편번호(5자리)" value="12345" readonly>
 										</span> <span> <input type="button"
@@ -455,14 +458,14 @@ a {
 									</div>
 
 									<div class="addr_addr">
-										<span class="ps_box"> <input type="text" id="mail"
+										<span class="ps_box"> <input name="addr1" type="text" id="sample6_address"
 											name="mail" class="int addr_only" placeholder="주소"
 											value="광주 북구 중흥동" readonly>
 										</span>
 									</div>
 
 									<div class="addr_detail">
-										<span class="ps_box"> <input type="text"
+										<span class="ps_box"> <input name="addr2" type="text"
 											id="sample6_detailAddress" name="mail" class="int"
 											placeholder="상세주소">
 										</span> <span class="error_next_box">필수 정보입니다. </span>
@@ -481,7 +484,8 @@ a {
 						</div>
 					</div>
 				</div>
-			</form>
+			<%--</form>--%>
+			</form:form>
 		</section>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
@@ -504,6 +508,17 @@ a {
 	});
 
 	$(function(){
+		//비정상적인 접근인지 판단
+		
+		var flag = '${flag}';
+		if(flag == 0){
+			location.href="${path}/member/constract";
+		}
+		
+		//@sessionAttributes값 확인
+		//console.log('el tag : '+${memberDTO.locon})
+		
+		
 		//비밀번호가 유효한 값인지 체크해주는 flag값
 		var pwFlag = false;
 
@@ -659,17 +674,20 @@ a {
 			var result = joinValidate.checkAddr(addrDetail, addrPost);
 
 			if(result.code ==3){//우편번호 & 주소 X
+				checkArr[5] = false;
 				ckDesign(result.code, result.desc, 6, 6);
 				ckDesign(result.code, result.desc, 7, 6);
-				checkArr[5] = false;
+				
 			}else if(result.code ==0) {// 성공
 				checkArr[5] = true;
 				ckDesign(result.code, result.desc, 6, 6);
 				ckDesign(result.code, result.desc, 7, 6);
 				ckDesign(result.code, result.desc, 8, 6);
+				
 			}else{//상세주소 통과X 한 모든 경우
-				ckDesign(result.code, result.desc, 8, 6);
 				checkArr[5] = false;
+				ckDesign(result.code, result.desc, 8, 6);
+				
 			}
 
 		});
@@ -713,6 +731,10 @@ a {
 
 			if(invalidAll){
 				alert('회원가입 성공!');
+				//submit : form태그 안에 있는 데이터들을 서버단으로 전송
+				//action : 목적지(membercontroller '/join')
+				//method : 방법(POST : 숨겨서)
+				$('#frm_member').submit();
 			}else{
 				alert('유효성체크를 진행해주세요!');
 			}
@@ -748,6 +770,7 @@ a {
 			}
 
 		}
+		
 </script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
@@ -783,15 +806,11 @@ a {
                     if(extraAddr !== ''){
                         extraAddr = ' (' + extraAddr + ')';
                     }
-                    // 조합된 참고항목을 해당 필드에 넣는다.
-                    document.getElementById("sample6_extraAddress").value = extraAddr;
-                    } else {
-                    document.getElementById("sample6_extraAddress").value = '';
-               	}
+                }
 
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById('sample6_postcode').value = data.zonecode;
-                document.getElementById("sample6_address").value = addr;
+                document.getElementById("sample6_address").value = addr+extraAddr;
                 // 커서를 상세주소 필드로 이동한다.
                 document.getElementById("sample6_detailAddress").focus();
             }

@@ -455,7 +455,8 @@ h3.article_title {
 			location.href="${path}/member/join?useon="+agree_one
 													+"&primaryon="+agree_two
 													+"&locon="+agree_three
-													+"&eventon"+agree_four;
+													+"&eventon="+agree_four
+													+"&flag=1";
 		
 		});
 		/*취소버튼 클릭시 INDEX페이지로 이동*/

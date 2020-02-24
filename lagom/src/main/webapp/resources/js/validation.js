@@ -291,7 +291,7 @@ var joinValidate = {//this로 호출하면 joinValidate가 찾아짐
 			async: false,
 			success: function(data) {
 				console.log(data);
-				if(data>= 1){
+				if(data >= 1){
 					return_val = true;
 				}else{
 					return_val = false;
@@ -300,7 +300,7 @@ var joinValidate = {//this로 호출하면 joinValidate가 찾아짐
 			error: function(){
 				alert('System ERROR:(');
 			}
-			});
+		});
 		return return_val;
 	
 }
