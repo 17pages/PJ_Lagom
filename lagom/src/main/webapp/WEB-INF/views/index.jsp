@@ -1,15 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="include/header.jsp"%>
+<!--<%@ include file="include/modal.jsp"%>-->
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css"
-	href="${path}/resources/css/common.css">
-<script src="https://kit.fontawesome.com/825f57de13.js"
-	crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/common.css">
+<script src="https://kit.fontawesome.com/825f57de13.js" crossorigin="anonymous"></script>
 <style type="text/css">
 div.content_wrap {
 	margin-top: 65px;
@@ -585,52 +584,12 @@ h2 {
 	-ms-transition: all 0.3s cubic-bezier(1, .01, .32, 1);
 	transition: all 0.3s cubic-bezier(1, .01, .32, 1);
 }
-/*top_btn*/
-		.fix_btn{
-			z-index: 1000;
-			position: fixed;
-			right: 20px;
-			color: black;
-			width: 70px;
-			height: 70px;
-			
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			font-size: 30px;
-			cursor: pointer;
-			
-		}
-		/*display, justify-content, align-items : 자식 가운데에 위치하게 하고 싶을때 사용함.*/
-		
-		/*0.3초만에 커짐*/
-		.fix_btn > i{
-			transition: transform .3s;
-		}
-		/*font-size의 1.3배*/
-		.fix_btn:hover > i {
-			transform: scale(1.3);
-		}
-		.conn_btn, .close_btn{
-			bottom: 20px;
-			background-color: #39569c;
 
-
-		}
-		.top_btn{
-			z-index: 2000;
-			bottom: 39px;
-			position: fixed;
-		}
-
-		.fa-chevron-up:befor{
-			content: "\f077";
-		}
 
 </style>
 </head>
 <body>
-<div class="top_btn fix_btn"><i class="fas fa-chevron-up"></i></div>
+
 	<div class="content_wrap">
 		<div class="content">
 			<div id="wrapper">
@@ -965,13 +924,7 @@ h2 {
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
 
-$(document).ready(function() {
-	
-	$('.top_btn').click(function(){
-		$('html, body').animate({scrollTop : 0}, 800);
-	});
 
-});
 
 
 	//current position

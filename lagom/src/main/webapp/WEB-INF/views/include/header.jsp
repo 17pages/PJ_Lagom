@@ -370,6 +370,48 @@
 			text-decoration : underline;
 
 		}
+		
+		/*top_btn*/
+		.fix_btn{
+			z-index: 1000;
+			position: fixed;
+			right: 20px;
+			color: black;
+			width: 70px;
+			height: 70px;
+			
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 30px;
+			cursor: pointer;
+			
+		}
+		/*display, justify-content, align-items : 자식 가운데에 위치하게 하고 싶을때 사용함.*/
+		
+		/*0.3초만에 커짐*/
+		.fix_btn > i{
+			transition: transform .3s;
+		}
+		/*font-size의 1.3배*/
+		.fix_btn:hover > i {
+			transform: scale(1.3);
+		}
+		.conn_btn, .close_btn{
+			bottom: 20px;
+			background-color: #39569c;
+
+
+		}
+		.top_btn{
+			z-index: 2000;
+			bottom: 39px;
+			position: fixed;
+		}
+
+		.fa-chevron-up:befor{
+			content: "\f077";
+		}
 
 	</style>
 </head>
@@ -445,6 +487,7 @@
 
 
 	<header>
+	<div class="top_btn fix_btn"><i class="fas fa-chevron-up"></i></div>
 		<div class="header_wrap">
 			<div class="header_content">
 				<div class="header_content_logo">
@@ -517,6 +560,7 @@
 				 </div>
 		    </div>
 	    </div>
+	   
 	</header>
 </body>
 
@@ -610,6 +654,14 @@
 	
 	$(document).on('click', '#header_btn_join', function(){
 		location.href="${path}/member/constract";
+	});
+	
+	$(document).ready(function() {
+		
+		$('.top_btn').click(function(){
+			$('html, body').animate({scrollTop : 0}, 800);
+		});
+
 	});
 </script>
 </html>
