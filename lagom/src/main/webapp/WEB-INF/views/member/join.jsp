@@ -273,6 +273,30 @@ a {
 	color: #158bd1;
 }
 
+#back{
+position : fixed;
+z-index : 2000; 
+background-color : rgba(0,0,0,0.4);
+overflow : auto;
+width : 100%;
+height : 100%;
+top : 0;
+left : 0;
+display : none;
+align-items : center;
+justify-content : center;
+}
+
+.loading_img {
+animation : ani_loading 1.5s infinite linear;
+font-size : 70px;
+color : #EBA444;}
+
+@keyframes ani_loading {
+from {-webkit-transform : rotate(0deg);}
+to {-webkit-transform : rotate(359deg);}
+}
+
 /*Footer*/
 #footer {
 	padding: 15px 0;
@@ -508,6 +532,7 @@ a {
 	});
 
 	$(function(){
+		FunloadingBarStart();
 		//비정상적인 접근인지 판단
 		
 		var flag = '${flag}';
@@ -730,6 +755,7 @@ a {
 
 
 			if(invalidAll){
+				FunLoadingBarStart(); // 로딩바생성
 				alert('회원가입 성공!');
 				//submit : form태그 안에 있는 데이터들을 서버단으로 전송
 				//action : 목적지(membercontroller '/join')
@@ -770,7 +796,23 @@ a {
 			}
 
 		}
+		//로딩바 출력
+		function FunloadingBarStart() {
+			var loadingBarImage = ''; //가운데 띄워 줄 이미지
+			loadingBarImage += "<div id='back'>";
+			loadingBarImage += "<div id='loadingBar'>";
+			loadingBarImage += "<i class='fas fa-spinner loading_img'></i>";
+			loadingBarImage += "</div></div>";
+			$('body').append(loadingBarImage);
+			$('#back').css('display', 'flex');
+			$('#loadingImg').show();
+		}
 		
+		//로딩바제거
+		 function FunLoadingBarEnd(){
+			$('#back, #loadingBar').hide();
+			$('#back, #loadingBar').remove();
+		}
 </script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>

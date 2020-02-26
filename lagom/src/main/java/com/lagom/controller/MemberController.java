@@ -48,11 +48,13 @@ public class MemberController {
 	PasswordEncoder passwordEncoder;
 	
 	@Autowired
-	private MailService mailService;
+	private MailService mailService; 
 	
 	
 	@Autowired
-	MemberService mService;
+	MemberService mService; // 의존성주입 (타입으로 함 그래서 Memberservice의 타입이 중요함. 안하면 객체자료형이라 null값이 들어감)
+	//왜냐면 java는 기본적으로 초기화가 안되어있으면 초기화 시켜버림
+	//autowired는 개당 한개씩 해야함~ (의존성 주입은 DI패턴, 객체에 대한 권한을 스프링이 가져야함. 그게 IOC패턴~ 제어의 역전
 	
 	/*SessionAttributes를 사용하기 위해서는
 	 * 반드시 해당 변수를 생성하는 method가 controller에 있어야 하고 
@@ -88,7 +90,10 @@ public MemberDTO newMember() {
 	 * */
 	@GetMapping("/join")
 	public String join(@ModelAttribute("memberDTO") MemberDTO mDto, @RequestParam(value="flag", defaultValue="0") String flag, Model model) {
+		//view단에서 controller단으로 이동 확인하려고
 		log.info(">>> MEMBER/JOIN PAGE GET 출력");
+		
+		//view 단에서 전성된 데이터가 잘 전달 되었는지 확인 (안되면 화면단 가서 name값을 봐야함)
 		log.info(mDto.toString());
 		model.addAttribute("flag", flag);
 	
@@ -112,18 +117,19 @@ public MemberDTO newMember() {
 	
 	/*처음 mDto에는 8개 값밖에 없는데 @NodelAttributs가 memberDTO를 돌면서 값있으면 mDto에 더 담음*/
 	@PostMapping("/join")
-	public String join(@ModelAttribute("memberDTO") MemberDTO mDto, SessionStatus sessionStatus, HttpServletRequest request) {
+	public String join(@ModelAttribute("memberDTO") MemberDTO mDto, SessionStatus sessionStatus, HttpServletRequest request, RedirectAttributes rttr) {
+		
 		log.info(">>>>> MEMBER/JOIN POST DB에 회원정보 저장");
 		log.info(mDto.toString());
 		
 		log.info("Password: " + mDto.getPw()); // 사용자 입력PW값
 		//1. 사용자 암호 hash변환
-		String encPw = passwordEncoder.encode(mDto.getPw());
-		mDto.setPw(encPw);
-		log.info("Password(+Hash): " + mDto.getPw());
+		String encPw = passwordEncoder.encode(mDto.getPw()); //해시함수
+		mDto.setPw(encPw); //사용자가 입력한 pw값을 암화한 값을 변수 emcPw에 담음(암호화가 된 비밀번호) mDto에 있는 pw에 다시 담음
+		log.info("Password(+Hash): " + mDto.getPw()); // 확인하는 것
 		
 		//2.DB에 회원등록
-		int result = mService.memInsert(mDto);
+		int result = mService.memInsert(mDto); //의존성주입해주니까 객체생성 안해줘도 됨. //DB에 넣는거까지 됨.
 		
 		//3. 회원 등록 결과
 		if(result > 0 ){
@@ -139,7 +145,22 @@ public MemberDTO newMember() {
 		//view로 보내기전 반드시 setComplet()을 실행하여
 		//session에 담긴 값을 clear해주어야 한다.
 		//반납하는 작업! 반드시!!!!!
+		//controller에서 공유하던 영역제거
 		sessionStatus.setComplete();
+		
+		//redirectattribute 한번만 띄우고 사라짐
+		//회원가입 후 메시지 출력을 위한 값 전달 
+		rttr.addFlashAttribute("id", mDto.getId());
+		rttr.addFlashAttribute("email",mDto.getEmail());
+		rttr.addFlashAttribute("key", "join");
+		
+		//return하고 string 적어져 있으면 화면단이 갈 경로 알려주는거
+		//서버->화면단 갈때 1. 포워드 2. sendredirect
+		// forward는 기존페이지위에 덮어버림, 페이지이동이 아니라 기존페이지에 내용만 덮는거
+		//새로고침하면 기존페이지도 새로고침 되어버려서 또 db에 들어감.(내가 했던 작업이 계속 됨) 제약조건위배로 오류뜸
+		//snedredirect는 url주소가 바뀜, 새페이지로 이동, 뭔가 작업을 해서 값이 바뀌는 거라면 redirect써야함
+		//안하면 forward가 default
+		// /는  이 뒤에 해당 프로젝트 내 새로운 맵핑타라고 하는것, indexcontroller의 "/" 타라고~
 		return "redirect:/";
 		
 		
@@ -150,7 +171,7 @@ public MemberDTO newMember() {
 	public String keyAuth(String id, String key, RedirectAttributes rttr) {
 		mailService.keyAuth(id, key);
 		
-		//인증 후 메시지 출력을 위한 값 전달
+		//인증 후 메시지 출력을 위한 값 전달 
 		rttr.addFlashAttribute("id", id);
 		rttr.addFlashAttribute("key", "auth");
 		

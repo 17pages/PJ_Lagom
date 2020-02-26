@@ -16,3 +16,5 @@ public interface MemberDAO {
 	public int alterKey(String id, String key);
 
 }
+//mapper랑 dao합쳐서 씀, @을 붙여서 실행하거나(sql문이 복잡하거나 길면 가독성이 떨어짐), 그럴때 mapper씀(거기에 dao경로랑 같은거 있음)
+//sql문이 없으니까 mapper로 감(namespace로 지정해놔서) 거기가서 memInsert실행 

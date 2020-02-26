@@ -20,7 +20,7 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	<!--/WEB-INF/views/index.jsp viewresolver가 index가 뭔지 알려줌 -->
+	<!--/WEB-INF/views/index.jsp viewresolver가 index가 뭔지 알려줌 엄청중요!! @붙은 애들을 전부 가져와서 객체생성해서 beans로 만듦 -->
 	<context:component-scan base-package="com.lagom.controller" />
 	<context:component-scan base-package="com.lagom.service" />
 	
