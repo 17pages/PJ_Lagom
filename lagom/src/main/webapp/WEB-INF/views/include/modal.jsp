@@ -10,6 +10,7 @@
 <style type="text/css">
 /*모달*/
 .basicmodal_wrap {
+	display :none;
 	top:0;
 	position: fixed;
 	z-index: 1500;
@@ -17,7 +18,7 @@
 	overflow: auto;
 	width: 100%;
 	height: 100%;
-	display : flex;
+	
 	justify-content: center;
 	align-items: center;
 }
@@ -143,13 +144,13 @@ justify-content : space-between;
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
 	
-	$(document).on('click', '.basicrecheck_close', function() {
-		$('.basicmodal_wrap').css('display', 'none');
-	});
+$(document).on('click', '.basicrecheck_close', function() {
+	$('.basicmodal_wrap').css('display', 'none');
+});
 
-	$(document).on('click', '.btn_no', function() {
-		$('.basicmodal_wrap').css('display', 'none');
-	});
+$(document).on('click', '.btn_no', function() {
+	$('.basicmodal_wrap').css('display', 'none');
+});
 	
 	$(function(){
 		var id='${id}';
@@ -161,12 +162,12 @@ justify-content : space-between;
 		var auth_main_txt = id+'님 이메일 인증되셨습니다.';
 		var auth_sub_txt = '지금부터 사이트 활동이 가능합니다. 감사합니다.';
 		
-		if(key=='join') {
+		if(key =='join') {
 			$('.msg_title').text(join_main_txt); //메인 텍스트
 			$('.msg_content').text(join_sub_txt);	//서브텍스트
 			$('.basicbtn_no').css('display','none');	//취소버튼 제거
 			$('.basicmodal_wrap').css('display', 'flex');	//모달창 출력
-		}else if(key=='auth'){
+		}else if(key =='auth'){
 			$('.msg_title').text(auth_main_txt);
 			$('.msg_content').text(auth_sub_txt);
 			$('.basicbtn_no').css('display','none');

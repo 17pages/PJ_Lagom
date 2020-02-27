@@ -192,6 +192,14 @@ form {
 	padding: 10px 0;
 }
 
+.header_button_wrap{
+display:flex;
+}
+
+.login_open{
+margin-right : 5px;
+}
+
 /*모달 로그인 창*/
 .modal_wrap {
 	top: 0;
@@ -254,7 +262,7 @@ form {
 	font-size: 17px;
 	width: 100%;
 	height: 50px;
-	margin: 20px 0;
+	margin: 15px 0;
 	padding: 13px 15px;
 	line-height: 1.41;
 	text-align: center;
@@ -372,6 +380,13 @@ input.input_login {
 	text-decoration: underline;
 }
 
+.login_error{
+color : red;
+font-size : 13px;
+padding-top : 5px;
+display : none;
+}
+
 /*top_btn*/
 .fix_btn {
 	z-index: 1000;
@@ -431,7 +446,7 @@ input.input_login {
 
 
 			<div class="modal_login">
-				<form name="frm_login" action="loginCheck" method="POST">
+				<form class="frm_login" onsubmit="return false;">
 					<div class="div_input" id="logom_id">
 						<input type="email" placeholder="이메일" class="input_login"
 							id="input_id" required> <span class="input_box"></span>
@@ -444,10 +459,11 @@ input.input_login {
 							</span>
 						</div>
 					</div>
+					<div class="login_error">가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.</div>
 
 
 					<div>
-						<button type="submit" class="btn_login">로그인</button>
+						<button type="submit" class="btn_login" id="btn_login">로그인</button>
 					</div>
 				</form>
 
@@ -573,12 +589,21 @@ input.input_login {
 						</div>
 					</div>
 					<!-- div는 diplay특성이 inline-block -->
-					<div>
-						<button type="button" class="btn btn-basic login_open">로그인</button>
+					<div class="header_button_wrap">
+					<!-- sessionscope : session 영역에서 값을 꺼내와라 -->
+					<!-- esle와 같은 거 chose -->
+					<c:choose>
+					<c:when test="${empty sessionScope.userid}">
+					<div><button type="button" class="btn btn-basic login_open">로그인</button></div>
+						<div><button type="button" class="btn btn-primary" id="header_btn_join">회원가입</button></div>
+					</c:when>
+					<c:otherwise>
+						<div><button type="button" class="btn btn-basic login_open">로그아웃</button></div>
+					</c:otherwise>
+					</c:choose>
+					
 					</div>
-					<div>
-						<button type="button" class="btn btn-primary" id="header_btn_join">회원가입</button>
-					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -639,6 +664,7 @@ input.input_login {
 				$('.pw_eye').prev().attr('type', 'password');
 				$('.pw_eye').html('<i class="fas fa-eye-slash"></i>').css(
 						'color', '#AAA');
+				$('.login_error').css('display','none');
 			});
 
 	//LOGIN modal창 암호 보이기 or 숨기기
@@ -677,7 +703,44 @@ input.input_login {
 				// $('.dobby').attr('type'); 
 				// $('.dobby').attr('class'); 
 			});
+	
+		//LOGIN 버튼 클릭시 AJAX 동작
+		$(document).on('click', '#btn_login', function(){
+			
+			//id와 pw값 받아와서 null이면 작동X
+			var id = $('#input_id').val();
+			var pw = $('#input_pw').val();
 
+			//유효성체크 (id, pw)Null 체크
+			if(id != '' && pw !='' && id.length != 0 && pw.length != 0){
+				$.ajax({
+					url : '${path}/login/in', 
+					type : 'POST',
+					data : 'id=' + id + '&pw=' +pw,
+					success : function(data){
+						console.log(data);
+						
+						if(data == 0 || data == 3) {
+							$('.login_error').css('display', 'block')
+							.text('아이디 및 비밀번호를 확인하거나 계정을 생성하세요.');
+						}else if(data == 1){
+							console.log('로그인 성공');
+							location.reload();//새로고침
+							
+						}else if(data == 2){
+							$('.login_error').css('display', 'block')
+							.text('이메일 인증 후 로그인 할 수 있습니다.');
+						}
+					},
+					error : function(){
+						alert('System Error:/');
+					}
+				});
+				
+			}
+		});
+		
+		/*Header 가입하기 버튼 클릭시 동의 페이지 이동*/
 	$(document).on('click', '#header_btn_join', function() {
 		location.href = "${path}/member/constract";
 	});

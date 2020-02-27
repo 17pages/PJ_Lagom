@@ -532,7 +532,6 @@ to {-webkit-transform : rotate(359deg);}
 	});
 
 	$(function(){
-		FunloadingBarStart();
 		//비정상적인 접근인지 판단
 		
 		var flag = '${flag}';
@@ -797,7 +796,7 @@ to {-webkit-transform : rotate(359deg);}
 
 		}
 		//로딩바 출력
-		function FunloadingBarStart() {
+		function FunLoadingBarStart() {
 			var loadingBarImage = ''; //가운데 띄워 줄 이미지
 			loadingBarImage += "<div id='back'>";
 			loadingBarImage += "<div id='loadingBar'>";
