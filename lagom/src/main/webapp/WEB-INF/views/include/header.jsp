@@ -587,8 +587,12 @@ margin-right : 9px;
 									<li><a href="#">주문/배송조회</a></li>
 									<li><a href="#">위시리스트</a></li>
 									<li><a href="#">마이포인트</a></li>
+									<c:if test="${not empty userid}">
+									<li><a href="${path}/member/update">회원정보수정</a></li>
+									<li><a href="${path}/member/pwupdate">비밀번호수정</a></li>
+									</c:if>
 									<li><a href="#">1:1 문의</a></li>
-									<li><a href="#">회원정보수정</a></li>
+									
 								</ul>
 							</div>
 						</div>

@@ -1,6 +1,7 @@
 package com.lagom.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -95,7 +96,12 @@ public MemberDTO newMember() {
 		
 		//view 단에서 전성된 데이터가 잘 전달 되었는지 확인 (안되면 화면단 가서 name값을 봐야함)
 		log.info(mDto.toString());
-		model.addAttribute("flag", flag);
+		
+		//비정상적인 접근일 경우 약관 동의페이지로 이동
+		if(!flag.equals("1")) {
+			return "member/constract";
+		}
+		/*model.addAttribute("flag", flag);*/
 	
 		return "member/join";
 	}
@@ -192,6 +198,29 @@ public MemberDTO newMember() {
 			flag = "0";
 		}
 		return flag;
+	}
+	
+	//회원정보수정
+	@GetMapping("/update")
+	public String memUpdate(HttpSession session, Model model) {
+		log.info(">>>>>>GET : Member Update page");
+		
+		//현재 로그인 상태를 확인
+		//session에 담는 순간 자신의 타입을 상실하고 object 타입으로 바뀌어버림
+		//그래서 string에 못담기때문에 형변환 해줘야 함.
+		String id = (String)session.getAttribute("userid");
+		
+		//null=로그인이 안됐다는 뜻
+		//로그인이 안되어있으면 비정상적인 접근으로 간주하여 인덱스 페이지로 이동!
+		if(id == null) {
+			return "redirect:/";
+		}
+		
+		//로그인된  유저의 정보를 GET
+		model.addAttribute("user", mService.userView(id));
+		
+		
+		return "member/join";
 	}
 
 }

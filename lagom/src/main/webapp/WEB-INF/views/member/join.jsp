@@ -403,7 +403,7 @@ to {-webkit-transform : rotate(359deg);}
 									<label for="id">이메일</label>
 								</h3>
 								<span class="ps_box int_id"> <input type="email" id="uid"
-									name="id" class="int">
+									name="id" class="int" value="${user.id}">
 								</span> <span class="error_next_box">필수 정보입니다.</span>
 							</div>
 
@@ -440,7 +440,7 @@ to {-webkit-transform : rotate(359deg);}
 									<label for="name">이름</label>
 								</h3>
 								<span class="ps_box"> <input type="text" id="uname"
-									name="name" class="int">
+									name="name" class="int" value="${user.name}">
 								</span> <span class="error_next_box">필수 정보입니다.</span>
 							</div>
 
@@ -451,7 +451,7 @@ to {-webkit-transform : rotate(359deg);}
 									<label for="email">본인 확인 이메일</label>
 								</h3>
 								<span class="ps_box"> <input type="text" id="uemail"
-									name="email" class="int" placeholder="e-mail">
+									name="email" class="int" placeholder="e-mail" value="${user.email}">
 								</span> <span class="error_next_box">필수 정보입니다.</span>
 							</div>
 
@@ -460,7 +460,7 @@ to {-webkit-transform : rotate(359deg);}
 									<label for="phone">휴대전화</label>
 								</h3>
 								<span class="ps_box"> <input type="tel" id="uphone"
-									name="phone" class="int" placeholder="'-'없이 입력 예)01012345678">
+									name="phone" class="int" placeholder="'-'없이 입력 예)01012345678" value="${user.phone}">
 								</span> <span class="error_next_box">필수 정보입니다.</span>
 							</div>
 
@@ -484,14 +484,14 @@ to {-webkit-transform : rotate(359deg);}
 									<div class="addr_addr">
 										<span class="ps_box"> <input name="addr1" type="text" id="sample6_address"
 											name="mail" class="int addr_only" placeholder="주소"
-											value="광주 북구 중흥동" readonly>
+											value="${user.addr1}" readonly>
 										</span>
 									</div>
 
 									<div class="addr_detail">
 										<span class="ps_box"> <input name="addr2" type="text"
 											id="sample6_detailAddress" name="mail" class="int"
-											placeholder="상세주소">
+											placeholder="상세주소" value="${user.addr2}">
 										</span> <span class="error_next_box">필수 정보입니다. </span>
 									</div>
 
@@ -532,12 +532,27 @@ to {-webkit-transform : rotate(359deg);}
 	});
 
 	$(function(){
+		alert('user : ' + '${user}');
+		//회원정보수정 디자인 변경
+		//버튼 텍스트 수정하기
+		if('${user}' !=''){
+			$('#btn_join').text('수정하기');
+			//비밀번호, 비밀번호 재설정 제거
+			$('.join_row:eq(1)').css('display', 'none');
+			$('.join_row:eq(2)').css('display', 'none');
+			//id에 readonly효과를 줘서 입력이 불가능
+			//id=#id를 제거해서 우리가 입력한 유효성체크 동작 불가능
+			
+			$('.ps_box_input:eq(0)').attr('readonly', 'true')
+											.removeAttr('id');
+			
+		}
 		//비정상적인 접근인지 판단
 		
-		var flag = '${flag}';
-		if(flag == 0){
-			location.href="${path}/member/constract";
-		}
+	//	var flag = '${flag}';
+	//	if(flag == 0){
+	//		location.href="${path}/member/constract";
+	//	}
 		
 		//@sessionAttributes값 확인
 		//console.log('el tag : '+${memberDTO.locon})
@@ -575,6 +590,7 @@ to {-webkit-transform : rotate(359deg);}
 			//유효성체크 결과로 테두리색과 err메시지를 출력하는
 			//함수 실행
 			ckDesign(result.code, result.desc, 0, 0);
+			
 		});
 
 		//비밀번호 유효성 체크

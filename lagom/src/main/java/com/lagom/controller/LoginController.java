@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.lagom.domain.MemberDTO;
 import com.lagom.service.login.LoginService;
@@ -15,14 +16,14 @@ import lombok.extern.slf4j.Slf4j;
 
 @RequestMapping("/login")
 @Slf4j
-@Controller
 
+@RestController
 public class LoginController {
 	
 	@Autowired
 	LoginService lService;
 	
-	@ResponseBody
+	
 	@PostMapping("/in")
 	public Integer logIn(MemberDTO mDto, HttpSession session) {
 		//스프링이 자동으로 객체생성 해줌, 이미 session에 객체생성 됨
@@ -37,7 +38,7 @@ public class LoginController {
 		
 		return result;
 	}
-	@ResponseBody
+	
 	@PostMapping("/out")
 	public void logout(HttpSession session) {
 		log.info(">>>>POST: LOGOUT/LOGOUT ACTION");
