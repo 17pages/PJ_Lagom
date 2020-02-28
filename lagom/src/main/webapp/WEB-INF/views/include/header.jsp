@@ -426,6 +426,16 @@ display : none;
 .fa-chevron-up:befor {
 	content: "\f077";
 }
+
+.user_info{
+font-weight : bold;
+display : flex;
+align-items : center;
+text-align : center;
+margin-right : 9px;
+
+
+}
 </style>
 </head>
 <body>
@@ -594,11 +604,13 @@ display : none;
 					<!-- esle와 같은 거 chose -->
 					<c:choose>
 					<c:when test="${empty sessionScope.userid}">
-					<div><button type="button" class="btn btn-basic login_open">로그인</button></div>
+					<div><button type="button" class="btn btn-basic login_open" id="header_btn_login">로그인</button></div>
 						<div><button type="button" class="btn btn-primary" id="header_btn_join">회원가입</button></div>
 					</c:when>
 					<c:otherwise>
-						<div><button type="button" class="btn btn-basic login_open">로그아웃</button></div>
+						<div class="user_info"><span>${name} 님</span>
+						</div>
+						<div><button type="button" id="header_btn_logout" class="btn btn-primary login_open">로그아웃</button></div>
 					</c:otherwise>
 					</c:choose>
 					
@@ -738,6 +750,21 @@ display : none;
 				});
 				
 			}
+		});
+		/*로그아웃 기능*/
+		$(document).on('click', '#header_btn_logout', function(){
+			$.ajax({
+				url: '${path}/login/out',
+				type : 'POST',
+				success : function(){
+					console.log('Logout Success');
+					location.reload();
+					
+				},
+				error: function(){
+					alert('System Error:/');
+				}
+			});
 		});
 		
 		/*Header 가입하기 버튼 클릭시 동의 페이지 이동*/

@@ -45,7 +45,7 @@ public class LoginServiceImpl implements LoginService {
 		//0 : 등록된 회원이 아닙니다. 회원가입을 진행해주세요.
 		//2: 이메일 인증을 하셔야만 로그인 할 수 있습니다. 
 		//1: 로그인 성공
-		//3 : 아이디 또는 비밀번호가 잘못되었습니다. 다시 확인해 주세요ㅗㅕ.
+		//3 : 아이디 또는 비밀번호가 잘못되었습니다. 다시 확인해 주세요.
 		
 		//회원 정보가 없는 경우
 		if(loginDto == null) {
@@ -93,7 +93,12 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public void logout() {
+	public void logout(HttpSession session) {
+		//비즈니스 로직 : 로그아웃
+		
+		//세션을 초기화, 제거
+		session.invalidate();
+		
 		
 		
 	}

@@ -169,7 +169,7 @@ a {
 .home_sweet_content_item {
 	padding-right: 10px;
 	padding-left: 10px;
-	width: 289px;
+	width: 286px;
 }
 
 .article {
@@ -286,6 +286,7 @@ width : 1040px;
 background-color : white;
 margin-left : 174px;
 margin-bottom : 15px;
+padding : 5px;
 }
 
 .today_reco_itemwrap {

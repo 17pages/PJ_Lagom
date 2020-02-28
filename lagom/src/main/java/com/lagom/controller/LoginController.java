@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 public class LoginController {
 	
 	@Autowired
-	LoginService lservice;
+	LoginService lService;
 	
 	@ResponseBody
 	@PostMapping("/in")
@@ -31,11 +31,18 @@ public class LoginController {
 		
 		
 		//로그인
-		int result = lservice.login(mDto, session);
+		int result = lService.login(mDto, session);
 		log.info("결과는~~~~~~~" + result);
 		
 		
 		return result;
+	}
+	@ResponseBody
+	@PostMapping("/out")
+	public void logout(HttpSession session) {
+		log.info(">>>>POST: LOGOUT/LOGOUT ACTION");
+		
+		lService.logout(session);
 	}
 
 }
