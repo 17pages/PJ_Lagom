@@ -9,6 +9,9 @@ public interface MemberDAO {
 	//회원가입 DB에 회원 등록
 	public int memInsert(MemberDTO mDto);
 	
+	//회원가입 DB에 회원 수정
+	public int memUpdate(MemberDTO mDto);
+	
 	//회원가입 진행시 난수 생성 및 useyn컬럼에 난수 입력
 	public int getKey(String id, String key);
 	
@@ -17,6 +20,8 @@ public interface MemberDAO {
 	
 	//1명의 회원정보
 	public MemberDTO userView(String id);
+	
+	
 
 }
 //mapper랑 dao합쳐서 씀, @을 붙여서 실행하거나(sql문이 복잡하거나 길면 가독성이 떨어짐), 그럴때 mapper씀(거기에 dao경로랑 같은거 있음)

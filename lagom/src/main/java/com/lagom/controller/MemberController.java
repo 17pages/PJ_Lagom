@@ -222,5 +222,20 @@ public MemberDTO newMember() {
 		
 		return "member/join";
 	}
+	@PostMapping("/update")
+	public String memUpdate(MemberDTO mDto, HttpSession session) {
+		log.info(">>> POST : Member Update Action");
+		log.info(mDto.toString());
+		
+		//서비스단
+		//int result = 
+		mService.memUpdate(mDto, session);
+		//if(result > 0) {
+			//log.info(">>>member update Sucess");
+	//	}else {
+		//	log.info(">>>member update Fail");
+		//}
+		return "redirect:/";
+	}
 
 }

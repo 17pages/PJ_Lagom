@@ -1,5 +1,7 @@
 package com.lagom.service.member;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,19 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public MemberDTO userView(String id) {
 		return mDao.userView(id);
+	}
+	@Override
+	public void memUpdate(MemberDTO mDto, HttpSession session) {
+		int result = mDao.memUpdate(mDto);
+		
+		if(result>0) {
+			//세션에 로그인 유저 정보를 수정된 정보로 변경
+			//session.name = '최체리'; ----> login 정보 '최체리'
+			//회원정보수정 name = '최체리'-------> DB name '최체리'
+		session.removeAttribute("name");
+		session.setAttribute("name", mDto.getName());
+		}
+		
 	}
 
 
