@@ -655,7 +655,7 @@ to {
 					var rpw = $.trim($('#urpw').val());
 
 					// 2. 유효성체크하기
-					var result = joinValidate.checkPw(pw, rpw);
+					var result = joinValidate.checkPw("", pw, rpw);
 					if (result.code == 0 || result.code == 10
 							|| result.code == 6) {
 						pwFlag = true;
@@ -801,10 +801,7 @@ to {
 		}
 		//버튼 활성화
 		$('.int').keyup(function() {
-		
 			ckColorBtn();
-
-
 		});
 		function ckColorBtn(){
 			var checkAll = true;
@@ -825,8 +822,7 @@ to {
 		}
 
 		//회원가입 버튼 클릭!
-		$('#btn_join').click(
-				function() {
+		$('#btn_join').click(function() {
 					printCheckArr(checkArr);
 					var invalidAll = true;
 					//유효성체크가 전부 true이면

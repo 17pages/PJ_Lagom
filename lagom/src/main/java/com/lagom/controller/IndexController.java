@@ -2,6 +2,8 @@ package com.lagom.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +30,7 @@ public class IndexController {
 	// iService에 indexServiceImpl Beans가 들어가있는것
 	
 	@RequestMapping("/")
-	public String indexView(Model model) {
+	public String indexView(Model model, HttpSession session) {
 		log.info(">>>>> INDEX PAGE 출력");
 		
 		//1.view단에 출력할 데이터, 베스트상품 5건
@@ -38,6 +40,11 @@ public class IndexController {
 		//view단에 출력할 신상품 5건
 		model.addAttribute("NewPdt",iService.newPdtList());
 		
+		//개발종료시 삭제할것 (로그인 계속하기 귀찮아서 한거임)
+		session.removeAttribute("userid");
+		session.removeAttribute("name");
+		session.setAttribute("userid", "aaa@aaa.com");
+		session.setAttribute("name", "관리자");
 		
 		//2.출력할 화면을 결정
 		//1,2 가지고 dispatcher고고
