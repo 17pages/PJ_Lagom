@@ -263,7 +263,7 @@ public MemberDTO newMember() {
 		
 		mService.pwUpdate(mDto);
 		
-		return " redirect:/";
+		return "redirect:/";
 	}
 	
 	@ResponseBody
@@ -276,4 +276,18 @@ public MemberDTO newMember() {
 				return mService.pwCheck(id, pw);
 				//0또는 1이라는 값을 ajax호출한 곳에 보냄      
 	}
+	
+	@GetMapping("/drop")
+	public String drop() {
+		log.info(">>> GET : drop");
+		
+		return "member/drop";
+	}
+	@GetMapping("/mypage")
+	public String mypage() {
+		log.info(">>> GET : Mypage");
+		return "member/mypage";
+	}
+	
+		
 }
