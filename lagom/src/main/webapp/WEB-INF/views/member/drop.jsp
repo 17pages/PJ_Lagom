@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원탈퇴</title>
 <script src="https://kit.fontawesome.com/825f57de13.js"	crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="${path}/resources/css/common.css"">
 <style type="text/css">
@@ -173,11 +173,14 @@
 
 
 		}
+		.pw_check > p {
+			font-size : 13px;
+		}
 
 		.pw_check_pass_btn{
 			vertical-align: middle;
 			text-align: center;
-			margin-top: 25px;
+			margin-top: 10px;
 
 			
 		}
@@ -187,15 +190,14 @@
 			margin-top: 10px;
 		}
 
-		.pw_check_pass_btn> a{
-
-			
+		.drop_yes{
 			border-radius: 2px;
-			background : #8a6d5c;
 			color: white;
 			font-weight : 700;
 			font-size: 15px;
 			padding: 8px;
+			cursor:no-drop;
+			border:none;
 
 		}
 
@@ -217,7 +219,7 @@
 			position: relative;
 			width : 350px;
 			height : 170px;
-			padding : 25px 25px;
+			padding : 31px 25px;
 			background-color: white;
 			box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19);
 			border-radius : 2px;
@@ -245,9 +247,6 @@
 			display : flex;
 			justify-content: space-around;
 		}
-
-
-
 		.btn_choice{
 			display : flex;
 			justify-content: space-around;
@@ -261,8 +260,7 @@
 			height : 40px;
 			border-radius: 2px;
 
-			
-
+		
 		}
 		.modal_recheck{
 			font-weight :700;
@@ -279,29 +277,22 @@
 			background-color: #158bd1;
 			border-color: transparent;
 		}
-		.button_small:hover{
-			background-color: #158bd1;
-			border-color: transparent;
-		}
+	
+		.error_next_box {
+	display: block;
+	margin: 4px 0 -2px;
+	padding-left : 28px;
+	font-size: 12px;
+	line-height: 14px;
+	color: red;
+	height: 15px;
+	visibility: hidden;
+}
 </style>
 </head>
 <body>
-<div class="modal_wrap">
-		<div class="modal_content">
-			<div class="recheck_close">
-				<button><i class="fas fa-times"></i></button>
-			</div>	
+<%@ include file="../include/modal.jsp"%>
 
-			<div class="modal_recheck">
-				<span> 정말 탈퇴하시겠습니까?</span>
-			</div>
-			
-			<div class="btn_wrap">
-				<span><a href="#" class="btn_choice btn_no">취소</a></span>
-				<span><a href="#" class="btn_choice btn_yes">확인</a></span>
-			</div>
-		</div>
-	</div>
 
 	<div class="wrap">
 		<header>
@@ -313,7 +304,7 @@
 		</header>
 		
 		<section>
-			<form name="frm_out" action="" method="POST">
+			
 				<div class="container">
 					<div class="header_content">
 						<h3 class="header_title">회원탈퇴</h3>
@@ -480,40 +471,82 @@
 					<label for="pw_check_pass"><strong>비밀번호 :</strong>
 					</label>
 					<span class="pw">
-						<input type="password" id="pass" name="pass" class="int">
+						<input type="password" id="upw" name="pw" class="int">
 					</span>
-					
-					<div class="pw_check_pass_btn">
-						<a href="#" class="button_small">탈퇴확인</a>
-
-											
-					</div>
+					</span> <span class="error_next_box">필수 정보입니다.</span>
+				</div>
+				<div class="pw_check_pass_btn">
+						<button class="drop_yes" id="drop_yes" >탈퇴확인</button>
 				</div>
 			</div>
 
 			</div>
-			</form>
+			
 		</section>
 	</div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="${path}/resources/js/validation.js"></script>
 <script type="text/javascript">
-	$(document).on('click','.button_small', function(){
-		//login 버튼 클릭시 modal창 open
-		$('.modal_wrap').css('display', 'flex');
-	});
-
-	$(document).on('click', '.recheck_close', function(){
-		$('.modal_wrap').css('display', 'none');
+	
+	$(function(){
+		var checkArr= false;
 		
-	});
-
-	$(document).on('click', '.btn_no', function(){
-		$('.modal_wrap').css('display', 'none');
+		$('#upw').keyup(function(){
+			var pw = $(this).val();
+			//console.log(pw);
+			// return 4개중에 1개 올거임 (validation에 있는애들중에)
+			var result = joinValidate.checkNowpw(pw);
+			console.log(result.code+","+result.desc);
+			
+			var color='';
+			if(result.code == 100) {
+				color='#3885CA';
+				checkArr = true;
+			
+			}else{
+				color='#d95339';
+				checkArr = false;
+			}
+			$('.error_next_box:eq(0)').css('visibility','visible')
+			.text(result.desc)
+			.css('color',color);
+			
+			ckColorBtn();
+		});
 		
+		function ckColorBtn(){
+			
+			if (checkArr) {
+				$('#drop_yes').addClass('btn-primary');
+				//$('#btn_join').prop('disabled', false);
+				$('#drop_yes').css('cursor', 'pointer');
+			} else {
+				$('#drop_yes').removeClass('btn-primary');
+				//$('#btn_join').prop('disabled', true);
+				$('#drop_yes').css('cursor', 'no-drop');
+			}
+		}
+		$('#drop_yes').click(function(){
+			//alert('클릭됨');
+			//var checkAll = true;
+			//for(var i=0; i < checkArr.length; i++){
+				//if(!checkArr[i]{
+					// checkall=false;}}
+			
+			if(checkArr == false){
+				$('.error_next_box:eq(0)').css('visibility', 'visible');
+			} else {
+				$('.basicmodal_wrap').css('display','flex');
+			}
+		});
+				
+				$('#basicbtn_yes').click(function(){
+					//alert('탈퇴 ㄱㄱ')
+					location.href='${path}/member/dropAction';
+				});
 	});
-
+	
 </script>
 		
 </html>

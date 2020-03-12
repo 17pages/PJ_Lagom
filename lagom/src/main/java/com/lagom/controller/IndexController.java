@@ -41,10 +41,10 @@ public class IndexController {
 		model.addAttribute("NewPdt",iService.newPdtList());
 		
 		//개발종료시 삭제할것 (로그인 계속하기 귀찮아서 한거임)
-		session.removeAttribute("userid");
-		session.removeAttribute("name");
-		session.setAttribute("userid", "aaa@aaa.com");
-		session.setAttribute("name", "관리자");
+		//session.removeAttribute("userid");
+		//session.removeAttribute("name");
+		//session.setAttribute("userid", "aaa@aaa.com");
+		//session.setAttribute("name", "관리자");
 		
 		//2.출력할 화면을 결정
 		//1,2 가지고 dispatcher고고

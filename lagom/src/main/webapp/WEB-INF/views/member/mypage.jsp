@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>MYPAGE</title>
 <script src="https://kit.fontawesome.com/825f57de13.js"
 	crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css"
@@ -244,19 +244,13 @@
 <script src="${path}/resources/js/validation.js"></script>
 <script type="text/javascript">
 $('#btn_update').click(function(){
-	
 	location.href="${path}/member/update"
-	
 });
 $('#btn_pwupdate').click(function(){
-	
 	location.href="${path}/member/pwupdate"
-	
 });
 $('#btn_out').click(function(){
-	
 	location.href="${path}/member/drop"
-	
 });
 
 </script>

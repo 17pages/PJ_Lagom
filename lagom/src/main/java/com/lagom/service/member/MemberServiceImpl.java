@@ -67,8 +67,18 @@ public class MemberServiceImpl implements MemberService{
 		mDao.pwUpdate(mDto);
 		
 	}
-
-
+	@Override
+	public void memDrop(HttpSession session, String id) {
+		//비즈니스로직 (회원탈퇴)
+		//1) 해당 회원의 useyn=n으로 update(DB)
+		//회원탈퇴를 하면 session도 초기화 시켜야함
+		int result = mDao.memDrop(id);
+		
+		//2)로그인 유저의 정보를 삭제(session 초기화)
+		if(result >0) {
+			session.invalidate();
+		}
+	}
 }
 
 //return하는거 : 호출문이 있음 =>호출을 먼저함,(memberDAO가서 호출) 결과값 그대로 toss

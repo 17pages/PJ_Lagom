@@ -66,8 +66,9 @@ justify-content : space-between;
 }
 
 .basicbtn_wrap{
+	width : 100%;
 	display: flex;
-	justify-content: space-around;
+	justify-content: center;
 }
 
 .basicbtn_choice {
@@ -123,19 +124,15 @@ justify-content : space-between;
 				</button>
 			</div>
 			</div>
-			<div class="basicmodal_recheck msg_title">
-				<span>회원가입을 축하드립니다.</span>
-			</div>
-			<div class="basicmodal_recheck msg_content">
-				<span>인증메일을 보냈습니다. <br>인증하셔야만 사이트 활동이 가능합니다.</span>
-			</div>
+			<div class="basicmodal_recheck msg_title"></div>
+			<div class="basicmodal_recheck msg_content"></div>
 
 			<div class="basicbtn_wrap">
 				
-					<a href="#" class="basicbtn_choice basicbtn_no">취소</a>
+					<a href="#" class="basicbtn_choice basicbtn_no" id="basicbtn_no">취소</a>
 				 
 				
-					<a href="#" class="basicbtn_choice basicbtn_yes">확인</a>
+					<a href="#" class="basicbtn_choice basicbtn_yes" id="basicbtn_yes">확인</a>
 				
 			</div>
 		</div>
@@ -161,23 +158,38 @@ $(document).on('click', '.btn_no', function() {
 		var join_sub_txt = email+'으로 인증메일을 보냈습니다. 인증하셔야만 사이트 활동이 가능합니다.';
 		var auth_main_txt = id+'님 이메일 인증되셨습니다.';
 		var auth_sub_txt = '지금부터 사이트 활동이 가능합니다. 감사합니다.';
-		
+		var drop_main_txt = '${userid}님 정말 탈퇴하시겠습니까?'
+		var dropResult_main_txt = id+'님 탈퇴되셨습니다.';
+		var dropResult_sub_txt='그동안 LAGOM을 이용해주셔서 감사합니다.';
+				
 		if(key =='join') {
 			$('.msg_title').text(join_main_txt); //메인 텍스트
 			$('.msg_content').text(join_sub_txt);	//서브텍스트
-			$('.basicbtn_no').css('display','none');	//취소버튼 제거
+			$('#basicbtn_yes').css('display','none');
+			$('#basicbtn_no').text('확 인');	//확인버튼 제거
 			$('.basicmodal_wrap').css('display', 'flex');	//모달창 출력
 		}else if(key =='auth'){
 			$('.msg_title').text(auth_main_txt);
 			$('.msg_content').text(auth_sub_txt);
-			$('.basicbtn_no').css('display','none');
+			$('#basicbtn_yes').css('display','none');
+			$('#basicbtn_no').text('확 인');
 			$('.basicmodal_wrap').css('display', 'flex');
+		}else if(key =='drop'){
+			$('.msg_title').text(drop_main_txt);
+		}else if(key == 'dropResult'){
+			$('.msg_title').text(dropResult_main_txt);
+			$('.msg_content').text(dropResult_sub_txt);
+			$('#basicbtn_yes').css('display','none');
+			$('#basicbtn_no').text('확 인');
+			$('.basicmodal_wrap').css('display', 'flex');
+			
 		}
-		$('.basicbtn_yes').on('click', function(){
-			$('.basicmodal_wrap').css('display', 'none');
-		});
+		
 		$('.basicrecheck_close').on('click', function(){
 			$('.basicmodal_wrap').css('display', 'none');
+		});
+		$('.basicbtn_no').on('click',function(){
+			$('.basicmodal_wrap').css('display','none');
 		});
 		
 	});

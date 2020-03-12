@@ -426,10 +426,11 @@ to {
 								<h3 class="join_title">
 									<label for="pswd1">비밀번호</label>
 								</h3>
-								<span class="pw">8자이상, 영문 대 소문자, 숫자, 특수문자를 사용하세요.</span> <span
-									class="ps_box int_pass"> <input type="text" id="upw"
-									name="pw" class="int"> <span class="step_url"> <span
-										class="pw_lock"></span>
+								<span class="pw">8자이상, 영문 대 소문자, 숫자, 특수문자를 사용하세요.</span> 
+								<span class="ps_box int_pass"> 
+									<input type="text" id="upw" name="pw" class="int"> 
+									<span class="step_url"> 
+									<span class="pw_lock"></span>
 								</span>
 								</span> <span class="error_next_box">필수 정보입니다.</span>
 							</div>
@@ -546,7 +547,7 @@ to {
 	});
 
 	$(function() {
-		alert('user : ' + '${user}');
+		//alert('user : ' + '${user}');
 		//회원정보수정 디자인 변경
 		//버튼 텍스트 수정하기
 		
