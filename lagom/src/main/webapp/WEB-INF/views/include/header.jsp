@@ -615,7 +615,7 @@ margin-right : 9px;
 					<c:otherwise>
 						<div class="user_info"><span>${name} 님</span>
 						</div>
-						<div><button type="button" id="header_btn_logout" class="btn btn-primary login_open">로그아웃</button></div>
+						<div><button type="button" id="header_btn_logout" class="btn btn-primary">로그아웃</button></div>
 					</c:otherwise>
 					</c:choose>
 					

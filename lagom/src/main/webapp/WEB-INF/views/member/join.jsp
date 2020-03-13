@@ -428,7 +428,7 @@ to {
 								</h3>
 								<span class="pw">8자이상, 영문 대 소문자, 숫자, 특수문자를 사용하세요.</span> 
 								<span class="ps_box int_pass"> 
-									<input type="text" id="upw" name="pw" class="int"> 
+									<input type="password" id="upw" name="pw" class="int"> 
 									<span class="step_url"> 
 									<span class="pw_lock"></span>
 								</span>
@@ -490,7 +490,7 @@ to {
 									<div class="addr_mail">
 										<span class="ps_box ps_box1"> <input name="postcode"
 											type="text" id="sample6_postcode" class="int addr_only"
-											placeholder="우편번호(5자리)" value="12345" readonly>
+											placeholder="우편번호(5자리)" value="" readonly>
 										</span> <span> <input type="button"
 											onclick="sample6_execDaumPostcode()" class="addr_btn"
 											id="btn_post" value="우편번호 찾기">
