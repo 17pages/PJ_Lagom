@@ -629,6 +629,19 @@ margin-right : 9px;
 </body>
 
 <script type="text/javascript">
+
+$(function(){
+	
+	var message = '${message}';
+	if(message == 'nologin'){
+		$('.modal_wrap').css('display', 'flex');
+		$('#input_id').focus();
+		$('.login_error').css('display', 'block')
+						.text('로그인이 필요한 기능입니다.');
+	}
+	
+	
+});
 	//jQuery 문법
 	//$('선택자').옵션();
 	//$('test').css('color', 'green');

@@ -162,7 +162,7 @@
 		<header>
 			<div class="header">
 				<h1 class="Lagom_logo">
-					<a href="#" class="l_logo"></a>
+					<a href="${path}/" class="l_logo"></a>
 				</h1>
 			</div>
 		</header>

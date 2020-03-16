@@ -188,7 +188,7 @@ public MemberDTO newMember() {
 	@ResponseBody
 	@PostMapping("/idoverlap")
 	public String idOverlap(String id) {
-		log.info(">>> ID OVERLAP CHECK");
+		log.info(">>> ID OVERLAP CHECK"); 
 		log.info("아이디: " + id);
 		
 		int cnt= mService.idOverlap(id);
@@ -212,9 +212,9 @@ public MemberDTO newMember() {
 		
 		//null=로그인이 안됐다는 뜻
 		//로그인이 안되어있으면 비정상적인 접근으로 간주하여 인덱스 페이지로 이동!
-		if(id == null) {
-			return "redirect:/";
-		}
+		//if(id == null) {
+		//	return "redirect:/";
+		//}
 		
 		//로그인된  유저의 정보를 GET
 		model.addAttribute("user", mService.userView(id));
@@ -239,12 +239,13 @@ public MemberDTO newMember() {
 	}
 	
 	@GetMapping("/pwupdate")
-	public String pwUpdate(HttpSession session) {
+	public String pwUpdate() {
 		log.info(">>>GET : Password Update Page");
-		String id = (String)session.getAttribute("userid");
-		if(id == null) {
-			return "redirect:/";
-		}
+		//(HttpSession session)
+		//String id = (String)session.getAttribute("userid");
+	//	if(id == null) {
+	//		return "redirect:/";
+	//	}
 		return "member/pwupdate";
 	}
 	
