@@ -1,0 +1,641 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ include file="../include/header.jsp"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="${path}/resources/css/common.css">
+<script src="https://kit.fontawesome.com/825f57de13.js" crossorigin="anonymous"></script>
+<style type="text/css">
+*{	
+font-family: Dotum,'돋움',Helvetica,sans-serif;
+box-sizing: border-box;
+}
+
+body, h1, h2, h3, h4, h5, h6, ul, p {
+margin : 0;
+padding : 0;
+}
+
+body {
+background-color: #f5f6f7;
+font-size : 12px;
+}
+
+ul{
+list-style: none;
+margin : 0px;
+padding: 0px;
+}
+
+a{
+text-decoration : none;
+color: inherit;
+}
+.header {
+		padding : 40px 0px 20px;
+		position: relative;
+		}
+
+.l_logo {
+display: block;
+width: 250px;
+height: 90px;
+background: url("${path}/resources/img/logo_brown.png") 50% 50%;
+background-size: cover;
+margin: 0 auto;
+}
+
+.board_wrap{
+
+width: 100%;
+margin : 65px 0 auto;
+background-color: #f1f1f2;
+}
+.board_content_wrap{
+min-width: 1280px;
+margin : 0 auto;
+padding-bottom: 150px;
+}
+
+.board_content{
+	width: 1050px;
+	margin : 0 auto;
+	max-width: 100%;
+	box-sizing: border-box;
+	position: relative;
+	border : 0px solid #000;
+	background-color : #fff;
+	padding : 5px 15px;
+}
+
+.board_title{
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	background-color: #fff;
+	border : 0px solid #EFEFEF;
+	margin-top: 30px;
+	margin-bottom : 20px;
+}
+.board_title .title_box{
+	width: 250px;
+	text-align: center;
+	height: 40px;
+	margin : 0 auto;
+	border-top: 1px solid #E1E1E1;
+	border-bottom: 1px solid #E1E1E1;
+}
+.title_box{
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	background-color: #FFF;
+	border : 0px solid #EFEFEF;
+	margin-top: 30px;
+	margin-bottom : 50px;
+}
+
+.board_table_list{
+	margin-top : 5px;
+}
+
+/*정렬*/
+.board_sort_choice{
+	display: flex;
+	justify-content: flex-end;
+	padding: 0 -4px;
+}
+.board_sort_choice_c{
+	display: flex;
+}
+.board_sort_choice_c a {
+	border-right : 1px solid #EFEFEF;
+	padding-right: 5px;
+	margin-right: 5px;
+	font-weight: bold;
+	padding-bottom: 3px;
+}
+
+
+
+
+/*테이블*/
+table {
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+	table-layout: fixed;
+	word-wrap: break-word;
+	word-break: keep-all;
+}
+.board_table_wrap table tr {
+	border-bottom: 1px solid #ddd;
+}
+tr{
+	display: table-row;
+	vertical-align: inherit;
+	border-color : inherit;
+}
+.board_table_wrap table tr td{
+	line-height: 44px;
+	color: #333;
+	font-size: 13px;
+	text-align: center;
+	font-weight: normal;
+}
+
+.board_table_wrap table tr th{
+	line-height: 44px;
+	color: #333;
+	font-size: 13px;
+	text-align: center;
+	font-weight: bold;
+
+}
+
+.board_table_list thead th{
+	color: #9d9d9d;
+	font-weight: bold;
+	border-top: 1px solid #e5e5e5;
+	border-bottom: 1px soid #e5e5e5;
+}
+
+.title_name{
+	font-weight: bold;
+	font-size: 15px;
+}
+.tb_left{
+	text-align: left;
+	padding : 0 10px;
+}
+.tb_left_wrap{
+	display: flex;
+	align-items: center;
+	align-content: flex-start;
+	
+
+}
+
+
+
+.tb_img{
+	width: 58px;
+	height : 24px;
+	display: flex;
+	justify-content: center;
+}
+/*글쓰기버튼, 검색창*/
+.board_write_btn{
+	width: 100%
+	border : 0px solid #000;
+}
+.bbs_sch{
+	margin-top : 20px;
+	margin-bottom: 10px;
+	float: left;
+
+}
+fieldset {
+	border : 0 none;
+	margin : 0;
+	padding : 0;
+	display: block;
+	margin-inline-
+}
+
+.board_search{
+	display: flex;
+	align-items: center;
+	background-color: #E1E1E1;
+	border-radius: 2px;
+}
+.board_search_input{
+	background-color: transparent;
+	border-color: transparent;
+	font-size: 13px;
+	width: 260px;
+	height: 44px;
+	border-radius: 2px;
+	padding: 10px 12px;
+	outline: none;
+/*input 태그 focus시 파랑테두리*/
+}
+.board_search_btn {
+	/* transparent : 투명으로 해줌*/
+	background-color: transparent;
+	border-color: transparent;
+	width : 44px;
+	height: 44px;
+	cursor : pointer;
+	color: #636363;
+	border-top-right-radius: 2px;
+	border-bottom-right-radius: 2px;
+}
+.board_search_btn:hover{
+	background-color: #636363;
+	color: white;
+}
+.frm_search {
+	margin: 0 auto;
+}
+.board_write_btn{
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	padding: 20px 25px;
+}
+.board_write_btn_wrap{
+	padding-left: 11px;
+
+}
+.write_btn{
+	display: inline-block;
+	padding : 6px 10px;
+	line-height: 20px;
+	background-color : #636363;
+	border : none;
+	color: #fff;
+	text-decoration: none;
+	font-size: 12px;
+	font-weight: bold;
+	letter-spacing: 0px;
+	cursor: pointer;
+	outline: none;
+	border-radius : 3px;
+}
+
+
+/*New표시*/
+.twincle_eff{
+	animation-name: twinkle;
+	animation-duration: 1.2s;
+	animation-iteration-count: infinite;
+}
+.new_color{
+	color: tomato;
+	padding: 3px 5px;
+	margin-left : 7px;
+	font-weight : bold;
+	font-size : 12px;
+}
+@keyframes twinkle{
+0%{	opacity : 0;}
+100%{opacity : 1;}
+}
+
+
+
+/*paging*/
+.board_paging_wrap{
+	text-align: center;
+	padding : 10px;
+}
+
+.board_paging{
+	display: inline-block;
+}
+
+.board_paging a {
+	color: black;
+	float: left;
+	padding : 8px 10px;
+	text-decoration: none;
+	border-radius: 3px;
+	font-weight : bold;
+}
+
+.board_paging a.active{
+	background-color: #4CAF50;
+	color: white
+	border-radius : 3px;
+}
+.board_paging a:hover:not(.active){
+	background-color : #ddd;
+}
+</style>
+</head>
+<body>
+<div class="board_wrap">
+<header>
+	<div class="header">
+		<h1 class="Lagom_logo">
+			<a href="${path}/" class="l_logo"></a>
+				</h1>
+			</div>
+</header>
+		<div class="board_content_wrap">
+			<div class="board_content">
+				<div class="board_data">
+					<div class="page_body">
+						<div class="board_title">
+							<div class="title_box">
+								<span class="title_name">자유게시판</span>
+							</div>
+						</div>
+						<div class="board_sort">
+							<div class="board_sort_choice">
+								<div class="board_sort_choice_c">
+									<div><a href="">최신순</a></div>
+									<div><a href="">조회순</a></div>
+									<div><a href="">추천순</a></div>
+									<div class="last_choice"><a href="">댓글순</a></div>
+								</div>
+							</div>
+						</div>
+						<div class="board_table_list board_table_wrap">
+							<table>
+								<colgroup>
+									<col width="70px">
+									<col width="*">
+									<col width="100px">
+									<col width="60px">
+									<col width="60px">
+									<col width="90px">
+									<col width="60px">
+								</colgroup>
+								<thead>
+									<tr>
+										<th scope="col">
+											<div class="tb_num">NO.</div>
+										</th>
+										<th scope="col">
+											<div class="tb_title">TITLE</div>
+										</th>
+										<th scope="col">
+											<div class="tb_id">NAME</div>
+										</th>
+										<th scope="col">
+											<div class="tb_count">HITS</div>
+										</th>
+										<th scope="col">
+											<div class="tb_reco">GOOD</div>
+										</th>
+										<th scope="col">
+											<div class="tb_date">DATE</div>
+										</th>
+										<th scope="col">
+											<div class="tb_date">첨부파일</div>
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											<div class="tb_num">1</div>
+										</td>
+										<td>
+											<div class="tb_left_wrap">
+												<div class="tb_left"><a href=""> 글내용임~ </a>
+													<span class="new_color twincle_eff">N</span>
+												</div>
+											</div>
+										</td>
+										<td>
+											<div class="tb_id">아이디고요?</div>
+										</td>
+										<td>
+											<div class="tb_id">100</div>
+										</td>
+										<td>
+											<div class="tb_id">5</div>
+										</td>
+										<td>
+											<div class="tb_id">2020/03/17</div>
+										</td>
+										<td>
+											<div class="tb_id tb_img"><img src="${path}/resources/img/icons8-clipboard-26.png"></div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="tb_num">1</div>
+										</td>
+										<td>
+											<div class="tb_left"><a href=""> 글내용임~</a></div>
+										</td>
+										<td>
+											<div class="tb_id">아이디고요?</div>
+										</td>
+										<td>
+											<div class="tb_id">100</div>
+										</td>
+										<td>
+											<div class="tb_id">5</div>
+										</td>
+										<td>
+											<div class="tb_id">2020/03/17</div>
+										</td>
+										<td>
+											<div class="tb_id tb_img"><img src="${path}/resources/img/icons8-clipboard-26.png"></div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="tb_num">1</div>
+										</td>
+										<td>
+											<div class="tb_left"><a href=""> 글내용임~</a></div>
+										</td>
+										<td>
+											<div class="tb_id">아이디고요?</div>
+										</td>
+										<td>
+											<div class="tb_id">100</div>
+										</td>
+										<td>
+											<div class="tb_id">5</div>
+										</td>
+										<td>
+											<div class="tb_id">2020/03/17</div>
+										</td>
+										<td>
+											<div class="tb_id tb_img"><img src="${path}/resources/img/icons8-clipboard-26 gray.png"></div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="tb_num">1</div>
+										</td>
+										<td>
+											<div class="tb_left"><a href=""> 글내용임~</a></div>
+										</td>
+										<td>
+											<div class="tb_id">아이디고요?</div>
+										</td>
+										<td>
+											<div class="tb_id">100</div>
+										</td>
+										<td>
+											<div class="tb_id">5</div>
+										</td>
+										<td>
+											<div class="tb_id">2020/03/17</div>
+										</td>
+										<td>
+											<div class="tb_id tb_img"><img src="${path}/resources/img/icons8-clipboard-26 gray.png"></div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="tb_num">1</div>
+										</td>
+										<td>
+											<div class="tb_left"><a href=""> 글내용임~</a></div>
+										</td>
+										<td>
+											<div class="tb_id">아이디고요?</div>
+										</td>
+										<td>
+											<div class="tb_id">100</div>
+										</td>
+										<td>
+											<div class="tb_id">5</div>
+										</td>
+										<td>
+											<div class="tb_id">2020/03/17</div>
+										</td>
+										<td>
+											<div class="tb_id tb_img"><img src="${path}/resources/img/icons8-clipboard-26.png"></div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="tb_num">1</div>
+										</td>
+										<td>
+											<div class="tb_left"><a href=""> 글내용임~</a></div>
+										</td>
+										<td>
+											<div class="tb_id">아이디고요?</div>
+										</td>
+										<td>
+											<div class="tb_id">100</div>
+										</td>
+										<td>
+											<div class="tb_id">5</div>
+										</td>
+										<td>
+											<div class="tb_id">2020/03/17</div>
+										</td>
+										<td>
+											<div class="tb_id tb_img"><img src="${path}/resources/img/icons8-clipboard-26 gray.png"></div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="tb_num">1</div>
+										</td>
+										<td>
+											<div class="tb_left"><a href=""> 글내용임~</a></div>
+										</td>
+										<td>
+											<div class="tb_id">아이디고요?</div>
+										</td>
+										<td>
+											<div class="tb_id">100</div>
+										</td>
+										<td>
+											<div class="tb_id">5</div>
+										</td>
+										<td>
+											<div class="tb_id">2020/03/17</div>
+										</td>
+										<td>
+											<div class="tb_id tb_img"><img src="${path}/resources/img/icons8-clipboard-26 gray.png"></div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="tb_num">1</div>
+										</td>
+										<td>
+											<div class="tb_left"><a href=""> 글내용임~</a></div>
+										</td>
+										<td>
+											<div class="tb_id">아이디고요?</div>
+										</td>
+										<td>
+											<div class="tb_id">100</div>
+										</td>
+										<td>
+											<div class="tb_id">5</div>
+										</td>
+										<td>
+											<div class="tb_id">2020/03/17</div>
+										</td>
+										<td>
+											<div class="tb_id tb_img"><img src="${path}/resources/img/icons8-clipboard-26 gray.png"></div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<div class="tb_num">1</div>
+										</td>
+										<td>
+											<div class="tb_left"><a href=""> 글내용임~</a></div>
+										</td>
+										<td>
+											<div class="tb_id">아이디고요?</div>
+										</td>
+										<td>
+											<div class="tb_id">100</div>
+										</td>
+										<td>
+											<div class="tb_id">5</div>
+										</td>
+										<td>
+											<div class="tb_id">2020/03/17</div>
+										</td>
+										<td>
+											<div class="tb_id tb_img"><img src="${path}/resources/img/icons8-clipboard-26 gray.png"></div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="board_write_btn">
+							<div class="border_content_search">
+								<form name="frm_search" action="" method="GET">
+									<div class="board_search">
+										<input type="text" name="keyword" placeholder="검색어를 입력하세요." class="board_search_input">
+											<button type="button" class="board_search_btn"><i class="fas fa-search"></i></button>
+									</div>
+								</form>
+							</div>
+							<div class="board_write_btn_wrap">
+							<button class="write_btn"><div class="write_btn">글쓰기</div></button>
+							</div>
+						</div>
+						<div class="board_paging_wrap">
+							<div class="board_paging">
+								<a href=""><<</a>
+								<a href=""><</a>
+								<a href="">1</a>
+								<a href="">2</a>
+								<a href="">3</a>
+								<a href="">4</a>
+								<a href="">5</a>
+								<a href="">6</a>
+								<a href="">7</a>
+								<a href="">8</a>
+								<a href="">9</a>
+								<a href="">10</a>
+								<a href="">></a>
+								<a href="">>></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		
+	</script>
+</body>
+</html>

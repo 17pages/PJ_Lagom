@@ -556,7 +556,7 @@ margin-right : 9px;
 						<a href="#" class="magicline">스토어</a>
 					</div>
 					<div class="header_content_dropdwon_group">
-						<a href="#" class="magicline">커뮤니티</a>
+						<a href="${path}/board/list" class="magicline">커뮤니티</a>
 					</div>
 				</div>
 
