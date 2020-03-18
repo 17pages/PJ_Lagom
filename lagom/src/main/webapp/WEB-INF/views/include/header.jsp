@@ -448,7 +448,7 @@ margin-right : 9px;
 			</div>
 
 			<div class="modal_header">
-				<a href="#" class="modal_header_link"> <span class="icon_lagom"><img
+				<a href="${path}/" class="modal_header_link"> <span class="icon_lagom"><img
 						src="${path}/resources/img/logo_brown.png" width="160px"
 						height="80px"></span>
 				</a>
@@ -529,7 +529,7 @@ margin-right : 9px;
 		<div class="header_wrap">
 			<div class="header_content">
 				<div class="header_content_logo">
-					<a href="#"> <img class="header_content_logo_img"
+					<a href="${path}/"> <img class="header_content_logo_img"
 						src="${path}/resources/img/logo_brown.png"> <span></span>
 					</a>
 				</div>

@@ -1,6 +1,8 @@
 package com.lagom.service.board;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +28,16 @@ public class BoardServiceImpl implements BoardService {
 		
 	}
 	@Override
-	public List<BoardDTO> titleList(){
+	public List<BoardDTO> titleList(int start, int end){
+		Map<String, Object>map = new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
 		
-		return bDao.titleList();
+		return bDao.titleList(map);
+	}
+	@Override
+	public int countArticle() {
+		return bDao.countArticle();
 	}
 
 }
