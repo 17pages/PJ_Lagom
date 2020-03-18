@@ -318,6 +318,8 @@ fieldset {
 </style>
 </head>
 <body>
+<jsp:useBean id="now" class="java.util.Date"/>
+<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
 <div class="board_wrap">
 <header>
 	<div class="header">
@@ -381,219 +383,51 @@ fieldset {
 										</th>
 									</tr>
 								</thead>
+								<!-- 게시글 -->
+								<c:forEach items="${map.list}" var="list">
+									
+									<fmt:formatDate value="${list.updatedate}" pattern="yyyy-MM-dd" var="regdate"/>
 								<tbody>
 									<tr>
 										<td>
-											<div class="tb_num">1</div>
+											<div class="tb_num">${list.bno}</div>
 										</td>
 										<td>
 											<div class="tb_left_wrap">
-												<div class="tb_left"><a href=""> 글내용임~ </a>
+												<div class="tb_left" id="title"><a href="">${list.title}</a>
+												<c:if test = "${today == regdate}">
 													<span class="new_color twincle_eff">N</span>
+												</c:if>	
 												</div>
 											</div>
 										</td>
 										<td>
-											<div class="tb_id">아이디고요?</div>
+											<div class="tb_id">${list.writer}</div>
 										</td>
 										<td>
-											<div class="tb_id">100</div>
+											<div class="tb_id">${list.viewcnt}</div>
 										</td>
 										<td>
-											<div class="tb_id">5</div>
+											<div class="tb_id">${list.goodcnt}</div>
 										</td>
 										<td>
-											<div class="tb_id">2020/03/17</div>
-										</td>
-										<td>
-											<div class="tb_id tb_img"><img src="${path}/resources/img/icons8-clipboard-26.png"></div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="tb_num">1</div>
-										</td>
-										<td>
-											<div class="tb_left"><a href=""> 글내용임~</a></div>
-										</td>
-										<td>
-											<div class="tb_id">아이디고요?</div>
-										</td>
-										<td>
-											<div class="tb_id">100</div>
-										</td>
-										<td>
-											<div class="tb_id">5</div>
-										</td>
-										<td>
-											<div class="tb_id">2020/03/17</div>
+											<div class="tb_id">
+											<c:choose>
+												<c:when test = "${today == regdate}">
+													<fmt:formatDate value="${list.updatedate}" pattern="HH:mm:ss"/>
+												</c:when>
+												<c:otherwise>
+													<fmt:formatDate value="${list.updatedate}" pattern="yyyy-MM-dd"/>
+												</c:otherwise>
+											</c:choose>	
+													</div>
 										</td>
 										<td>
 											<div class="tb_id tb_img"><img src="${path}/resources/img/icons8-clipboard-26.png"></div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="tb_num">1</div>
-										</td>
-										<td>
-											<div class="tb_left"><a href=""> 글내용임~</a></div>
-										</td>
-										<td>
-											<div class="tb_id">아이디고요?</div>
-										</td>
-										<td>
-											<div class="tb_id">100</div>
-										</td>
-										<td>
-											<div class="tb_id">5</div>
-										</td>
-										<td>
-											<div class="tb_id">2020/03/17</div>
-										</td>
-										<td>
-											<div class="tb_id tb_img"><img src="${path}/resources/img/icons8-clipboard-26 gray.png"></div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="tb_num">1</div>
-										</td>
-										<td>
-											<div class="tb_left"><a href=""> 글내용임~</a></div>
-										</td>
-										<td>
-											<div class="tb_id">아이디고요?</div>
-										</td>
-										<td>
-											<div class="tb_id">100</div>
-										</td>
-										<td>
-											<div class="tb_id">5</div>
-										</td>
-										<td>
-											<div class="tb_id">2020/03/17</div>
-										</td>
-										<td>
-											<div class="tb_id tb_img"><img src="${path}/resources/img/icons8-clipboard-26 gray.png"></div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="tb_num">1</div>
-										</td>
-										<td>
-											<div class="tb_left"><a href=""> 글내용임~</a></div>
-										</td>
-										<td>
-											<div class="tb_id">아이디고요?</div>
-										</td>
-										<td>
-											<div class="tb_id">100</div>
-										</td>
-										<td>
-											<div class="tb_id">5</div>
-										</td>
-										<td>
-											<div class="tb_id">2020/03/17</div>
-										</td>
-										<td>
-											<div class="tb_id tb_img"><img src="${path}/resources/img/icons8-clipboard-26.png"></div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="tb_num">1</div>
-										</td>
-										<td>
-											<div class="tb_left"><a href=""> 글내용임~</a></div>
-										</td>
-										<td>
-											<div class="tb_id">아이디고요?</div>
-										</td>
-										<td>
-											<div class="tb_id">100</div>
-										</td>
-										<td>
-											<div class="tb_id">5</div>
-										</td>
-										<td>
-											<div class="tb_id">2020/03/17</div>
-										</td>
-										<td>
-											<div class="tb_id tb_img"><img src="${path}/resources/img/icons8-clipboard-26 gray.png"></div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="tb_num">1</div>
-										</td>
-										<td>
-											<div class="tb_left"><a href=""> 글내용임~</a></div>
-										</td>
-										<td>
-											<div class="tb_id">아이디고요?</div>
-										</td>
-										<td>
-											<div class="tb_id">100</div>
-										</td>
-										<td>
-											<div class="tb_id">5</div>
-										</td>
-										<td>
-											<div class="tb_id">2020/03/17</div>
-										</td>
-										<td>
-											<div class="tb_id tb_img"><img src="${path}/resources/img/icons8-clipboard-26 gray.png"></div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="tb_num">1</div>
-										</td>
-										<td>
-											<div class="tb_left"><a href=""> 글내용임~</a></div>
-										</td>
-										<td>
-											<div class="tb_id">아이디고요?</div>
-										</td>
-										<td>
-											<div class="tb_id">100</div>
-										</td>
-										<td>
-											<div class="tb_id">5</div>
-										</td>
-										<td>
-											<div class="tb_id">2020/03/17</div>
-										</td>
-										<td>
-											<div class="tb_id tb_img"><img src="${path}/resources/img/icons8-clipboard-26 gray.png"></div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<div class="tb_num">1</div>
-										</td>
-										<td>
-											<div class="tb_left"><a href=""> 글내용임~</a></div>
-										</td>
-										<td>
-											<div class="tb_id">아이디고요?</div>
-										</td>
-										<td>
-											<div class="tb_id">100</div>
-										</td>
-										<td>
-											<div class="tb_id">5</div>
-										</td>
-										<td>
-											<div class="tb_id">2020/03/17</div>
-										</td>
-										<td>
-											<div class="tb_id tb_img"><img src="${path}/resources/img/icons8-clipboard-26 gray.png"></div>
 										</td>
 									</tr>
 								</tbody>
+								</c:forEach>
 							</table>
 						</div>
 						<div class="board_write_btn">
