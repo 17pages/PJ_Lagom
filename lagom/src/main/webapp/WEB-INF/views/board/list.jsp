@@ -10,7 +10,7 @@
 <script src="https://kit.fontawesome.com/825f57de13.js" crossorigin="anonymous"></script>
 <style type="text/css">
 *{	
-font-family: Dotum,'돋움',Helvetica,sans-serif;
+
 box-sizing: border-box;
 }
 
@@ -112,7 +112,7 @@ padding-bottom: 150px;
 	display: flex;
 }
 .board_sort_choice_c a {
-	border-right : 1px solid #EFEFEF;
+
 	padding-right: 5px;
 	margin-right: 5px;
 	font-weight: bold;
@@ -179,14 +179,24 @@ tr{
 
 }
 
-
-
 .tb_img{
 	width: 58px;
 	height : 24px;
 	display: flex;
 	justify-content: center;
 }
+
+thead{
+background-color:#cdbcb3;
+}
+.reply_cnt{
+color : #ff5e00;
+padding-left: 3px;
+font-weight: bold;
+
+}
+
+
 /*글쓰기버튼, 검색창*/
 .board_write_btn{
 	width: 100%
@@ -275,11 +285,11 @@ fieldset {
 	animation-iteration-count: infinite;
 }
 .new_color{
-	color: tomato;
+	color: #ff2f3b;
 	padding: 3px 5px;
-	margin-left : 7px;
 	font-weight : bold;
 	font-size : 12px;
+	cursor : default;
 }
 @keyframes twinkle{
 0%{	opacity : 0;}
@@ -307,13 +317,14 @@ fieldset {
 	font-weight : bold;
 }
 
-.board_paging a.active{
-	background-color: #4CAF50;
-	color: white
-	border-radius : 3px;
-}
+
 .board_paging a:hover:not(.active){
-	background-color : #ddd;
+	background-color : #ebe5e2;
+}
+#check_color{
+    border: 0px solid black;
+    background-color: #ccbcb5;
+    color: white;
 }
 </style>
 </head>
@@ -340,10 +351,10 @@ fieldset {
 						<div class="board_sort">
 							<div class="board_sort_choice">
 								<div class="board_sort_choice_c">
-									<div><a href="">최신순</a></div>
-									<div><a href="">조회순</a></div>
-									<div><a href="">추천순</a></div>
-									<div class="last_choice"><a href="">댓글순</a></div>
+									<div><a href="${path}/board/list?sort_option=new&keyword=${map.keyword}" id="sort_new">최신순</a></div>
+									<div><a href="${path}/board/list?sort_option=cnt&keyword=${map.keyword}" id="sort_cnt">조회순</a></div>
+									<div><a href="${path}/board/list?sort_option=good&keyword=${map.keyword}" id="sort_good">추천순</a></div>
+									<div class="last_choice" id=""><a href="${path}/board/list?sort_option=reply&keyword=${map.keyword}" id="sort_reply">댓글순</a></div>
 								</div>
 							</div>
 						</div>
@@ -396,6 +407,7 @@ fieldset {
 											<div class="tb_left_wrap">
 												<div class="tb_left" id="title"><a href="">${list.title}</a>
 												<c:if test = "${today == regdate}">
+													<span class="reply_cnt">[${list.replycnt}]</span>
 													<span class="new_color twincle_eff">N</span>
 												</c:if>	
 												</div>
@@ -432,10 +444,10 @@ fieldset {
 						</div>
 						<div class="board_write_btn">
 							<div class="border_content_search">
-								<form name="frm_search" action="" method="GET">
+								<form name="frm_search" action="${path}/board/list" method="GET">
 									<div class="board_search">
 										<input type="text" name="keyword" placeholder="검색어를 입력하세요." class="board_search_input">
-											<button type="button" class="board_search_btn"><i class="fas fa-search"></i></button>
+										<button type="submit" class="board_search_btn"><i class="fas fa-search"></i></button>
 									</div>
 								</form>
 							</div>
@@ -451,6 +463,7 @@ fieldset {
 								<a href="${path}/board/list?curPage=1&sort_option=${map.sort_option}&keyword=${map.keyword}" class="">1</a>
 								<a style="cursor:default"><span>...</span></a>
 							</c:if>
+							<!-- foreach=for문과 같음..반복할때마다 나오는 값을 num에 넣겠다.  -->
 								<c:forEach var="num" begin="${map.pager.blockBegin}" end="${map.pager.blockEnd}">
 									<c:choose>
 										<c:when test="${num == map.pager.curPage}">
@@ -480,6 +493,17 @@ fieldset {
 	</div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script type="text/javascript">
+	
+	$(function(){
+		var sort_option = '${map.sort_option}';
+		if(sort_option != null) {
+			$('#sort_' + sort_option).css('color', '#236bcc');
+			$('#sort_' + sort_option).css('border-radius', '5px');
+			$('#sort_' + sort_option).css('font-weight', 'bold');
+		}
+			
+	});
+
 		
 	</script>
 </body>

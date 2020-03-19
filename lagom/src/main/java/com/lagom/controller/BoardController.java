@@ -26,15 +26,20 @@ public class BoardController {
 	@Autowired
 	BoardService bService;
 	
+	
 	@GetMapping("/list")
 	public String boardView(
-			@RequestParam(defaultValue="1") int curPage, 
+			//이 네가지 값은 항상 가지고 다녀야 함
+			@RequestParam(defaultValue="1") int curPage, //어떤페이지 띄울건지
+			@RequestParam(defaultValue="new") String sort_option, // 정렬
+			@RequestParam(defaultValue="all") String search_option,
+			@RequestParam(defaultValue="") String keyword, //검색창
 			Model model) {
 		log.info(">>>>> board page 출력");
 		//requestParam defaultvalue는 사용자가 아무것도 클릭하지 않았을때 디폴트 값으로 1페이지 띄운다고
 		
 		//게시글 갯수계산(게시글을 board 또는 article로 많이 씀)
-		int count = bService.countArticle();
+		int count = bService.countArticle(search_option, keyword);
 		
 		//페이지 관련 설정 curPage=1페이지 누름 2페이지누름 그런거
 		//pager 객체생성 
@@ -44,12 +49,15 @@ public class BoardController {
 		int start = pager.getPageBegin();
 		int end = pager.getPageEnd();
 		
-		List<BoardDTO> list = bService.titleList(start, end);//게시물 목록 1하고 10 담아서 가져감
+		List<BoardDTO> list = bService.titleList(search_option, keyword, sort_option, start, end);//게시물 목록 1하고 10 담아서 가져감
 				
 		HashMap<String, Object> map  = new HashMap<>();
 		map.put("list", list);
 		map.put("count", count);
 		map.put("pager", pager);
+		map.put("sort_option", sort_option);
+		map.put("search_option", search_option);
+		map.put("keyword", keyword);
 				
 		//보낼게 많아서 map으로 만들어버림
 		model.addAttribute("map", map);

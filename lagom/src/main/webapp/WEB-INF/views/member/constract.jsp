@@ -15,7 +15,7 @@
 * {
 	box-sizing: border-box;
 	/*앞에꺼 없으면 뒤로 감. 있는거 까지 */
-	font-family: Dotum, 돋움, Helvetica, sans-serif;
+
 }
 
 body, ul, h1, h2, h3, h4, h5, h6 {

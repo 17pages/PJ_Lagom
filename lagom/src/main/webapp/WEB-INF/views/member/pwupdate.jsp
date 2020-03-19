@@ -15,7 +15,7 @@
 	href="${path}/resources/css/common.css"">
 <style type="text/css">
 * {
-	font-family: Dotum, '돋움', Helvetica, sans-serif;
+	
 	box-sizing: border-box;
 }
 
