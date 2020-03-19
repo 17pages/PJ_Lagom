@@ -14,7 +14,7 @@ public interface BoardDAO {
 	//게시글 갯수 계산
 	public int countArticle();
 	
-	//목록(페이지 나누기, 검색 기능 포함)
+	//목록(페이지 나누기, 검색 기능 포함) map 안에 1,10담아져있음
 	public List<BoardDTO> titleList(@Param("map")Map<String,Object>map);
 	
 	

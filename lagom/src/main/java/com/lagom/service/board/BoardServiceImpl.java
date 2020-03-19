@@ -28,7 +28,7 @@ public class BoardServiceImpl implements BoardService {
 		
 	}
 	@Override
-	public List<BoardDTO> titleList(int start, int end){
+	public List<BoardDTO> titleList(int start, int end){//1,10들어감
 		Map<String, Object>map = new HashMap<>();
 		map.put("start", start);
 		map.put("end", end);

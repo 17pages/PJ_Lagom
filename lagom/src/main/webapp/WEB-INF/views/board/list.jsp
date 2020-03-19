@@ -445,20 +445,31 @@ fieldset {
 						</div>
 						<div class="board_paging_wrap">
 							<div class="board_paging">
-								<a href=""><<</a>
-								<a href=""><</a>
-								<a href="">1</a>
-								<a href="">2</a>
-								<a href="">3</a>
-								<a href="">4</a>
-								<a href="">5</a>
-								<a href="">6</a>
-								<a href="">7</a>
-								<a href="">8</a>
-								<a href="">9</a>
-								<a href="">10</a>
-								<a href="">></a>
-								<a href="">>></a>
+							
+							<c:if test="${map.pager.curBlock > 1}">
+								<a href="${path}/board/list?curPage=${map.pager.blockBegin-10}&sort_option=${map.sort_option}&keyword=${map.keyword}" class="page_left"><i class="fas fa-angle-left"></i></a>
+								<a href="${path}/board/list?curPage=1&sort_option=${map.sort_option}&keyword=${map.keyword}" class="">1</a>
+								<a style="cursor:default"><span>...</span></a>
+							</c:if>
+								<c:forEach var="num" begin="${map.pager.blockBegin}" end="${map.pager.blockEnd}">
+									<c:choose>
+										<c:when test="${num == map.pager.curPage}">
+											<a href="${path}/board/list?curPage=${num}&sort_option=${map.sort_option}&keyword=${map.keyword}" id="check_color">${num}</a>
+										</c:when>
+										<c:otherwise>
+											<a href="${path}/board/list?curPage=${num}&sort_option=${map.sort_option}&keyword=${map.keyword}" >${num}</a>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+								
+								<c:if test="${map.pager.curBlock < map.pager.totBlock}">
+								<a style="cursor:default"><span>...</span></a>
+								<a href="${path}/board/list?curPage=${map.pager.totPage}&sort_option=${map.sort_option}&keyword=${map.keyword}" class="">${map.pager.totPage}</a>
+								<a href="${path}/board/list?curPage=${map.pager.blockEnd + 1}&sort_option=${map.sort_option}&keyword=${map.keyword}" class="page_right"><i class="fas fa-angle-right"></i></a>
+								
+							</c:if>
+								
+								
 							</div>
 						</div>
 					</div>
