@@ -45,6 +45,7 @@
 	<beans:bean id="loginInterceptor" class="com.lagom.interceptor.LoginInterceptor"></beans:bean>
 	
 	<!-- URL Mapping for Interceptor call -->
+	<!-- 저 url(설정값)을 탔을때는 logininterceptor를 타라 spring context에서 대기 -->
 	<interceptors>
 		<interceptor>
 			<mapping path="/member/update"/>

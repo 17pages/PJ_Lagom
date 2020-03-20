@@ -21,7 +21,7 @@ padding : 0;
 
 body {
 background-color: #f5f6f7;
-font-size : 12px;
+font-size : 14px;
 }
 
 ul{
@@ -105,7 +105,7 @@ padding-bottom: 150px;
 /*정렬*/
 .board_sort_choice{
 	display: flex;
-	justify-content: flex-end;
+	justify-content: space-between;
 	padding: 0 -4px;
 }
 .board_sort_choice_c{
@@ -193,6 +193,7 @@ background-color:#cdbcb3;
 color : #ff5e00;
 padding-left: 3px;
 font-weight: bold;
+cursor:default;
 
 }
 
@@ -276,7 +277,15 @@ fieldset {
 	outline: none;
 	border-radius : 3px;
 }
+.search_result{
+display : flex;
+align-items:center;
 
+}
+.reset_bnt{
+cursor : pointer;
+padding-top : 3px;
+}
 
 /*New표시*/
 .twincle_eff{
@@ -350,12 +359,21 @@ fieldset {
 						</div>
 						<div class="board_sort">
 							<div class="board_sort_choice">
+								
+								<div class="search_result">
+								<c:if test="${!empty map.keyword}">
+									<div><span>"<span style="font-weight:bold">${map.keyword}</span>" 검색결과 <span style="font-weight:bold">${map.count}</span>건 검색되었습니다.</span></div>
+									<div class="reset_bnt"><a href="${path}/board/list"><img src="${path}/resources/img/icons8-cancel-30.png" width="20px"></a></div>
+								</c:if>
+								</div>
+								
 								<div class="board_sort_choice_c">
 									<div><a href="${path}/board/list?sort_option=new&keyword=${map.keyword}" id="sort_new">최신순</a></div>
 									<div><a href="${path}/board/list?sort_option=cnt&keyword=${map.keyword}" id="sort_cnt">조회순</a></div>
 									<div><a href="${path}/board/list?sort_option=good&keyword=${map.keyword}" id="sort_good">추천순</a></div>
 									<div class="last_choice" id=""><a href="${path}/board/list?sort_option=reply&keyword=${map.keyword}" id="sort_reply">댓글순</a></div>
 								</div>
+								
 							</div>
 						</div>
 						<div class="board_table_list board_table_wrap">
@@ -406,8 +424,8 @@ fieldset {
 										<td>
 											<div class="tb_left_wrap">
 												<div class="tb_left" id="title"><a href="">${list.title}</a>
+												<span class="reply_cnt">[${list.replycnt}]</span>
 												<c:if test = "${today == regdate}">
-													<span class="reply_cnt">[${list.replycnt}]</span>
 													<span class="new_color twincle_eff">N</span>
 												</c:if>	
 												</div>
@@ -446,7 +464,7 @@ fieldset {
 							<div class="border_content_search">
 								<form name="frm_search" action="${path}/board/list" method="GET">
 									<div class="board_search">
-										<input type="text" name="keyword" placeholder="검색어를 입력하세요." class="board_search_input">
+										<input type="text" name="keyword" placeholder="검색어를 입력하세요." class="board_search_input" value="${map.keyword}">
 										<button type="submit" class="board_search_btn"><i class="fas fa-search"></i></button>
 									</div>
 								</form>
@@ -501,7 +519,9 @@ fieldset {
 			$('#sort_' + sort_option).css('border-radius', '5px');
 			$('#sort_' + sort_option).css('font-weight', 'bold');
 		}
-			
+		
+		
+	
 	});
 
 		
