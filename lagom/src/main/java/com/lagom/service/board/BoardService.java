@@ -12,4 +12,6 @@ public interface BoardService  {
 	//목록(페이지 나누기, 검색 기능 포함)
 	public List<BoardDTO> titleList(String search_option, String keyword,String sort_option, int start, int end);
 
+	//가져오기..?
+	public BoardDTO detailView(int bno);
 }

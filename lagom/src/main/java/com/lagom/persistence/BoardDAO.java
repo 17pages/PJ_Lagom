@@ -17,6 +17,7 @@ public interface BoardDAO {
 	//목록(페이지 나누기, 검색 기능 포함) map 안에 1,10담아져있음
 	public List<BoardDTO> titleList(@Param("map")Map<String,Object>map);
 	
-	
+	//정보가져오기?
+	public BoardDTO detailView(int bno);
 
 }

@@ -423,8 +423,9 @@ padding-top : 3px;
 										</td>
 										<td>
 											<div class="tb_left_wrap">
-												<div class="tb_left" id="title"><a href="">${list.title}</a>
+												<div class="tb_left" id="title"><a href="${path}/board/view?bno=${list.bno}">${list.title}</a>
 												<span class="reply_cnt">[${list.replycnt}]</span>
+												
 												<c:if test = "${today == regdate}">
 													<span class="new_color twincle_eff">N</span>
 												</c:if>	

@@ -47,6 +47,11 @@ public class BoardServiceImpl implements BoardService {
 		
 		return bDao.countArticle(map);
 	}
+	@Override
+	public BoardDTO detailView(int bno) {
+		
+		return bDao.detailView(bno);
+	}
 
 	
 

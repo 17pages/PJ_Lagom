@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -64,6 +65,17 @@ public class BoardController {
 		
 		log.info(pager.toString());
 		return "board/list";
+	}
+	
+	@GetMapping("/view")
+	public String detailView(@ModelAttribute("boardDTO") BoardDTO bDto, int bno, Model model){
+		log.info(">>>>> GET Board Detail Page 출력");
+		
+		log.info(bDto.toString());
+		
+		model.addAttribute("one", bService.detailView(bno));
+		
+		return "board/view";
 	}
 	
 
