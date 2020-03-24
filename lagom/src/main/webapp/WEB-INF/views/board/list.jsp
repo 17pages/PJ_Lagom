@@ -423,7 +423,7 @@ padding-top : 3px;
 										</td>
 										<td>
 											<div class="tb_left_wrap">
-												<div class="tb_left" id="title"><a href="${path}/board/view?bno=${list.bno}">${list.title}</a>
+												<div class="tb_left" id="title"><a href="${path}/board/view/${list.bno}">${list.title}</a>
 												<span class="reply_cnt">[${list.replycnt}]</span>
 												
 												<c:if test = "${today == regdate}">

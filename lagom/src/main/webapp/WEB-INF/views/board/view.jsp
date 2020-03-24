@@ -441,10 +441,10 @@ border-radius: 2px;
 							
 							<div class="view_detail_menu">
 								<div class="view_replycnt">
-									<span>${one.replycnt}<br>댓글</span>
+									<span><strong>${one.replycnt}</strong><br>댓글</span>
 								</div>
 								<div class="view_goodcnt">
-									<span>${one.goodcnt}<br>추천</span>
+									<span><strong>${one.goodcnt}</strong><br>추천</span>
 								</div>
 							</div>
 						</div>
@@ -499,17 +499,19 @@ border-radius: 2px;
 									<a href=""><span>목록</span></a>
 									<a href=""><span>답글</span></a>
 								</div>
+								<c:if test="${name == one.writer}">
 								<div class="view_btn_right">
 									<a href=""><span>수정</span></a>
 									<a href=""><span>삭제</span></a>
 								</div>
+								</c:if>
 							</div>
 						</div>
 
 						<div class="view_post_comment">
 							<div class="comment_header">
 								<span>
-								<i class="fa fa-commenting"></i><strong>댓글 [5]</strong>
+								<i class="fa fa-commenting"></i><strong>댓글 [${one.replycnt}]</strong>
 								</span>
 							</div>
 

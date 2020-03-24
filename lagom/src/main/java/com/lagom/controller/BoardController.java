@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -67,12 +68,10 @@ public class BoardController {
 		return "board/list";
 	}
 	
-	@GetMapping("/view")
-	public String detailView(@ModelAttribute("boardDTO") BoardDTO bDto, int bno, Model model){
+	@GetMapping("/view/{bno}")
+	public String detailView(@PathVariable(value="bno") int bno, Model model){
 		log.info(">>>>> GET Board Detail Page 출력");
-		
-		log.info(bDto.toString());
-		
+				
 		model.addAttribute("one", bService.detailView(bno));
 		
 		return "board/view";
