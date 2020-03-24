@@ -78,8 +78,16 @@ public class BoardController {
 				
 		//2. DB에서 해당 bno정보를 get해서 View단으로 전송
 		model.addAttribute("one", bService.detailView(bno));
+		model.addAttribute("key", "dropBoard");
 		
 		return "board/view";
+	}
+	
+	@GetMapping("/delete")
+	public String delete(int bno) {
+		log.info(">>>>> GET : Board Delete Action");
+		bService.delBoard(bno);
+		return "redirect:/board/list";
 	}
 	
 

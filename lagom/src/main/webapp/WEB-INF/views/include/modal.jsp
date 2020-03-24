@@ -161,6 +161,9 @@ $(document).on('click', '.btn_no', function() {
 		var drop_main_txt = '${userid}님 정말 탈퇴하시겠습니까?'
 		var dropResult_main_txt = id+'님 탈퇴되셨습니다.';
 		var dropResult_sub_txt='그동안 LAGOM을 이용해주셔서 감사합니다.';
+		
+		var dropBoard_main_txt = "정말 삭제하시겠습니까?";
+		var dropBoardNo_main_txt = "댓글이 있는 게시글은 삭제할 수 없습니다.";
 				
 		if(key =='join') {
 			$('.msg_title').text(join_main_txt); //메인 텍스트
@@ -183,6 +186,14 @@ $(document).on('click', '.btn_no', function() {
 			$('#basicbtn_no').text('확 인');
 			$('.basicmodal_wrap').css('display', 'flex');
 			
+		} else if(key == 'dropBoard'){
+			if ('${one.replycnt}' == 0){//댓글이 없는 경우
+				$('.msg_title').text(dropBoard_main_txt);
+			}else{// 댓글이 있는 경우
+				$('.msg_title').text(dropBoardNo_main_txt);
+				$('#basicbtn_yes').css('display','none');
+				$('#basicbtn_no').text('확 인');
+			}
 		}
 		
 		$('.basicrecheck_close').on('click', function(){

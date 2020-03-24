@@ -78,4 +78,11 @@ public class BoardServiceImpl implements BoardService {
 			session.setAttribute("update_time_"+bno, current_time);
 		}
 	}
+	@Override
+	public void delBoard(int bno) {
+		bDao.delBoard(bno);
+	}
+	
+		
+	
 }

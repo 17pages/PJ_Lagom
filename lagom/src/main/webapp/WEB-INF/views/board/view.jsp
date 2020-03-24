@@ -419,6 +419,7 @@ border-radius: 2px;
 </style>
 </head>
 <body>
+<%@ include file="../include/modal.jsp"%>
 <jsp:useBean id="now" class="java.util.Date"/>
 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
 <div class="board_view_wrap">
@@ -501,8 +502,8 @@ border-radius: 2px;
 								</div>
 								<c:if test="${name == one.writer}">
 								<div class="view_btn_right">
-									<a href=""><span>수정</span></a>
-									<a href=""><span>삭제</span></a>
+									<a href="#"><span>수정</span></a>
+									<a href="#" class="post_delete_btn"><span >삭제</span></a>
 								</div>
 								</c:if>
 							</div>
@@ -588,6 +589,20 @@ border-radius: 2px;
 			</div>
 		</div>
 	</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script type="text/javascript">
+		
+		//삭제버튼 클릭시 모달창 open
+			$('.post_delete_btn').click(function(){
+				$('.basicmodal_wrap').css('display','flex');
+			});
+		
+		//삭제 알림 모달창에서 확인버튼 click -> 게시글 삭제
+		$('#basicbtn_yes').click(function(){
+			//alert("test");
+			location.href='${path}/board/delete?bno=${one.bno}';
+		});
+		</script>
 
 </body>
 </html>
