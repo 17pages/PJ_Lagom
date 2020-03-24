@@ -127,7 +127,18 @@ padding : 5px 15px;
 	text-align: center;
 	background-color: #e2e2e2;
 	border : 1px solid #e2e2e2;
-
+}
+.view_addfile{
+	margin-left : 6px;
+	display: block;
+	height: 40px;
+	padding : 8px 0;
+	border-radius: 2px;
+	width: 40px;
+	vertical-align: middle;
+	text-align: center;
+	background-color: #e2e2e2;
+	border : 1px solid #e2e2e2;
 }
 .view_detail_menu{
 	display: flex;
@@ -447,6 +458,10 @@ border-radius: 2px;
 								<div class="view_goodcnt">
 									<span><strong>${one.goodcnt}</strong><br>추천</span>
 								</div>
+								<div class="view_addfile">
+									<img src="${path}/resources/img/icons8-clipboard-26.png" width="20px" height="20px">
+									
+								</div>
 							</div>
 						</div>
 
@@ -497,7 +512,7 @@ border-radius: 2px;
 
 							<div class="view_content_btn">
 								<div class="view_btn_left">
-									<a href=""><span>목록</span></a>
+									<a href="${header.referer}" ><span>목록</span></a>
 									<a href=""><span>답글</span></a>
 								</div>
 								<c:if test="${name == one.writer}">
