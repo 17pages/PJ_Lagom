@@ -69,9 +69,14 @@ public class BoardController {
 	}
 	
 	@GetMapping("/view/{bno}")
-	public String detailView(@PathVariable(value="bno") int bno, Model model){
+	public String detailView(@PathVariable(value="bno") int bno, Model model,
+							HttpSession session){
 		log.info(">>>>> GET Board Detail Page 출력");
+		
+		//1. 해당 bno의 조회수 +1 증가
+		bService.increaseViewCnt(session, bno);
 				
+		//2. DB에서 해당 bno정보를 get해서 View단으로 전송
 		model.addAttribute("one", bService.detailView(bno));
 		
 		return "board/view";
