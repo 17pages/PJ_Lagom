@@ -357,6 +357,7 @@ border-radius: 2px;
 	cursor: pointer;
 }
 .re{
+	display:none;
 	margin : 0 0 5px 28px;
 }
 .add_commnet{
@@ -425,6 +426,9 @@ border-radius: 2px;
 	padding: 0 0 0 10px;
 	margin : 0 0 0 10px;
 	border-left: 1px dotted #ccc;
+}
+.comment_btn{
+display : flex;
 }
 
 </style>
@@ -512,6 +516,8 @@ border-radius: 2px;
 
 							<div class="view_content_btn">
 								<div class="view_btn_left">
+								
+								<!-- header.referer : (무조건)이전페이지로 보내줌 -->
 									<a href="${header.referer}" ><span>목록</span></a>
 									<a href=""><span>답글</span></a>
 								</div>
@@ -523,82 +529,9 @@ border-radius: 2px;
 								</c:if>
 							</div>
 						</div>
-
-						<div class="view_post_comment">
-							<div class="comment_header">
-								<span>
-								<i class="fa fa-commenting"></i><strong>댓글 [${one.replycnt}]</strong>
-								</span>
-							</div>
-
-							<div class="comment_content_wrap">
-								<div class="comment_row">
-									<div class="comment_info">
-										<div>
-											<span>닉네임</span>
-										</div>
-											<div class="comment_btn">
-										<div class="comment_plus">
-											<button class="comment_re">
-												대댓글
-											</button>
-												<button class="comment_re">
-												추천
-											</button>
-												<button class="comment_decl">
-
-												신고
-											</button>
-										</div>
-									</div>
-									</div>
-									<div class="comment_content">
-										<span>여기에는 댓글이 들어간드아아~</span>
-									</div>
-								</div>
-								<div class="comment_row re">
-									<div class="comment_info">
-										<div>
-											<span>닉네임</span>
-										</div>
-										
-										<div class="comment_btn">
-											<div class="comment_plus">
-												<button class="comment_re">
-													대댓글
-												</button>
-												<button class="comment_heart">
-												추천
-												</button>
-												<button class="comment_decl">
-												신고
-												</button>
-											</div>
-										</div>
-									</div>
-									<div class="comment_content">
-										<span>여기에는 댓글이 들어간드아아~</span>
-									</div>
-								</div>	
-							</div>
-						
-							<div class="comment_msg_no">
-								<i class="fa fa-commenting loading"></i>
-							새로운 댓글이 없습니다.</div>
-							<div class="comment_reflesh">
-								<button class="comment_more"><strong>새로운 댓글 확인하기</strong></button>
-							</div>
-
-							<div class="comment_add">
-								<div class="add_commnet_back"></div>
-								<div class="add_commnet">
-									<div class="commentEdit">
-										<textarea id="editCommentTextarea" placeholder="댓글을 입력하세요." style="resize: none;"></textarea>
-									</div>
-									<button type="button" class="comment_submit">댓글쓰기</button> 
-								</div>
-							</div>
-						</div>
+					<!-- 댓글창 -->
+					<div id="listReply"></div>
+					
 					</div>
 				</div>
 			</div>
@@ -606,7 +539,9 @@ border-radius: 2px;
 	</div>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script type="text/javascript">
-		
+		$(function(){ // document.ready.fuction
+			//페이지로딩 되자마자 호출하는 것. 
+			listReply();
 		//삭제버튼 클릭시 모달창 open
 			$('.post_delete_btn').click(function(){
 				$('.basicmodal_wrap').css('display','flex');
@@ -617,7 +552,20 @@ border-radius: 2px;
 			//alert("test");
 			location.href='${path}/board/delete?bno=${one.bno}';
 		});
+		
+		});
+		//댓글 목록 출력 함수 (댓글 출력할때마다 바뀌어야 해서, 빈도수가 높기 때문에 함수로 만듦)
+		//여기가 호출됨.
+		function listReply(){
+			$.ajax({
+				type: "get",
+				url: "${path}/reply/list?bno=${one.bno}",//어디에 소속된bno 리플인지 알기 위해서!, reply 컨트롤러에서 list를 찾고 bno를 받아라
+				success: function(result){
+					//result : responsText 응답텍스트(html)
+						$("#listReply").html(result);
+					}
+		          });
+		        }
 		</script>
-
 </body>
 </html>
