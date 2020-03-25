@@ -394,7 +394,7 @@ border-radius: 2px;
 	top : -88px;
 }
 
-.comment_submit{
+.comment_submit, .comment_submit_nologin{
 	display: table-cell;
 	color: #fff;
 	width: 106px;
@@ -553,6 +553,10 @@ display : flex;
 			location.href='${path}/board/delete?bno=${one.bno}';
 		});
 		
+		});
+		
+		$(document).on('click','.comment_submit_nologin', function(){
+			$('.modal_wrap').css('display', 'flex');
 		});
 		//댓글 목록 출력 함수 (댓글 출력할때마다 바뀌어야 해서, 빈도수가 높기 때문에 함수로 만듦)
 		//여기가 호출됨.

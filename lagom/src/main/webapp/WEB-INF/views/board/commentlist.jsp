@@ -75,6 +75,26 @@
 								</div>	
 							</div>
 							</c:forEach>
+							<c:if test="${list.size() == 0}">
+							<div class="comment_content_wrap">
+								<div class="comment_row">
+									<div class="comment_info">
+										<div>
+											<span>관리자</span>
+										</div>
+											<div class="comment_btn">
+											<div>
+											<fmt:formatDate value="${now}" pattern="MM-dd HH:mm"/>	
+											</div>	
+											</div>
+									</div>
+									
+									<div class="comment_content">
+										<span>등록된 게시글이 없습니다.</span>
+									</div>
+								</div>
+							</div>
+							</c:if>
 						
 							<div class="comment_msg_no">
 								<i class="fa fa-commenting loading"></i>
@@ -82,7 +102,20 @@
 							<div class="comment_reflesh">
 								<button class="comment_more"><strong>새로운 댓글 확인하기</strong></button>
 							</div>
-
+							
+							<c:choose>
+								<c:when test="${empty userid}">
+								<div class="comment_add">
+								<div class="add_commnet_back"></div>
+								<div class="add_commnet">
+									<div class="commentEdit">
+										<textarea id="editCommentTextarea" placeholder="로그인을 하셔야 댓글을 등록할 수 있습니다." style="resize: none;"></textarea>
+									</div>
+									<button type="button" class="comment_submit_nologin">댓글쓰기</button> 
+								</div>
+							</div>
+								</c:when>
+							<c:otherwise>
 							<div class="comment_add">
 								<div class="add_commnet_back"></div>
 								<div class="add_commnet">
@@ -92,6 +125,8 @@
 									<button type="button" class="comment_submit">댓글쓰기</button> 
 								</div>
 							</div>
+							</c:otherwise>
+							</c:choose>
 						</div>
 </body>
 </html>
