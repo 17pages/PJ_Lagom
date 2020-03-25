@@ -100,7 +100,7 @@
 								<i class="fa fa-commenting loading"></i>
 							새로운 댓글이 없습니다.</div>
 							<div class="comment_reflesh">
-								<button class="comment_more"><strong>새로운 댓글 확인하기</strong></button>
+								<button class="comment_more"><strong><i class="fas fa-sync-alt"></i> 새로운 댓글 확인하기</strong></button>
 							</div>
 							
 							<c:choose>
@@ -108,10 +108,10 @@
 								<div class="comment_add">
 								<div class="add_commnet_back"></div>
 								<div class="add_commnet">
-									<div class="commentEdit">
-										<textarea id="editCommentTextarea" placeholder="로그인을 하셔야 댓글을 등록할 수 있습니다." style="resize: none;"></textarea>
+									<div class="commentEdit comment_nologin">
+										<textarea id="editCommentTextarea" placeholder="로그인을 하셔야 댓글을 등록할 수 있습니다." style="resize: none; cursor:pointer;" readonly></textarea>
 									</div>
-									<button type="button" class="comment_submit_nologin">댓글쓰기</button> 
+									<button type="button" class="comment_submit_nologin" style="cursor : default;" readonly>댓글쓰기</button> 
 								</div>
 							</div>
 								</c:when>

@@ -553,9 +553,13 @@ display : flex;
 			location.href='${path}/board/delete?bno=${one.bno}';
 		});
 		
+		$('.comment_more').click(function(){
+			listReply();
 		});
 		
-		$(document).on('click','.comment_submit_nologin', function(){
+		});
+		
+		$(document).on('click','.comment_nologin', function(){
 			$('.modal_wrap').css('display', 'flex');
 		});
 		//댓글 목록 출력 함수 (댓글 출력할때마다 바뀌어야 해서, 빈도수가 높기 때문에 함수로 만듦)
