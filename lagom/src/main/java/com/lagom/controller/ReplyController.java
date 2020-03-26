@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lagom.domain.ReplyDTO;
 import com.lagom.service.reply.ReplyService;
@@ -35,6 +37,17 @@ public class ReplyController {
 		// rService.list가 서비스한테 받음. 
 		//화면단으로 이동할 경로
 		return "/board/commentlist"; // 담아서 여기로 보냄
+	}
+	@ResponseBody
+	@PostMapping("/insert")
+	public void insert(ReplyDTO rDto) {
+		log.info(">>>POST : Reply Insert DB");
+		
+		rService.insert(rDto);
+		
+		
+		
+		
 	}
 
 }

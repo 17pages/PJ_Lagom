@@ -15,6 +15,7 @@ import lombok.ToString;
 @ToString
 public class BoardDTO {
 	private int bno; //게시글 번호
+	private String type; // 게시판 종류
 	private String title; // 제목
 	private String content; //내용
 	private String writer; //작성자

@@ -27,4 +27,18 @@ public class ReplyServiceImpl implements ReplyService {
 		return rDao.list(bno); // 호출// DAO에서 값 보내줌. 댓글목록 담김
 	}
 
+	@Override
+	public void insert(ReplyDTO rDto) {
+		//비즈니스로직
+		//해당 게시글에 댓글을 등록하고, 
+		//해당 게시글의 reply_cnt를 +1한다.
+		//1.댓글등록
+		rDao.insert(rDto);
+		
+		//2. 게시글 수 증가
+		rDao.replyCntPlus(rDto.getBno());
+	}
+	
+
+
 }

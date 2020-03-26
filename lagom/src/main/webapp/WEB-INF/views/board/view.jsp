@@ -62,6 +62,7 @@ position: relative;
 border : 0px solid #000;
 background-color : #fff;
 padding : 5px 15px;
+padding-bottom : 25px;
 }
 /*head*/
 .view_head{
@@ -424,13 +425,24 @@ border-radius: 2px;
 .comment_decl{
 	color: #d7625e;
 	padding: 0 0 0 10px;
-	margin : 0 0 0 10px;
 	border-left: 1px dotted #ccc;
 }
 .comment_btn{
 display : flex;
 }
 
+.comment_msg_nono{
+font-weight: bold;
+    display: flex;
+    justify-content: center;
+    padding-top: 12px;
+    color: red;
+    visibility: hidden;
+}
+.comment_time{
+padding-top: 1px;
+padding-right : 6px;
+}
 </style>
 </head>
 <body>
@@ -446,7 +458,7 @@ display : flex;
 						<div class="view_head">
 							<div class="viewboard_name">
 								<span class="viewboard_name_icon"><i class="far fa-comments"></i></span>
-								<h2><a href="#">자유게시판</a></h2>
+								<h2><a href="${path}/board/list">자유게시판</a></h2>
 							</div>
 						</div>
 						<fmt:formatDate value="${one.updatedate}" pattern="yyyy-MM-dd" var="regdate"/>
@@ -457,10 +469,10 @@ display : flex;
 							
 							<div class="view_detail_menu">
 								<div class="view_replycnt">
-									<span><strong>${one.replycnt}</strong><br>댓글</span>
+									<strong>${one.replycnt}</strong><br>댓글
 								</div>
 								<div class="view_goodcnt">
-									<span><strong>${one.goodcnt}</strong><br>추천</span>
+									<strong>${one.goodcnt}</strong><br>추천
 								</div>
 								<div class="view_addfile">
 									<img src="${path}/resources/img/icons8-clipboard-26.png" width="20px" height="20px">
@@ -553,27 +565,63 @@ display : flex;
 			location.href='${path}/board/delete?bno=${one.bno}';
 		});
 		
-		$('.comment_more').click(function(){
-			listReply();
 		});
 		
+		$(document).on('click','.comment_more',function(){
+			listReply();
 		});
 		
 		$(document).on('click','.comment_nologin', function(){
 			$('.modal_wrap').css('display', 'flex');
+		});
+		
+		$(document).on('click', '.comment_submit', function(){
+			//alert('test');
+			var reply_txt = $('#editCommentTextarea').val();
+			
+			if(reply_txt == '' || reply_txt.length == 0){
+				$('#editCommentTextarea').focus();
+				$('.comment_msg_nono').css('visibility', 'visible');
+				return false;
+			}
+			//댓글등록
+			//1)type, content, writer, bno => 데이터 보내야함
+			
+			$('.reply_bno').val('${one.bno}');
+			$('.reply_type').val('${one.type}');
+			$('.reply_writer').val('${name}');
+		
+			//serialize : 직렬화 (차근차근 하나씩 보낸당)
+			$.ajax({
+				url: '${path}/reply/insert',
+				type: 'POST',
+				data: $('.frm_reply').serialize(),
+				success: function(){
+					listReply();
+				}
+				
+			});
 		});
 		//댓글 목록 출력 함수 (댓글 출력할때마다 바뀌어야 해서, 빈도수가 높기 때문에 함수로 만듦)
 		//여기가 호출됨.
 		function listReply(){
 			$.ajax({
 				type: "get",
+				async : false,
 				url: "${path}/reply/list?bno=${one.bno}",//어디에 소속된bno 리플인지 알기 위해서!, reply 컨트롤러에서 list를 찾고 bno를 받아라
 				success: function(result){
 					//result : responsText 응답텍스트(html)
 						$("#listReply").html(result);
 					}
+				
 		          });
-		        }
+			
+			//게시글 댓글 수 수정
+			//ajax는 비동기식이라 일처리가 되기도 전에 가져와버림. 그래서 동기식으로 바꿔줘야 하기때문에
+			// async : false를 붙여줘야함.
+			$('.view_replycnt >strong').text($('.replyListCnt').val());
+			
+		   }
 		</script>
 </body>
 </html>

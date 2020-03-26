@@ -14,6 +14,8 @@
 	<div class="view_post_comment">
 							<div class="comment_header">
 								<span>
+								<input type="hidden" class="replyListCnt" value="${list.size()}">
+								<!-- list.size는 comment꺼임 -->
 								<i class="fa fa-commenting"></i><strong>댓글 [${list.size()}]</strong>
 								<!-- 댓글의 총 카운트 수 list.size() -->
 								</span>
@@ -26,14 +28,14 @@
 											<span>${list.writer}</span>
 										</div>
 											<div class="comment_btn">
-											<div>
+											<div style="padding-right:7px;">
 											<fmt:formatDate value="${list.regdate}" pattern="MM-dd HH:mm"/>	
 											</div>	
 												<div class="comment_plus">
-													<button class="comment_re">
+													<button class="comment_re" style="padding:0;">
 														대댓글
 													</button>
-													<button class="comment_re">
+													<button class="comment_re" style="padding:0;">
 													추천
 													</button>
 													<button class="comment_decl">
@@ -83,7 +85,7 @@
 											<span>관리자</span>
 										</div>
 											<div class="comment_btn">
-											<div>
+											<div class="comment_time">
 											<fmt:formatDate value="${now}" pattern="MM-dd HH:mm"/>	
 											</div>	
 											</div>
@@ -100,7 +102,7 @@
 								<i class="fa fa-commenting loading"></i>
 							새로운 댓글이 없습니다.</div>
 							<div class="comment_reflesh">
-								<button class="comment_more"><strong><i class="fas fa-sync-alt"></i> 새로운 댓글 확인하기</strong></button>
+								<button type="button" class="comment_more"><strong><i class="fas fa-sync-alt"></i> 새로운 댓글 확인하기</strong></button>
 							</div>
 							
 							<c:choose>
@@ -116,15 +118,21 @@
 							</div>
 								</c:when>
 							<c:otherwise>
+							<form class="frm_reply">
+							<input type="hidden" name="bno" class="reply_bno">
+							<input type="hidden" name="type" class="reply_type">
+							<input type="hidden" name="writer" class="reply_writer">
 							<div class="comment_add">
 								<div class="add_commnet_back"></div>
 								<div class="add_commnet">
 									<div class="commentEdit">
-										<textarea id="editCommentTextarea" placeholder="댓글을 입력하세요." style="resize: none;"></textarea>
+										<textarea id="editCommentTextarea" name="content" placeholder="댓글을 입력하세요." style="resize: none;"></textarea>
 									</div>
 									<button type="button" class="comment_submit">댓글쓰기</button> 
 								</div>
+								<div class="comment_msg_nono"><span>댓글을 입력해주세요.</span></div>
 							</div>
+							</form>
 							</c:otherwise>
 							</c:choose>
 						</div>

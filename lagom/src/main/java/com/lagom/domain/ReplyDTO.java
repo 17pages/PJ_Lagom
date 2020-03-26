@@ -15,9 +15,11 @@ import lombok.ToString;
 @ToString
 public class ReplyDTO {
 	private int rno;
+	private String type;
 	private String content;
 	private String writer;
 	private Date regdate; //작성일자 
-	private Date updatedate; //수정일자
+	private Date updatedate;
+	private int bno;//수정일자
 
 }
