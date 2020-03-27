@@ -1,7 +1,5 @@
 package com.lagom.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,10 +42,14 @@ public class ReplyController {
 		log.info(">>>POST : Reply Insert DB");
 		
 		rService.insert(rDto);
+	}
+	//삭제
+	@ResponseBody
+	@PostMapping("/delete")
+	public void delete(int rno, int bno) {
+		log.info(">>>POST : Reply delete DB");
 		
-		
-		
-		
+		rService.delete(rno, bno);
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.lagom.persistence;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,4 +26,6 @@ public interface BoardDAO {
 	
 	//게시글 삭제
 	public void delBoard(int bno);
+	
+
 }

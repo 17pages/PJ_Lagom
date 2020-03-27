@@ -1,5 +1,6 @@
 package com.lagom.service.reply;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -36,7 +37,26 @@ public class ReplyServiceImpl implements ReplyService {
 		rDao.insert(rDto);
 		
 		//2. 게시글 수 증가
-		rDao.replyCntPlus(rDto.getBno());
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("bno", rDto.getBno());
+		map.put("type", "plus");
+		// rDao.replyCntPlus(rDto.getBno());
+		rDao.replycntUpdate(map);
+		
+	}
+	//댓글 삭제
+	@Override
+	public void delete(int rno, int bno) {
+		//댓글삭제
+		rDao.delete(rno);
+		
+		//댓글 수 감소-1
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("bno", bno);
+		map.put("type", "minus");
+		
+		rDao.replycntUpdate(map);
+		
 	}
 	
 

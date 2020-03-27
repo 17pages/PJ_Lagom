@@ -1,5 +1,6 @@
 package com.lagom.persistence;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -15,4 +16,15 @@ public interface ReplyDAO {
 	
 	//댓글 수 +1
 	public void replyCntPlus(@Param("bno") int bno);
+	
+	//댓글 수 -1
+	public void replyCntMinus(@Param("bno") int bno);
+	
+	//동적쿼리
+	public void replycntUpdate(@Param("map") HashMap<String, Object> map);
+	
+	
+	//댓글삭제
+	public void delete(@Param("rno") int rno);
+	
 }

@@ -443,6 +443,15 @@ font-weight: bold;
 padding-top: 1px;
 padding-right : 6px;
 }
+.reply_del_btn{
+    margin-left: 5px;
+    background-color: #BABABA;
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor : pointer;
+    
+}
 </style>
 </head>
 <body>
@@ -602,6 +611,24 @@ padding-right : 6px;
 				
 			});
 		});
+		//댓글 삭제
+		$(document).on('click', '.reply_del_btn', function(){
+			var rno = $(this).attr('data_num');
+			//alert(rno);
+			var bno = '${one.bno}';
+			//alert(bno);
+			
+			$.ajax({
+				type: "POST",
+				url:'${path}/reply/delete',
+				data:{'rno' : rno, 'bno' : bno},
+				success : function(){
+					listReply();
+				}
+			});
+			
+		});
+			
 		//댓글 목록 출력 함수 (댓글 출력할때마다 바뀌어야 해서, 빈도수가 높기 때문에 함수로 만듦)
 		//여기가 호출됨.
 		function listReply(){
@@ -612,16 +639,15 @@ padding-right : 6px;
 				success: function(result){
 					//result : responsText 응답텍스트(html)
 						$("#listReply").html(result);
-					}
-				
-		          });
+				}
+		    });
 			
 			//게시글 댓글 수 수정
 			//ajax는 비동기식이라 일처리가 되기도 전에 가져와버림. 그래서 동기식으로 바꿔줘야 하기때문에
 			// async : false를 붙여줘야함.
 			$('.view_replycnt >strong').text($('.replyListCnt').val());
 			
-		   }
-		</script>
+		    }
+</script>
 </body>
 </html>
