@@ -561,6 +561,9 @@ padding-right : 6px;
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<script type="text/javascript">
 		$(function(){ // document.ready.fuction
+			//자동으로 새로고침 되는 기능, setinterval = javascript내장함수 1000=1초 5분에 한번씩 실행해라
+			setInterval(refreshReply, 180000);
+			
 			//페이지로딩 되자마자 호출하는 것. 
 			listReply();
 		//삭제버튼 클릭시 모달창 open
@@ -577,6 +580,7 @@ padding-right : 6px;
 		});
 		
 		$(document).on('click','.comment_more',function(){
+			//alert("되냥");
 			listReply();
 		});
 		
@@ -662,6 +666,13 @@ padding-right : 6px;
 			$('.view_replycnt >strong').text($('.replyListCnt').val());
 			
 		    }
+		
+			function refreshReply(){
+			
+				listReply();
+			}
+				
+			
 </script>
 </body>
 </html>
