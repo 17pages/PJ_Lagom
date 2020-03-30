@@ -470,9 +470,11 @@ padding-top : 3px;
 									</div>
 								</form>
 							</div>
+							
 							<div class="board_write_btn_wrap">
 							<button class="write_btn"><div class="write_btn">글쓰기</div></button>
 							</div>
+							
 						</div>
 						<div class="board_paging_wrap">
 							<div class="board_paging">
@@ -524,6 +526,14 @@ padding-top : 3px;
 		
 	
 	});
+	
+	$(document).on('click','.write_btn',function(){
+		//alert("ㄱㄱ");
+		location.href='${path}/board/register';
+		
+	});
+	
+	
 
 		
 	</script>

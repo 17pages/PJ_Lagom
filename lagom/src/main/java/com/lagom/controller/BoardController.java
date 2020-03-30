@@ -89,7 +89,12 @@ public class BoardController {
 		bService.delBoard(bno);
 		return "redirect:/board/list";
 	}
-	
+	@GetMapping("/register")
+	public String register() {
+		log.info(">>>>>>>>>GET : Board Write Action");
+		
+		return "board/register";
+	};
 
 
 }
