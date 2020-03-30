@@ -36,12 +36,13 @@ public class ReplyController {
 		//화면단으로 이동할 경로
 		return "/board/commentlist"; // 담아서 여기로 보냄
 	}
-	@ResponseBody
+	@ResponseBody // 원래 돌아가던 곳으로 감 view.jsp의 ajax
 	@PostMapping("/insert")
 	public void insert(ReplyDTO rDto) {
 		log.info(">>>POST : Reply Insert DB");
 		
 		rService.insert(rDto);
+		
 	}
 	//삭제
 	@ResponseBody

@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lagom.domain.ReplyDTO;
 import com.lagom.persistence.ReplyDAO;
@@ -27,26 +28,30 @@ public class ReplyServiceImpl implements ReplyService {
 	public List<ReplyDTO> list(int bno) { //list<replyDTO> 보내야함. 해당게시글의 댓글목록을 보내주는역할 // 댓글목록은 DB에 있음. 
 		return rDao.list(bno); // 호출// DAO에서 값 보내줌. 댓글목록 담김
 	}
-
+	
+	@Transactional
 	@Override
 	public void insert(ReplyDTO rDto) {
+		//하나의 로직안에서 DB두번탐
+		
 		//비즈니스로직
 		//해당 게시글에 댓글을 등록하고, 
 		//해당 게시글의 reply_cnt를 +1한다.
 		//1.댓글등록
-		rDao.insert(rDto);
+		rDao.insert(rDto); //호출문
 		
 		//2. 게시글 수 증가
 		HashMap<String, Object> map = new HashMap<>();
 		map.put("bno", rDto.getBno());
 		map.put("type", "plus");
 		// rDao.replyCntPlus(rDto.getBno());
-		rDao.replycntUpdate(map);
+		rDao.replycntUpdate(map); // bno와 plus를  map에 담아서 보내
+		//void면 호출쓰..
 		
 	}
 	//댓글 삭제
 	@Override
-	public void delete(int rno, int bno) {
+	public void delete(int rno, int bno) { //db를 두번씩 탐
 		//댓글삭제
 		rDao.delete(rno);
 		

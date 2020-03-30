@@ -584,10 +584,15 @@ padding-right : 6px;
 			$('.modal_wrap').css('display', 'flex');
 		});
 		
+	
+		//댓글쓰기 버튼을 누르면 여기로 옮
 		$(document).on('click', '.comment_submit', function(){
 			//alert('test');
 			var reply_txt = $('#editCommentTextarea').val();
 			
+			//3. 조건문 사용자가 입력한 값이 ''이거나 길이가 0이면 null값이기 때문에 댓글 입력부분으로 포커스 이동
+			//경고메시지 출력하고 여기서 이벤트 종료
+			//사용자가 입력한 값이 있으면 실행하지 않고 통과
 			if(reply_txt == '' || reply_txt.length == 0){
 				$('#editCommentTextarea').focus();
 				$('.comment_msg_nono').css('visibility', 'visible');
@@ -595,16 +600,23 @@ padding-right : 6px;
 			}
 			//댓글등록
 			//1)type, content, writer, bno => 데이터 보내야함
-			
+			//
 			$('.reply_bno').val('${one.bno}');
 			$('.reply_type').val('${one.type}');
 			$('.reply_writer').val('${name}');
 		
 			//serialize : 직렬화 (차근차근 하나씩 보낸당)
+			//form태그 안에 있는 input, textarea 등등 이런것만 가져감.
+			//input 3개랑 textarea가져감 (commentlist에 있는거)
+			//서버단에서는 무조건 네임값만 받음!
 			$.ajax({
 				url: '${path}/reply/insert',
 				type: 'POST',
-				data: $('.frm_reply').serialize(),
+				data: $('.frm_reply').serialize(), // 직렬화, 쿼리스트링을 자동으로 만들어줌
+				//form 태그안의 input태그의 name 으로 만들어줌. 
+				// json 방법 {"bno" : bno, "type":type, "writer":name, "content":content},	
+				//쿼리스트링을 이용한 방법 : data가 필요없음 url에 담아서 보내니까
+				//${path}/reply/insert=?bno='+bno'&type='+type+'&writer='+writer'&name='&content='+content,
 				success: function(){
 					listReply();
 				}
@@ -621,6 +633,8 @@ padding-right : 6px;
 			$.ajax({
 				type: "POST",
 				url:'${path}/reply/delete',
+				//json방법, key value로 넣는다. key value페어라고 함. 받는쪽이 key로 꺼냄""안에 있는게 키
+				//replyDTO안의 이름과 같아야함.
 				data:{'rno' : rno, 'bno' : bno},
 				success : function(){
 					listReply();
