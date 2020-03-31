@@ -379,8 +379,7 @@ to {
 
 		<section>
 			<%--<form name="frm_member" action="${path}/member/join" method="POST" id="frm_member">--%>
-			<form:form id="frm_member" modelAttribute="memberDTO"
-				autocomplete="on">
+			<form:form id="frm_member" modelAttribute="memberDTO" autocomplete="on">
 				<div class="container">
 					<div class="join_content">
 						<div class="join_sns" id="simple">

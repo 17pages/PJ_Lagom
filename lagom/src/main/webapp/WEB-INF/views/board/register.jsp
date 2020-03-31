@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ include file="../include/header.jsp"%>
 <!DOCTYPE html>
 <html>
@@ -91,7 +92,7 @@ padding : 5px 15px;
 	padding : 15px 0;
 	width: 100%;
 }
-.wirte_content_btn a{
+.wirte_content_btn > button{
 	padding : 6px 14px;
 	font-size: 15px;
 	font-weight: bold;
@@ -99,6 +100,7 @@ padding : 5px 15px;
 	background-color: #636363; 
 	border : 1px solid #636363;
 	border-radius: 3px;
+	cursor : pointer;
 
 }
 /*작성자칸*/
@@ -150,7 +152,7 @@ padding : 5px 15px;
 /*게시글등록*/
 .write_content{
 	padding: 10px 15px;
-	height: 500px;
+	height: 550px;
 	border-bottom:1px solid #e2e2e2;
 
 }
@@ -191,7 +193,7 @@ padding : 5px 15px;
 <body>
 <div class="view_write_wrap">
 		<div class="view_write_content_wrap">
-			<form action="" method="">
+			
 			<div class="view_write_content">
 				
 				<div class="write_head">
@@ -200,17 +202,20 @@ padding : 5px 15px;
 						<h2><a href="#">게시글 등록</a></h2>
 					</div>
 				</div>
-
+				<form:form id="frm_board">
 				<div class="write_writer">
 					<div class="write_icon"><i class="fas fa-user"></i></div>
-					<div class="writer_name">user</div>
+					<div class="writer_name">${name}
+						<input type="hidden" value="${name}" name="writer">
+					</div>
 				</div>
 				
 				<div class="write_select">
 					<label>
 						게시판 
 					</label> 
-					<select id="board">
+					<!-- name은 DTO에 쓴거랑 맞추기 // select값은 value가 넘어옴-->
+					<select id="board" name="type">
 						<option value="free">자유게시판</option>
 						<option value="qna">Q & A</option>
 						<option value="review">Review</option>
@@ -220,12 +225,13 @@ padding : 5px 15px;
 
 				<div class="wirte_title_wrap">
 					<div class="write_title">제목</div>
-					<div><input type="text" name="write_title" id="write_title" placeholder="제목을 입력해주세요."></div>
+					<div><input type="text" name="title" id="write_title" placeholder="제목을 입력해주세요."></div>
 				</div>
 
 
 				<div class="write_content">
-					<textarea style="width: 100%; height: 480px;" class="write_textarea"></textarea>
+					<script type="text/javascript" src="${path}/resources/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+					<textarea style="width: 987px; height: 480px; min-width:100%;" class="write_textarea" id="board_content" name="content"></textarea>
 				</div>
 
 
@@ -239,17 +245,49 @@ padding : 5px 15px;
 				</div>
 				
 				<div class="wirte_content_btn">
-					<a href="#">취소</a>
-					<a href="#">글 등록</a>
+					<button type="button" class="write_no_btn">취소</button>
+					<button type="button" class="write_yes_btn">글 등록</button>
 				</div>
 
 			</div>
-			</form>
+			</form:form>
 			
 		</div>
 		
 	</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+			
+	});
+	$(document).on('click', '.write_no_btn', function(){
+		var referer = '${header.referer}';
+		//console.log('이전 URL : ' + referer);
+		
+		var index= referer.indexOf('/board/list');
+		//console.log('index :' + referer.indexOf('/board/list'))
+		
+		
+		if(index == '-1'){
+			location.href='${path}/board/list';
+		}else{
+			location.href='${header.referer}';
+		}
+		
+		
+	//location.href='${header.referer}';
+	});
 
+</script>
+<script type="text/javascript">
+	var oEditors = [];
+	nhn.husky.EZCreator.createInIFrame({
+ 		oAppRef: oEditors,
+ 		elPlaceHolder: "board_content",
+ 		sSkinURI: "${path}/resources/smarteditor/SmartEditor2Skin.html",
+ 		fCreator: "createSEditor2"
+	});
+</script>
 
 </body>
 </html>
