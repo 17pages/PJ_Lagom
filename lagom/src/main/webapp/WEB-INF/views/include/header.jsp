@@ -629,19 +629,16 @@ margin-right : 9px;
 </body>
 
 <script type="text/javascript">
-
+var message = '${message}';
+var uri = '${uri}';
 $(function(){
-	
-	var message = '${message}';
 	if(message == 'nologin'){
 		$('.modal_wrap').css('display', 'flex');
 		$('#input_id').focus();
 		$('.login_error').css('display', 'block')
 						.text('로그인이 필요한 기능입니다.');
 	}
-	
-	
-});
+ });
 	//jQuery 문법
 	//$('선택자').옵션();
 	//$('test').css('color', 'green');
@@ -695,6 +692,7 @@ $(function(){
 				$('.pw_eye').html('<i class="fas fa-eye-slash"></i>').css(
 						'color', '#AAA');
 				$('.login_error').css('display','none');
+				uri='';
 			});
 
 	//LOGIN modal창 암호 보이기 or 숨기기
@@ -755,7 +753,12 @@ $(function(){
 							.text('아이디 및 비밀번호를 확인하거나 계정을 생성하세요.');
 						}else if(data == 1){
 							console.log('로그인 성공');
-							location.reload();//새로고침
+							
+							if(uri == '') {
+								location.reload();//새로고침
+							}else {
+								location.href = uri;
+							}
 							
 						}else if(data == 2){
 							$('.login_error').css('display', 'block')

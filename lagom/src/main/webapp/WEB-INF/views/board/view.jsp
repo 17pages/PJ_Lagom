@@ -521,7 +521,7 @@ padding-right : 6px;
 							<div class="post_content">
 								<article>
 									<div class="post_article fr-view">
-										<p>글내용~</p>
+										<p>${one.content}</p>
 									</div>
 								</article>
 							</div>
@@ -539,7 +539,7 @@ padding-right : 6px;
 								<div class="view_btn_left">
 								
 								<!-- header.referer : (무조건)이전페이지로 보내줌 -->
-									<a href="${header.referer}" ><span>목록</span></a>
+									<a href="${header.referer}" class="view_list" ><span>목록</span></a>
 									<a href=""><span>답글</span></a>
 								</div>
 								<c:if test="${name == one.writer}">
@@ -577,6 +577,21 @@ padding-right : 6px;
 			location.href='${path}/board/delete?bno=${one.bno}';
 		});
 		
+		});
+		
+		//목록버튼
+		
+		$(document).on('click', '.view_list', function(){
+			var referer = '${header.referer}';
+			//console.log('이전 URL : ' + referer);
+			
+			var index= referer.indexOf('/board/list');
+			//console.log('index :' + referer.indexOf('/board/list'))
+			
+			if(index == '-1'){
+				$('.view_list').prop('href', '/lagom/board/list')
+			}
+						
 		});
 		
 		$(document).on('click','.comment_more',function(){
@@ -625,6 +640,8 @@ padding-right : 6px;
 					listReply();
 				}
 				
+				
+		
 			});
 		});
 		//댓글 삭제

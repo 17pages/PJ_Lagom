@@ -529,7 +529,7 @@ padding-top : 3px;
 	
 	$(document).on('click','.write_btn',function(){
 		//alert("ㄱㄱ");
-		location.href='${path}/board/register';
+		location.href='${path}/board/write';
 		
 	});
 	

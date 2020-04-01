@@ -186,6 +186,13 @@ padding : 5px 15px;
 .addfile_title{
 	font-weight: bold;
 }
+/*경고*/
+.err_msg{
+padding-left : 10px;
+color : #d95339;
+font-size : 14px;
+display : none;
+}
 
 
 </style>
@@ -226,6 +233,7 @@ padding : 5px 15px;
 				<div class="wirte_title_wrap">
 					<div class="write_title">제목</div>
 					<div><input type="text" name="title" id="write_title" placeholder="제목을 입력해주세요."></div>
+					<div class="err_msg">제목을 입력해주세요.</div>
 				</div>
 
 
@@ -263,19 +271,38 @@ padding : 5px 15px;
 	$(document).on('click', '.write_no_btn', function(){
 		var referer = '${header.referer}';
 		//console.log('이전 URL : ' + referer);
-		
 		var index= referer.indexOf('/board/list');
 		//console.log('index :' + referer.indexOf('/board/list'))
-		
 		
 		if(index == '-1'){
 			location.href='${path}/board/list';
 		}else{
 			location.href='${header.referer}';
 		}
-		
-		
 	//location.href='${header.referer}';
+	});
+	
+	$(document).on('click', '.write_yes_btn', function(){
+		//유효성체크 (제목)
+		var title = $('#write_title').val();
+		if(title == '' || title.legnth == 0) {
+			//에러메세지 '제목을 입력해주세요.'
+			$('.err_msg').css('display', 'block')
+;			return false;
+		}else{
+			//서버로 전송
+			//alert('서버로 ㄱㄱ');
+			oEditors.getById["board_content"].exec("UPDATE_CONTENTS_FIELD", []);
+			$('#frm_board').submit();
+		}
+	});
+	
+	$(document).on('keyup', '#write_title', function(){
+		var len = $(this).length;
+		
+		if(len !=0){
+			$('.err_msg').css('display', 'none');
+		}
 	});
 
 </script>

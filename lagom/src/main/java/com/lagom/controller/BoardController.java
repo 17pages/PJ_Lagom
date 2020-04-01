@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -89,12 +90,22 @@ public class BoardController {
 		bService.delBoard(bno);
 		return "redirect:/board/list";
 	}
-	@GetMapping("/register")
-	public String register() {
-		log.info(">>>>>>>>>GET : Board Write Action");
+	@GetMapping("/write")
+	public String write() {
+		log.info(">>>>>>>>>GET : Board Write page");
 		
 		return "board/register";
-	};
+	}
+	@PostMapping("/write")
+	public String write(BoardDTO bDto) {
+		log.info(">>>>>>>>>>>> Post : Board write Action");
+		log.info(bDto.toString());
+		
+		//댓글 DB등록
+		bService.write(bDto);
+		return "redirect:/board/list";
+		//rediret를 써야 새로운 페이지를 만들어줌
+	}
 
 
 }
