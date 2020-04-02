@@ -25,4 +25,7 @@ public interface BoardService  {
 	
 	//게시글 DB등록
 	public void write(BoardDTO bDto);
+	
+	//수정글 등록
+	public void updateBoard(BoardDTO bDto);
 }

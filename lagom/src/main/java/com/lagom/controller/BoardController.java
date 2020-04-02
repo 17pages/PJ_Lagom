@@ -106,6 +106,26 @@ public class BoardController {
 		return "redirect:/board/list";
 		//rediret를 써야 새로운 페이지를 만들어줌
 	}
+	@GetMapping("/update")
+	//어디로 가는지 명시하니까 string쓰는거
+	public String updateBoard(int bno, Model model) {
+		log.info(">>>> GET : Board update View page");
+		log.info("bno :" + bno);
+		
+		//수정을 원하는 게시글의 정보를 (1줄) 원함
+		model.addAttribute("one", bService.detailView(bno));
+		
+		return "/board/register";
+	}
+	@PostMapping("/update")
+	public String updateBoard(BoardDTO bDto) {
+		log.info(">>>> POST : Board update Action");
+		
+		bService.updateBoard(bDto);
+		
+		return "redirect:/board/view/"+bDto.getBno();
+		
+	}
 
 
 }

@@ -88,6 +88,12 @@ public class BoardServiceImpl implements BoardService {
 		bDao.write(bDto);
 		
 	}
+	@Override
+	public void updateBoard(BoardDTO bDto) {
+		
+		bDao.updateBoard(bDto);
+		
+	}
 	
 		
 	

@@ -206,7 +206,7 @@ display : none;
 				<div class="write_head">
 					<div class="writeboard_name">
 						<span class="writeboard_name_icon"><i class="far fa-edit"></i></span>
-						<h2><a href="#">게시글 등록</a></h2>
+						<h2><a href="#" class="writeboard_header">게시글 등록</a></h2>
 					</div>
 				</div>
 				<form:form id="frm_board">
@@ -222,9 +222,9 @@ display : none;
 						게시판 
 					</label> 
 					<!-- name은 DTO에 쓴거랑 맞추기 // select값은 value가 넘어옴-->
-					<select id="board" name="type">
+					<select class="board_type" name="type">
 						<option value="free">자유게시판</option>
-						<option value="qna">Q & A</option>
+						<option value="qna" >Q & A</option>
 						<option value="review">Review</option>
 					</select>
 				</div>
@@ -232,14 +232,16 @@ display : none;
 
 				<div class="wirte_title_wrap">
 					<div class="write_title">제목</div>
-					<div><input type="text" name="title" id="write_title" placeholder="제목을 입력해주세요."></div>
+					<div><input type="text" name="title" id="write_title" placeholder="제목을 입력해주세요." value="${one.title}"></div>
 					<div class="err_msg">제목을 입력해주세요.</div>
 				</div>
+				<!-- 등록/수정 페이지를 공유하고 있음. 그런데 등록 페이지 (컨트롤에서)에는 one이라는 데이터를 보내지 않기때문에 새로 글쓸때에는 제목이 없는것
+				고로, 수정할때만 컨트롤에서 one을 가져오니까욘..! -->
 
 
 				<div class="write_content">
 					<script type="text/javascript" src="${path}/resources/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
-					<textarea style="width: 987px; height: 480px; min-width:100%;" class="write_textarea" id="board_content" name="content"></textarea>
+					<textarea style="width: 987px; height: 480px; min-width:100%;" class="write_textarea" id="board_content" name="content">${one.content}</textarea>
 				</div>
 
 
@@ -266,6 +268,19 @@ display : none;
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function(){
+		//alert('데이터 : ' + '${one}');
+		
+		//register ==> 게시글 등록과 게시글 수정 공유중
+		// 등록과 수정을 선택하는 
+		//${one}의 값이 있으면 수정페이지 로딩 
+		if('${one}' !=''){
+			//수정페이지로 디자인 변경
+			$('.writeboard_header').text('게시글 수정');
+			$('.write_yes_btn').text('수정');
+			//SelectBox 값으로 selected
+			$('.board_type').val('${one.type}').attr('selected', 'selected');
+			
+		}
 			
 	});
 	$(document).on('click', '.write_no_btn', function(){
@@ -287,8 +302,8 @@ display : none;
 		var title = $('#write_title').val();
 		if(title == '' || title.legnth == 0) {
 			//에러메세지 '제목을 입력해주세요.'
-			$('.err_msg').css('display', 'block')
-;			return false;
+			$('.err_msg').css('display', 'block');
+			return false;
 		}else{
 			//서버로 전송
 			//alert('서버로 ㄱㄱ');

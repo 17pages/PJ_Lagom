@@ -340,6 +340,7 @@ padding-top : 3px;
 <body>
 <jsp:useBean id="now" class="java.util.Date"/>
 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
+
 <div class="board_wrap">
 <header>
 	<div class="header">
@@ -414,8 +415,9 @@ padding-top : 3px;
 								</thead>
 								<!-- 게시글 -->
 								<c:forEach items="${map.list}" var="list">
+								<fmt:formatDate value="${list.regdate}" pattern="yyyy-MM-dd" var="regdate"/>
 									
-									<fmt:formatDate value="${list.updatedate}" pattern="yyyy-MM-dd" var="regdate"/>
+									
 								<tbody>
 									<tr>
 										<td>
@@ -423,12 +425,13 @@ padding-top : 3px;
 										</td>
 										<td>
 											<div class="tb_left_wrap">
-												<div class="tb_left" id="title"><a href="${path}/board/view/${list.bno}">${list.title}</a>
-												<span class="reply_cnt">[${list.replycnt}]</span>
+												<div class="tb_left" id="title">
+													<a href="${path}/board/view/${list.bno}">${list.title}</a>
+													<span class="reply_cnt">[${list.replycnt}]</span>
 												
-												<c:if test = "${today == regdate}">
-													<span class="new_color twincle_eff">N</span>
-												</c:if>	
+													<c:if test="${today == regdate}">
+														<span class="new_color twincle_eff">N</span>
+													</c:if>	
 												</div>
 											</div>
 										</td>
@@ -443,15 +446,16 @@ padding-top : 3px;
 										</td>
 										<td>
 											<div class="tb_id">
-											<c:choose>
-												<c:when test = "${today == regdate}">
-													<fmt:formatDate value="${list.updatedate}" pattern="HH:mm:ss"/>
-												</c:when>
-												<c:otherwise>
-													<fmt:formatDate value="${list.updatedate}" pattern="yyyy-MM-dd"/>
-												</c:otherwise>
-											</c:choose>	
-													</div>
+												<fmt:formatDate value="${list.updatedate}" pattern="yyyy-MM-dd" var="update"/>
+												<c:choose>
+													<c:when test="${today == update}">
+														<fmt:formatDate value="${list.updatedate}" pattern="HH:mm:ss"/>
+													</c:when>
+													<c:otherwise>
+														<fmt:formatDate value="${list.updatedate}" pattern="yyyy-MM-dd"/>
+													</c:otherwise>
+												</c:choose>
+											</div>
 										</td>
 										<td>
 											<div class="tb_id tb_img"><img src="${path}/resources/img/icons8-clipboard-26.png"></div>

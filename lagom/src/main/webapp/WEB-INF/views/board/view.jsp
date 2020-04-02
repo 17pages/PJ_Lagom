@@ -452,6 +452,17 @@ padding-right : 6px;
     cursor : pointer;
     
 }
+
+.update_time{
+font-size : 10px;
+	display : flex;
+	float : right;
+	
+}
+.update_time > span{
+font-size : 10px;
+padding-left : 2px;
+}
 </style>
 </head>
 <body>
@@ -505,7 +516,7 @@ padding-right : 6px;
 								<div class="post_author">
 								<span>
 									<span><i class="far fa-clock">
-									<fmt:formatDate value="${one.updatedate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+									<fmt:formatDate value="${one.regdate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 									</i></span>
 								</span>
 							</div>
@@ -516,6 +527,13 @@ padding-right : 6px;
 
 						<div class="post_content_wrap">
 							<div class="post_content_content_wrap">
+							
+							<c:if test="${one.regdate != one.updatedate}">
+								<div class="update_time">
+									<fmt:formatDate value="${one.updatedate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+									<span>수정됨</span>
+								</div>
+							</c:if>
 							
 
 							<div class="post_content">
@@ -544,7 +562,8 @@ padding-right : 6px;
 								</div>
 								<c:if test="${name == one.writer}">
 								<div class="view_btn_right">
-									<a href="#"><span>수정</span></a>
+								<!-- 쿼리스트링으로 보내기 화면단에서 보내는거 -->
+									<a href="${path}/board/update?bno=${one.bno}" class="view_update_btn"><span>수정</span></a>
 									<a href="#" class="post_delete_btn"><span >삭제</span></a>
 								</div>
 								</c:if>
