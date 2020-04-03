@@ -15,7 +15,7 @@ import org.springframework.web.servlet.support.RequestContextUtils;
  * */
 
 import lombok.extern.slf4j.Slf4j;
-
+//인터셉터는 URL만 낚아챔 get,post노상관
 @Slf4j
 public class LoginInterceptor extends HandlerInterceptorAdapter{
 	//URL전
@@ -58,7 +58,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			log.info("NEXT URL >>>>> " + nextUrl);
 			
 			if(nextUrl.equals("/board/update") || nextUrl.equals("/board/delete")) {//상세게시글에서 넘어왔을때만 정상
-				if(request.getParameter("title")==null){
+				if(request.getParameter("title")==null){ // 제대로 들어가서 수정을 하고 수정버튼을 누르는 경우에는 타이틀이 존재함. 비정상적으로 들어가서  
 					log.info("alasdfasdf : " + prevUrl.indexOf("board/view")); 
 						if(prevUrl.indexOf("board/view")== -1) {// 작성자만이 수정할 수 있도록 하는 것 (board/view에서 왔는지 물어봄- 로그인 하지않는한 불가능)
 					//수정삭제를 원하면 반드시 view테이블에서 와야함.

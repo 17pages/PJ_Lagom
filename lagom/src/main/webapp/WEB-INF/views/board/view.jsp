@@ -178,7 +178,10 @@ padding-bottom : 25px;
 .view_post_count{
 	display: flex;
 	justify-content: center;
-	align-items: center;
+	align-items: baseline;
+}
+.view_post_count > span{
+padding-right : 4px;
 }
 .view_info_viewcnt{
 	display: flex;
