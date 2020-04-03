@@ -58,8 +58,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			log.info("NEXT URL >>>>> " + nextUrl);
 			
 			if(nextUrl.equals("/board/update") || nextUrl.equals("/board/delete")) {//상세게시글에서 넘어왔을때만 정상
-				log.info("alasdfasdf : " + prevUrl.indexOf("board/view")); 
-				if(prevUrl.indexOf("board/view")== -1) {// 작성자만이 수정할 수 있도록 하는 것 (board/view에서 왔는지 물어봄- 로그인 하지않는한 불가능)
+				if(request.getParameter("title")==null){
+					log.info("alasdfasdf : " + prevUrl.indexOf("board/view")); 
+						if(prevUrl.indexOf("board/view")== -1) {// 작성자만이 수정할 수 있도록 하는 것 (board/view에서 왔는지 물어봄- 로그인 하지않는한 불가능)
 					//수정삭제를 원하면 반드시 view테이블에서 와야함.
 					log.info("WARNING >> 비정상적인 접근");
 					response.sendRedirect(finalUrl);
@@ -67,6 +68,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 				}
 			}
 		}
+	}
 			
 		//정상적인 접근인 경우 실행
 		//로그인 NO
