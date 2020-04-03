@@ -289,12 +289,16 @@ display : none;
 		var index= referer.indexOf('/board/list');
 		//console.log('index :' + referer.indexOf('/board/list'))
 		
-		if(index == '-1'){
-			location.href='${path}/board/list';
-		}else{
+		if(index != '-1'){
+			//글목록에서 글쓰기 버튼들어왔을때
 			location.href='${header.referer}';
+		} else if('${one}' != ''){
+			location.href = '${path}/board/view/${one.bno}';
+		} else{
+				//외부에서 들어왔을때
+			location.href='${path}/board/list';	
 		}
-	//location.href='${header.referer}';
+		//location.href='${header.referer}';
 	});
 	
 	$(document).on('click', '.write_yes_btn', function(){
