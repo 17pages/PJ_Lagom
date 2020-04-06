@@ -101,9 +101,10 @@ public class BoardController {
 		log.info(">>>>>>>>>>>> Post : Board write Action");
 		log.info(bDto.toString());
 		
-		//댓글 DB등록
+		//게시글 DB등록
 		bService.write(bDto);
-		return "redirect:/board/list";
+		log.info("currval :" + bDto.getBno());
+		return "redirect:/board/view/"+bDto.getBno();
 		//rediret를 써야 새로운 페이지를 만들어줌
 	}
 	@GetMapping("/update")
