@@ -241,7 +241,7 @@ display : none;
 
 				<div class="write_content">
 					<script type="text/javascript" src="${path}/resources/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
-					<textarea style="width: 987px; height: 480px; min-width:100%;" class="write_textarea" id="board_content" name="content">${one.content}</textarea>
+					<textarea style="width: 987px; height: 480px; min-width:100%;" class="write_textarea" id="board_content" name="view_content">${one.view_content}</textarea>
 				</div>
 
 
@@ -311,8 +311,24 @@ display : none;
 		}else{
 			//서버로 전송
 			//alert('서버로 ㄱㄱ');
+			//스마트 에디터 값을 #board_content에 넣으라는 뜻
 			oEditors.getById["board_content"].exec("UPDATE_CONTENTS_FIELD", []);
+			
+			//정규식을 통해 HTMl태그를 제거 한 순수 txt만 추출
+			var view_content = $('#board_content').val();
+			console.log('view_content : ' + view_content);
+			//스마트 에디터 값 다 들어가있음
+
+			var search_content = view_content.replace(/(<([^>]+)>)/ig,"").replace("&nbsp;","");
+			console.log('search_content : ' + search_content);
+			//순수텍스트만 ㅇㅇ
+			
+			//form태그의 게시글등록 버튼을 눌렀을때 append( 폼태그의 끝에 추가)
+			$('#frm_board').append('<textarea id="search_content" name="search_content"></textarea>');
+			$('#search_content').val(search_content);
+			
 			$('#frm_board').submit();
+			//alert('서버로 ㄱㄱ');
 		}
 	});
 	

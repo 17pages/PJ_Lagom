@@ -542,7 +542,7 @@ padding-left : 2px;
 							<div class="post_content">
 								<article>
 									<div class="post_article fr-view">
-										<p>${one.content}</p>
+										<p>${one.view_content}</p>
 									</div>
 								</article>
 							</div>
