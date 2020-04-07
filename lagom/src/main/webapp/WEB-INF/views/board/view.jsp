@@ -227,7 +227,7 @@ padding-right : 4px;
 .post_article{
 	border : 0px solid blue;
 	width: 100%;
-	height: 50px;
+
 	margin : 15px 0;
 
 }
@@ -548,7 +548,7 @@ padding-left : 2px;
 							</div>
 
 							<div class="post_plus_bnt">
-								<button class="post_reco_bnt"><i class="far fa-thumbs-up"></i> 추천</button>
+								<button class="post_reco_bnt" id="post_reco_bnt"><i class="far fa-thumbs-up"></i> 추천</button>
 								<button class="post_scrap_bnt"><i class="fas fa-bookmark"></i> 스크랩</button>
 								<button class="post_decl_bnt"><i class="fas fa-ban"></i> 신고</button>
 							</div>
@@ -561,7 +561,7 @@ padding-left : 2px;
 								
 								<!-- header.referer : (무조건)이전페이지로 보내줌 -->
 									<a href="${header.referer}" class="view_list" ><span>목록</span></a>
-									<a href=""><span>답글</span></a>
+									<a href="${path}/board/answer?bno=${one.bno}" class="board_reply_btn"><span>답글</span></a>
 								</div>
 								<c:if test="${name == one.writer}">
 								<div class="view_btn_right">
@@ -598,6 +598,8 @@ padding-left : 2px;
 			//alert("test");
 			location.href='${path}/board/delete?bno=${one.bno}';
 		});
+		
+		
 		
 		});
 		
@@ -703,13 +705,28 @@ padding-left : 2px;
 			//ajax는 비동기식이라 일처리가 되기도 전에 가져와버림. 그래서 동기식으로 바꿔줘야 하기때문에
 			// async : false를 붙여줘야함.
 			$('.view_replycnt >strong').text($('.replyListCnt').val());
+			    }
 			
-		    }
 		
 			function refreshReply(){
 			
 				listReply();
 			}
+			
+			$(document).on('click', '.post_reco_bnt', function(){
+				//alert('눌러짐');
+				$.ajax({
+					type : "get",
+					url : "${path}/board/good?bno=${one.bno}",
+					async : false,		
+					success : function(){
+						//alert('success');
+						}
+					});
+				var cnt= '${one.goodcnt+1}';
+				$('.view_goodcnt > strong').text(cnt);
+				
+			});
 				
 			
 </script>

@@ -241,7 +241,7 @@ display : none;
 
 				<div class="write_content">
 					<script type="text/javascript" src="${path}/resources/smarteditor/js/service/HuskyEZCreator.js" charset="utf-8"></script>
-					<textarea style="width: 987px; height: 480px; min-width:100%;" class="write_textarea" id="board_content" name="view_content">${one.view_content}</textarea>
+					<textarea style="width: 100%; min-height: 480px; min-width:987px;" class="write_textarea" id="board_content" name="view_content">${one.view_content}</textarea>
 				</div>
 
 
@@ -267,19 +267,29 @@ display : none;
 	</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">
+	var flag = '${flag}';
+	console.log('flag :' + flag);
+	
 	$(function(){
 		//alert('데이터 : ' + '${one}');
 		
 		//register ==> 게시글 등록과 게시글 수정 공유중
 		// 등록과 수정을 선택하는 
 		//${one}의 값이 있으면 수정페이지 로딩 
-		if('${one}' !=''){
+		if(flag =='update'){
 			//수정페이지로 디자인 변경
 			$('.writeboard_header').text('게시글 수정');
 			$('.write_yes_btn').text('수정');
 			//SelectBox 값으로 selected
 			$('.board_type').val('${one.type}').attr('selected', 'selected');
 			
+		}else if (flag == 'answer'){
+			$('.writeboard_header').text('답글');
+			$('.write_yes_btn').text('작성');
+			$('.board_type').val('${one.type}').attr('selected', 'selected')
+											   .attr('onFocus', 'this.initialSelect=this.selectedIndex')
+											   .attr('onChange', 'this.selectedIndex=this.initialSelect');
+			$('#write_title').val('RE: ' + '${one.title}').attr('readonly', 'readonly');
 		}
 			
 	});

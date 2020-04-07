@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lagom.domain.BoardDTO;
 import com.lagom.service.board.BoardService;
@@ -81,6 +82,8 @@ public class BoardController {
 		model.addAttribute("one", bService.detailView(bno));
 		model.addAttribute("key", "dropBoard");
 		
+
+		
 		return "board/view";
 	}
 	
@@ -115,6 +118,7 @@ public class BoardController {
 		
 		//수정을 원하는 게시글의 정보를 (1줄) 원함
 		model.addAttribute("one", bService.detailView(bno));
+		model.addAttribute("flag", "update");
 		
 		return "/board/register";
 	}
@@ -127,6 +131,58 @@ public class BoardController {
 		return "redirect:/board/view/"+bDto.getBno();
 		
 	}
-
+	@GetMapping("/answer")
+	// int bno 를 해도 되지만 이 경우에는 bDto 써도 효율 괜찮음 
+	//bDTO, model쓰려면 객체생성해야함=>@controller 붙은 클래스에서는 매서드에서 자동으로 객체생성해줌
+	public String answerBoard(BoardDTO bDto, Model model) {
+		log.info(">>>> GET : Board answer view Action");
+		bDto = bService.detailView(bDto.getBno());
+		
+		String newContent = "<p>[이전게시글 내용]</p>" + 
+							bDto.getView_content() + 
+							"<br>========================================";
+		bDto.setView_content(newContent);
+		
+		model.addAttribute("one", bDto);
+		model.addAttribute("flag", "answer");
+		
+		
+		return "board/register";
+		
+	}
+	@PostMapping("/answer")
+	public String answerBoard(BoardDTO bDto) {
+		log.info(">>>> POST : Board answer view Action");
+		
+		//현재상태 : 답글(bno(메인게시글 bno)타입, 제목, 내용, 작성자)
+		log.info("답글DTO : " + bDto.toString());
+		
+		//현재상태 : 메인(ALL, ref, re_level, re_step)
+		BoardDTO prevDto = bService.detailView(bDto.getBno());
+		log.info("메인DTO : " + prevDto.toString());
+		
+		//현재상태 : 답글 (bno(메인게시글), 타입, 제목, 내용, 작성자
+		//				   ref(메인), re_level(메인), re_step(메인)
+		bDto.setRef(prevDto.getRef());
+		bDto.setRe_level(prevDto.getRe_level());
+		bDto.setRe_step(prevDto.getRe_step());
+		
+		bService.answer(bDto);
+		
+		//ref, re_step, re_level
+		//ref = 그래도 메인 게시글 ref copy&paste
+		//re_level - 메인게시글 re_level +1
+		//re_step = 메인게시글 re_step +1
+		
+		return "redirect:/board/view/"+bDto.getBno();
+	}
+	@ResponseBody//그냥 데이터만 보내겠음
+	@GetMapping("/good")
+	public void good(int bno) {
+		
+	bService.increaseGoodCnt(bno);
+		
+		
+	}
 
 }

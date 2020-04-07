@@ -335,6 +335,10 @@ padding-top : 3px;
     background-color: #ccbcb5;
     color: white;
 }
+.empty_val{
+withd : 20px;
+height : 20px;
+}
 </style>
 </head>
 <body>
@@ -426,6 +430,12 @@ padding-top : 3px;
 										<td>
 											<div class="tb_left_wrap">
 												<div class="tb_left" id="title">
+													<c:if test="${list.re_level !=0}">
+														<c:forEach begin="1" end="${list.re_level}">
+															<img class=empty_val src="${path}/resources/img/icons8-down-right-50.png">
+														</c:forEach>
+														RE:
+													</c:if>
 													<a href="${path}/board/view/${list.bno}">${list.title}</a>
 													<span class="reply_cnt">[${list.replycnt}]</span>
 												

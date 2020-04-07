@@ -30,6 +30,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 		//이전 페이지 URL을 GET // 이동하기 전 있었던 page url
 		String referer = request.getHeader("referer"); // http://localhost:8081/metop/board/list
 		log.info(">>>>>>>>>referer : " + referer);
+		
+		// 물음표 뒤의 값을 알려줌 , 쿼리스트링 없을때는 null값이 들어옴
+		String qString = request.getQueryString();
+		log.info(">>>>>>>>>queryString : " + qString);
 		//referer : 이전페이지 (내가 있던 곳)
 		//uri : 내가 가려고 했던 page
 		String uri = request.getRequestURI(); // context루트 부터 -> 끝까지가 uri / url은 http://부터 // [/lagom/board/wirte] 
@@ -81,6 +85,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			}
 			FlashMap fMap = RequestContextUtils.getOutputFlashMap(request);
 			fMap.put("message", "nologin"); // 메시지를 보내줌
+			if(qString != null) { // qString에 널값이 아닐경우 경우
+				uri = uri + "?" + qString;
+			}
 			fMap.put("uri", uri); // 로그인이 필요한 시스템중에 사용자가 사용하려고 했던것 (인터셉트가 가지고 있던거)
 				
 			// 1회성으로 데이터 한번만 보내주는것 flashMap == sendattribute

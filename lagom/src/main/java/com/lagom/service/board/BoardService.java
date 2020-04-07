@@ -28,4 +28,12 @@ public interface BoardService  {
 	
 	//수정글 등록
 	public void updateBoard(BoardDTO bDto);
+	
+	//추천수 1 증가
+	public void increaseGoodCnt(int bno);
+	
+	//게시글 답글 등록
+	public void answer(BoardDTO bDto);
+	
+	
 }

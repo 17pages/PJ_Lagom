@@ -5,11 +5,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.lagom.persistence.BoardDAO">
 	<select id="titleList" resultType="BoardDTO">
 		<include refid="paging_header"/>
-		SELECT bno, type, title, writer, name, b.regdate, updatedate, viewcnt, replycnt, goodcnt, show 
+		SELECT bno, type, title, writer, name, b.regdate, updatedate, viewcnt, replycnt, goodcnt, show, ref, re_step, re_level
 		FROM tbl_board b, tbl_member m 
 		<include refid="search" />		
 		<if test="map.sort_option == 'new'">
-			ORDER BY bno DESC
+			ORDER BY ref DESC, re_step ASC
 		</if>
 		<if test="map.sort_option == 'cnt'">
 			ORDER BY viewcnt DESC
@@ -64,6 +64,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   SET viewcnt = viewcnt + 1
 		  WHERE bno = #{bno} 
 	</update>
+	<update id="increaseGoodCnt">
+		UPDATE tbl_board
+		  SET goodcnt = goodcnt + 1
+		  WHERE bno = #{bno}
+	</update>
+	
 	<update id="delBoard">
 		UPDATE tbl_board
 		   SET show = 'n'
@@ -71,8 +77,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<insert id="write">
-		INSERT INTO tbl_board(bno, type, title, view_content, search_content, writer)
-		VALUES(seq_board.NEXTVAL, #{type}, #{title}, #{view_content}, #{search_content}, #{writer})
+		INSERT INTO tbl_board(bno, type, title, view_content, search_content, writer, ref)
+		VALUES(seq_board.NEXTVAL, #{type}, #{title}, #{view_content}, #{search_content}, #{writer}, seq_board.CURRVAL)
 		
 		<selectKey keyProperty="bno" resultType = "Integer" order="AFTER">
 			SELECT seq_board.CURRVAL FROM dual
@@ -86,6 +92,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				view_content = #{view_content},
 				updatedate = SYSDATE
 			WHERE bno = #{bno}	
+	</update>
+	<update id="updateStep">
+		UPDATE tbl_board
+		SET re_step = re_step+1
+		WHERE ref = #{ref} AND re_step > #{re_step}
+	</update>
+	
+	<update id="answer">
+	INSERT INTO tbl_board(bno, type, title, view_content, search_content, writer, ref, re_step, re_level)
+	VALUES(seq_board.NEXTVAL, #{type}, #{title}, #{view_content}, #{search_content}, #{writer}, #{ref}, #{re_step}, #{re_level})
+	
+	<selectKey keyProperty="bno" resultType = "Integer" order="AFTER">
+			SELECT seq_board.CURRVAL FROM dual
+	</selectKey>
 	</update>
 	
 </mapper>
