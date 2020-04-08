@@ -162,20 +162,20 @@ padding : 5px 15px;
 
 }
 /*첨부파일*/
-.add_attachments{
+.input_wrap{
 	display: flex;
 	width: 100%;
 	padding : 10px 15px;
 	border-bottom:1px solid #e2e2e2
 
 }
-.add_attachments > span {
+.input_wrap > span {
 	font-weight : bold;
 }
-.addfile_title{
+.board_div{
 	padding-right: 11px;
 }
-.drag_file{
+.fileDrop{
 	width: 920px;
 	height: 110px;
 	border : 2px dashed #9bafc1;
@@ -183,7 +183,7 @@ padding : 5px 15px;
 	line-height: 100px;
 
 }
-.addfile_title{
+.board_div{
 	font-weight: bold;
 }
 /*경고*/
@@ -245,13 +245,14 @@ display : none;
 				</div>
 
 
-				<div class="add_attachments"> 
-					<div class="addfile_title"><span>첨부파일</span></div>
-					<div class="drag_file">
-						<i class="fas fa-file-import"></i>
-						<span>파일을 올려주세요.</span>
+				<div class="input_wrap form_group"> 
+					<div class="board_div">
+							<span>첨부파일</span></div>
+					<div class="fileDrop">
+					<p> <i class="fas fa-file-import"></i><span>파일을 올려주세요.</span></p>
 					</div>
-
+					<!-- 첨부파일 들어오면 목록 띄우려고 ul만듦 -->
+						<ul class="mailbox-attachments clearfix uploadedList"></ul>
 				</div>
 				
 				<div class="wirte_content_btn">
@@ -291,8 +292,40 @@ display : none;
 											   .attr('onChange', 'this.selectedIndex=this.initialSelect');
 			$('#write_title').val('RE: ' + '${one.title}').attr('readonly', 'readonly');
 		}
+			//1. 웹브라우저에  drag&drop 시 파일이 열리는 문제 (기본효과)
+			// : 기본효과를 막을거임!
+			$('.fileDrop').on('dragenter dragover', function(e){
+				e.preventDefault();
+			});
 			
+			//2. 사용자가 파일을 drop했을 때
+			$('.fileDrop').on('drop', function(e){
+				e.preventDefault();
+				
+				var files=e.originalEvent.dataTransfer.files; //드래그에 전달된 첨부파일
+				var file=files[0]; // 그중 하나만 꺼내옴
+				
+				var formData = new FormData(); // 폼 객체 생성
+				formData.append('file', file) // 폼에 파일 1개 추가
+				
+				//서버에 파일 업로드 // 제이쿼리코드
+				$.ajax({
+					url : '${path}/upload/uploadAjax',
+					data : formData,
+					datatype : "text",
+					processData : false, // 쿼리스트링 방식 생성X
+					contentType : false, // 서버단으로 전송하는 데이터 타입을 multipart로 만듦
+					type : 'POST',
+					success : function(data){
+						console.log(data);
+						//data : 업로드한 파일 정보와 http 상태 코드
+						printFiles(data); // 첨부파일 출력 메서드 호출
+					}
+					
+				});
+			});
 	});
+	
 	$(document).on('click', '.write_no_btn', function(){
 		var referer = '${header.referer}';
 		//console.log('이전 URL : ' + referer);
