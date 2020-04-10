@@ -78,3 +78,73 @@ commit;
 SELECT *FROM tbl_board;
 
 
+--댓글 테이블 생성
+DROP SEQUENCE seq_reply;
+CREATE SEQUENCE seq_reply
+    START WITH 1
+    INCREMENT BY 1
+    NOCYCLE;
+    
+DROP TABLE tbl_reply;    
+CREATE TABLE tbl_reply(
+    rno NUMBER,
+    type CHAR(4) NOT NULL,
+    content VARCHAR2(2000) NOT NULL,
+    writer VARCHAR2(100) NOT NULL,
+    regdate DATE DEFAULT SYSDATE,
+    bno NUMBER NOT NULL
+);
+    
+
+--tbl_reply에 PK제약조건 추가
+ALTER TABLE tbl_reply ADD CONSTRAINT pk_reply_rno
+PRIMARY KEY(rno);
+
+--댓글 FK게시글과 참조, 게시글 삭제시 참조하고 있는 댓글 연쇄 삭제를 위한 cascade설정
+ALTER TABLE tbl_reply
+ADD CONSTRAINT fk_reply_bno
+FOREIGN KEY(bno) REFERENCES tbl_board(bno)
+ON DELETE CASCADE;
+
+--상위 게시글 3건에다가 2~1건 댓글
+--type 중요, content, writer, bno 필요함
+INSERT INTO tbl_reply(rno, type, content, writer, bno)
+VALUES(seq_reply.NEXTVAL, 'free', '나혼자쓰는 댓글이지롱~1','멸멸멸', 300);
+INSERT INTO tbl_reply(rno, type, content, writer, bno)
+VALUES(seq_reply.NEXTVAL, 'free', '나혼자쓰는 댓글이지롱~2','멸멸멸', 300);
+INSERT INTO tbl_reply(rno, type, content, writer, bno)
+VALUES(seq_reply.NEXTVAL, 'free', '나혼자쓰는 댓글이지롱~3','멸멸멸', 300);
+INSERT INTO tbl_reply(rno, type, content, writer, bno)
+VALUES(seq_reply.NEXTVAL, 'free', '댓글쓰~1','멸멸멸', 299);
+INSERT INTO tbl_reply(rno, type, content, writer, bno)
+VALUES(seq_reply.NEXTVAL, 'free', '댓글쓰~2','멸멸멸', 299);
+INSERT INTO tbl_reply(rno, type, content, writer, bno)
+VALUES(seq_reply.NEXTVAL, 'free', '댓글쓰~3','멸멸멸', 299);
+INSERT INTO tbl_reply(rno, type, content, writer, bno)
+VALUES(seq_reply.NEXTVAL, 'free', '개졸림1','멸멸멸', 297);
+INSERT INTO tbl_reply(rno, type, content, writer, bno)
+VALUES(seq_reply.NEXTVAL, 'free', '개졸림2','멸멸멸', 297);
+INSERT INTO tbl_reply(rno, type, content, writer, bno)
+VALUES(seq_reply.NEXTVAL, 'free', '개졸림3','멸멸멸', 297);
+
+commit;
+
+SELECT * FROM tbl_reply;
+
+
+
+-- 게시판 첨부파일 테이블
+-- : 첨부파일 이름은 uuid를 사용하기때문에 중복 안됨
+DROP TABLE tbl_attach CASCADE CONSTRAINTS;
+CREATE TABLE tbl_attach(
+    fullname VARCHAR2(150) NOT NULL,
+    bno NUMBER NOT NULL, 
+    regdate DATE DEFAULT SYSDATE
+);
+ALTER TABLE tbl_attach ADD CONSTRAINT pk_attach
+PRIMARY KEY(fullname);
+
+ALTER TABLE tbl_attach
+ADD CONSTRAINT fk_attach_bno
+FOREIGN KEY(bno) REFERENCES tbl_board(bno)
+ON DELETE CASCADE;
