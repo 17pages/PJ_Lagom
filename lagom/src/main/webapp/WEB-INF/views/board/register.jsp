@@ -543,6 +543,25 @@ display : none;
 			$('#frm_board').append('<textarea id="search_content" name="search_content"></textarea>');
 			$('#search_content').val(search_content);
 			
+			
+			//첨부파일 목록[배열]도 추가
+			var str = ''; //변수생성
+			//uploadedList 내부의 .file 태그 각각 반복
+			$(".uploadedList .file").each(function(i){ // uploadedList에서 클래스가 file인거 다 찾아오기 첨부파일이 세개면 세개 네개면 네개 .each는 앞의 선택자수만큼 반복해라
+				console.log(i); // index값 시작값은 0
+				//hidden태그 구성
+				str += "<input type = 'hidden' name='files["+i+"]' value='"+ $(this).val()+"'>";
+				
+			});
+			//로컬드라이브에 저장되어 있는 해당 게시글
+			//첨부파일 삭제
+			//if(deletefileList.length > 0) {
+		//		$.post('${path}/upload/deletedAllFile', {files:deleteFileList}, function(){});
+		//	}
+			//폼에 hidden 태그들을 붙임
+			$("#frm_board").append(str);
+			
+			//서버로 전송
 			$('#frm_board').submit();
 			//alert('서버로 ㄱㄱ');
 		}
