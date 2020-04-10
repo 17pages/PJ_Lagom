@@ -1,5 +1,6 @@
 package com.lagom.controller;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
@@ -92,4 +93,40 @@ public class AjaxUploadController {
 		}
 		return entity;
 	}
+	
+	@ResponseBody
+	@PostMapping("/upload/deleteFile")
+	public ResponseEntity<String> deleteFile(String fileName){//ajax의 fileName
+		log.info("fileName : " + fileName);
+		//fileName : /2020/04/10/s_215ad2d9-248a-4377-a2a0-ba0c5e9634f2_꼴깍몬.png = 썸네일 이미지 경로
+		
+		
+		//확장자 검사
+		String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
+		//formatName = png // .앞칸까지 가고 +1이라 뒤로 감 // 썸네일 지울건지 안지울건지 판단하기 위해 
+		MediaType mType = MediaUtils.getMediaType(formatName);
+		if(mType != null) {//이미지 파일이면 원본이미지 삭제 // 이미지 외의 것은 이 if문 안탐
+			String front = fileName.substring(0,12);
+			//front = /2020/04/10/
+			String end = fileName.substring(14);
+			//end = 215ad2d9-248a-4377-a2a0-ba0c5e9634f2_꼴깍몬.png = 원본이미지
+			//File.separatorChar : 유닉스 / 윈도우즈 \
+			new File(uploadPath + (front + end).replace('/', File.separatorChar)).delete();
+			//가지고오고 싶은 파일의 세팅값
+			//(uploadPath : C://developer/upload) + (/2020/04/10/ + 215ad2d9-248a-4377-a2a0-ba0c5e9634f2_꼴깍몬.png) = 원본이미지
+			// replace : C:\\developer\ upload\2020\04\10\215ad2d9-248a-4377-a2a0-ba0c5e9634f2_꼴깍몬.png
+			// delete : C:\\developer\ upload\2020\04\10\215ad2d9-248a-4377-a2a0-ba0c5e9634f2_꼴깍몬.png => 원본 이미지 삭제
+		}
+		//원본 파일 삭제 (이미지면 썸네일 삭제) // 이미지 파일 아닐때는 여기탐
+		new File(uploadPath+fileName.replace('/', File.separatorChar)).delete();
+		// new File(C://developer/upload/2020/04/10/s_215ad2d9-248a-4377-a2a0-ba0c5e9634f2_꼴깍몬.png (s_붙어있음 = 썸네일이미지// 삭제)
+		//replace : C:\\developer\ upload\2020\04\10\s_215ad2d9-248a-4377-a2a0-ba0c5e9634f2_꼴깍몬.png
+		//로컬드라이브만 삭제한것 디자인은 삭제 안했음. 
+		
+		
+		//썸네일 이미지 삭제 or 이미지가 아닌 첨부파일 삭제
+		return new ResponseEntity<String>("deleted", HttpStatus.OK); // register의 ajax로 감
+		//respose에 값 보낼때 ResponseEntity은 설정값보내줌
+	}
+		
 }

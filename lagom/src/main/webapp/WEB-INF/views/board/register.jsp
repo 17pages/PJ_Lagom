@@ -197,6 +197,9 @@ padding-right : 15px;
 }
 
 .mailbox-attachment-info {
+display : flex;
+justify-content : space-between;
+align-items : center;
 background-color : #e7e9ec;
 border : 1px solid #e7e9ec;
 }
@@ -356,6 +359,31 @@ display : none;
 					}
 					
 				});
+			});
+			//버튼을 눌렀을때 디자인, 로컬가서도 삭제되게 할거임 
+			$('.uploadedList').on('click', '.delBtn', function(event){
+				var bno = '${one.bno}'; 
+				var that = $(this);
+				
+				//게시글 등록시
+				if(bno == ''){
+					//alert('bno=' + bno);
+					$.ajax({
+						url : '${path}/upload/deleteFile',
+						type : 'POST',
+						data : {fileName : $(this).attr('data-src')},
+						success : function(data){ // 성공하면 deleted들어있음
+							if(data == 'deleted'){
+								that.parents('li').remove();//parents는 내부모의 부모의 부모 등등.. 특정것을 찾으라는거 =내조상중에 li찾아라
+							} //remove는 태그 없애버림 
+						}, error : function(){
+							alert('System Error!!');
+						}
+					});
+				}else{//게시글 수정시
+					
+				}
+							
 			});
 	});
 	//파일 정보 처리
