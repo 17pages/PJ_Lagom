@@ -133,7 +133,7 @@ padding-bottom : 25px;
 	margin-left : 6px;
 	display: block;
 	height: 40px;
-	padding : 8px 0;
+	padding : 3px 0;
 	border-radius: 2px;
 	width: 40px;
 	vertical-align: middle;
@@ -514,8 +514,8 @@ cursor : pointer;}
 									<strong>${one.goodcnt}</strong><br>추천
 								</div>
 								<div class="view_addfile">
-									<img src="${path}/resources/img/icons8-clipboard-26.png" width="20px" height="20px">
-									
+									<img src="${path}/resources/img/icons8-clipboard-26.png" width="20px" height="20px"><br>
+									<strong>${one.filecnt}</strong>
 								</div>
 							</div>
 						</div>

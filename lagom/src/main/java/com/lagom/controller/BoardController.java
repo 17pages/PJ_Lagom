@@ -104,10 +104,18 @@ public class BoardController {
 		log.info(">>>>>>>>>>>> Post : Board write Action");
 		log.info(bDto.toString());
 		
+		if(bDto.getFiles() == null) {
+			bDto.setFilecnt(0);
+		}else {
+			//log.info("currval :" + bDto.getBno());
+			log.info("첨부파일 수 : " + bDto.getFiles().length);
+			bDto.setFilecnt(bDto.getFiles().length);
+		}
+			
 		//게시글 DB등록
 		bService.write(bDto);
-		log.info("currval :" + bDto.getBno());
 		return "redirect:/board/view/"+bDto.getBno();
+		
 		//rediret를 써야 새로운 페이지를 만들어줌
 	}
 	@GetMapping("/update")

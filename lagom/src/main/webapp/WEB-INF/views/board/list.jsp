@@ -468,14 +468,14 @@ height : 20px;
 											</div>
 										</td>
 										<td>
-										<c:choose>
-										<c:when test="${listCnt == 0}">
-											<div class="tb_id tb_img"><img src="${path}/resources/img/icons8-clipboard-26 gray.png"></div>
-										</c:when>
-										<c:otherwise>
-											<div class="tb_id tb_img"><img src="${path}/resources/img/icons8-clipboard-26.png"></div>
-										</c:otherwise>
-										</c:choose>
+											<c:choose>
+										 		<c:when test="${list.filecnt == 0}">
+										 			<div class = "tb_id tb_img"><img src="${path}/resources/img/icons8-clipboard-26 gray.png"></div>
+										 		</c:when>
+												<c:otherwise>
+													<div class = "tb_id tb_img"><img src="${path}/resources/img/icons8-clipboard-26.png"></div>
+												</c:otherwise>
+											</c:choose>
 										</td>
 										
 									</tr>

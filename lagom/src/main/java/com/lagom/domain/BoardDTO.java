@@ -23,6 +23,7 @@ public class BoardDTO {
 	private int viewcnt; //조회수
 	private int replycnt; // 댓글수
 	private int goodcnt; //좋아요
+	private int filecnt;//첨부파일수
 	private Date regdate; //작성일자 
 	private Date updatedate; //수정일자
 	private String show; //화면표시여부
