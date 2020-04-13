@@ -176,6 +176,14 @@ public class BoardController {
 		
 		return "redirect:/board/view/"+bDto.getBno();
 	}
+	@PostMapping("/getAttach")
+	@ResponseBody
+	public List<String> getAttach(int bno){
+		log.info(">>>>>>>>>> POST : Board getAttach Action");
+		log.info(">>>>>>>>> bno : " + bno);
+		
+		return bService.getAttach(bno);
+	}
 	@ResponseBody//그냥 데이터만 보내겠음
 	@GetMapping("/good")
 	public void good(int bno) {

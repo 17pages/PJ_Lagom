@@ -83,11 +83,12 @@
 	
 	
 	//첨부파일 리스트를 출력하는 함수
-	function listAttach(){
+	function listAttach(path, bno){
+		console.log(path);
 		var listCnt = 0;
 		$.ajax({
-			type : "post",
-			url : "${path}/board/getAttach/${one.bno}",
+			type : 'post',
+			url : path + '/board/getAttach?bno='+bno,
 			async: false,
 			success : function(list){
 				//list : json
@@ -103,7 +104,7 @@
 			*/
 			$(list).each(function(i,e){
 				/*console.log(list)*/
-				printFiles(e); // 첨부파일 출력 메서드 호출
+				printFiles(e, path); // 첨부파일 출력 메서드 호출
 			
 				});
 			}

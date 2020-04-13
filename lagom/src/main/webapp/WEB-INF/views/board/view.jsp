@@ -466,6 +466,22 @@ font-size : 10px;
 font-size : 10px;
 padding-left : 2px;
 }
+
+.mailbox-attachment-info {
+display : flex;
+justify-content : space-between;
+align-items : center;
+background-color : #e7e9ec;
+border : 1px solid #e7e9ec;
+}
+.mailbox-attachments{
+display : flex;
+
+}
+.mailbox-attachments > li {
+margin-right : 5px;
+cursor : pointer;}
+
 </style>
 </head>
 <body>
@@ -546,6 +562,7 @@ padding-left : 2px;
 									</div>
 								</article>
 							</div>
+							<ul class="mailbox-attachments clearfix uploadedList"></ul>
 
 							<div class="post_plus_bnt">
 								<button class="post_reco_bnt" id="post_reco_bnt"><i class="far fa-thumbs-up"></i> 추천</button>
@@ -580,9 +597,37 @@ padding-left : 2px;
 			</div>
 		</div>
 	</div>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-		<script type="text/javascript">
-		$(function(){ // document.ready.fuction
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+<script id="fileTemplate" type="text/x-handlebars-template">
+	<li>
+		<div class="mailbox-attachment-icon has-img">
+		<center><img src="{{imgSrc}}" alt="Attachment" class="s_img"></center>
+		</div>
+		<div class="mailbox-attachment-info">
+			<a href="{{originalFileUrl}}" class="mailbox-attachment-name">
+				<i class="fa fa-paperclip"></i> {{originalFileName}}
+			</a>
+		</div>
+	</li>
+</script>
+<script src="${path}/resources/js/fileAttach.js"></script>
+<script type="text/javascript">
+	//Handlebars 파일템플릿 컴파일
+	var fileTemplate = Handlebars.compile($("#fileTemplate").html());
+	
+	$(function(){ // document.ready.fuction
+		//첨부파일 목록 불러오기
+		var listCnt = listAttach('${path}', '${one.bno}');
+		
+		//첨부파일 0건일때 '첨부파일 없음'출력
+		console.log('FILE COUNT: ' + listCnt);
+		if(listCnt == 0) {
+			var text='<span class="no_attach"> 첨부파일이 없습니다. </span>';
+			$('#uploadedList').html(text);
+		}
+			
+			
 			//자동으로 새로고침 되는 기능, setinterval = javascript내장함수 1000=1초 5분에 한번씩 실행해라
 			setInterval(refreshReply, 180000);
 			
@@ -727,8 +772,6 @@ padding-left : 2px;
 				$('.view_goodcnt > strong').text(cnt);
 				
 			});
-				
-			
 </script>
 </body>
 </html>
