@@ -153,10 +153,7 @@ public class BoardController {
 		
 		model.addAttribute("one", bDto);
 		model.addAttribute("flag", "answer");
-		
-		
-		
-		
+	
 		return "board/register";
 		
 	}
@@ -168,10 +165,13 @@ public class BoardController {
 		log.info("답글DTO : " + bDto.toString());
 		
 		//현재상태 : 메인(ALL, ref, re_level, re_step)
+		//
 		BoardDTO prevDto = bService.detailView(bDto.getBno());
 		log.info("메인DTO : " + prevDto.toString());
 		
 		//첨부파일 나오게 하는거
+		//getfiles는 배열값 ->DTO가서 보면 알수 있음
+		//첨부파일의 이름들이 배열값으로 들어옴
 		if(bDto.getFiles() == null) {
 			bDto.setFilecnt(0);
 		}else {

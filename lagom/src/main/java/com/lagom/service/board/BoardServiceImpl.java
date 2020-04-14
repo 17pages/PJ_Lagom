@@ -79,9 +79,19 @@ public class BoardServiceImpl implements BoardService {
 			session.setAttribute("update_time_"+bno, current_time);
 		}
 	}
+	@Transactional
 	@Override
 	public void delBoard(int bno) {
-		bDao.delBoard(bno);
+		
+		bDao.deleteAttach(bno); //DB 첨부파일 삭제 
+		bDao.delBoard(bno); // 게시글 삭제
+		
+		//기타방법
+		//예) 90일 이후에 일괄삭제
+		//tbl_board와 tbl_attach를 relatio을 맺고
+		//Cascade작업을 통해 tbl_board에서 해당 게시글 삭제하면
+		//자동으로 tbl_attach에 해당 게시글 첨부파일 일괄삭제
+		//즉 첨부파일 DB에서 삭제하는 코드는 작성 안해도 됨!
 	}
 	@Transactional
 	@Override
@@ -124,7 +134,6 @@ public class BoardServiceImpl implements BoardService {
 		
 		//1)re_step 수정
 		// : ref가 같은 row중에 메인 게시글의 re_step 보다 크기가 큰 값을 찾아 전부 +1 => updateStep()
-		
 		bDao.updateStep(bDto);
 		
 		//2) 답글 DB에 insert 
@@ -132,15 +141,18 @@ public class BoardServiceImpl implements BoardService {
 		bDto.setRe_step(bDto.getRe_step()+1);
 		bDao.answer(bDto);
 		
-		//tbl_attach에 해당 게시글 첨부파일 등록
+		//tbl_attach에 해당 게시글 첨부파일 등록 // 이름들 배열값으로 가져옴[]
 		String[] files = bDto.getFiles();
-				
+		//이 값을 files에 담음
+		
+		
+		//foreach방법
 		if(files == null) {
 			return; // 첨부파일 없음, 종료
 		}
-		for(String name : files) {
+		for(String name : files) { //files에서 하나꺼내서 name에 담고.. 
 		//tbl_attach 테이블에 첨부파일 1건씩 등록
-		bDao.addAttach(name);
+		bDao.addAttach(name); // 여기에 담음~
 		}
 	}
 	@Override
