@@ -456,7 +456,7 @@ display : none;
 			//삭제한 첨부파일 목록에 있는 첨부파일들을 Local에서 첨부파일 삭제  
 			//첨부파일 삭제
 			if(deleteFileList.length > 0) {
-				$.post('${path}/upload/deletedAllFile', {files:deleteFileList}, function(){});
+				$.post('${path}/upload/deleteAllFile', {files:deleteFileList}, function(){});
 			}
 			//폼에 hidden 태그들을 붙임
 			$("#frm_board").append(str);
