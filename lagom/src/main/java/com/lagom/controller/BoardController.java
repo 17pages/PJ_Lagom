@@ -134,6 +134,15 @@ public class BoardController {
 	public String updateBoard(BoardDTO bDto) {
 		log.info(">>>> POST : Board update Action");
 		
+		if(bDto.getFiles() == null) {
+			bDto.setFilecnt(0);
+		}else {
+			//log.info("currval :" + bDto.getBno());
+			log.info("첨부파일 수 : " + bDto.getFiles().length);
+			bDto.setFilecnt(bDto.getFiles().length);
+		}
+		
+		log.info(bDto.toString());
 		bService.updateBoard(bDto);
 		
 		return "redirect:/board/view/"+bDto.getBno();

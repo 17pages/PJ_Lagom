@@ -90,6 +90,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		UPDATE tbl_board 
 			SET type = #{type},
 				title = #{title},
+				filecnt = #{filecnt},
 				view_content = #{view_content},
 				updatedate = SYSDATE
 			WHERE bno = #{bno}	
@@ -126,4 +127,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE FROM tbl_attach
 		WHERE bno = #{bno}
 	</delete>
+	
+	<!-- 첨부파일 수정(등록) -->
+	<insert id="updateAttach">
+		INSERT INTO tbl_attach(fullName, bno)
+		VALUES(#{fullName}, #{bno})
+	</insert>
 </mapper>
