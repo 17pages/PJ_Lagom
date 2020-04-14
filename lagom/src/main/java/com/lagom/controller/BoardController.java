@@ -155,6 +155,8 @@ public class BoardController {
 		model.addAttribute("flag", "answer");
 		
 		
+		
+		
 		return "board/register";
 		
 	}
@@ -168,6 +170,15 @@ public class BoardController {
 		//현재상태 : 메인(ALL, ref, re_level, re_step)
 		BoardDTO prevDto = bService.detailView(bDto.getBno());
 		log.info("메인DTO : " + prevDto.toString());
+		
+		//첨부파일 나오게 하는거
+		if(bDto.getFiles() == null) {
+			bDto.setFilecnt(0);
+		}else {
+			//log.info("currval :" + bDto.getBno());
+			log.info("첨부파일 수 : " + bDto.getFiles().length);
+			bDto.setFilecnt(bDto.getFiles().length);
+		}
 		
 		//현재상태 : 답글 (bno(메인게시글), 타입, 제목, 내용, 작성자
 		//				   ref(메인), re_level(메인), re_step(메인)
