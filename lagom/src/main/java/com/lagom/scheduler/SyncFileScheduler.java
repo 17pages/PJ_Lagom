@@ -122,6 +122,7 @@ public class SyncFileScheduler {
 		//file => 로컬에 있는 것들 //fileListPaths =DB의 꺼
 		//정상이니까 하지말라고 false반환
 		//포함하지 않고 있다면 true 로 removeFiles에 들어감 
+		//contain은 in을 파악하는것. 들어있냐 없냐 
 		
 		//DB에 등록되지 않은 첨부파일 삭제 시작!
 		log.warn("=====================================================================");

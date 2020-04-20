@@ -449,7 +449,7 @@ display : none;
 			//uploadedList 내부의 .file 태그 각각 반복
 			$(".uploadedList .file").each(function(i){ // uploadedList에서 클래스가 file인거 다 찾아오기 첨부파일이 세개면 세개 네개면 네개 .each는 앞의 선택자수만큼 반복해라
 				console.log(i); // index값 시작값은 0
-				//hidden태그 구성
+				//hidden태그 구성  // 첨부파일 목록 만들어줌
 				str += "<input type = 'hidden' name='files["+i+"]' value='"+ $(this).val()+"'>";
 				
 			});
