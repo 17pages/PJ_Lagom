@@ -35,20 +35,22 @@ public class AjaxUploadController {
 	//boardserviceimpl은 클래스... 
 	
 	//업로드 디렉토리 servlet-context.xml에 설정되어 있음
-	@Resource(name = "uploadPath") //의존성주입함. 이름으로 함. 보편적으로 많이 쓰는애들은 이름으로 꺼내다 써야함.   
+	@Resource(name = "uploadPath") //의존성주입함(DI). 이름으로 함. 보편적으로 많이 쓰는애들은 이름으로 꺼내다 써야함.   
 	String uploadPath;
 		
 	//upload file 멀티파트파일에 Save
 	@ResponseBody
 	@RequestMapping(value="/upload/uploadAjax", produces="text/plain;charset=utf-8") // requestmapping은  method생략하면 get, post둘다 받음
 		public ResponseEntity<String> uploadAjax(MultipartFile file) throws Exception{ // 첨부파일 하나 들어옴 // 예외처리해주는거. 나를 호출한 거에 던지기함
+													//file = 사용자가 드래그앤드롭한 첨부파일
 		//ResponseEntity = success에 respose를 해줘야함. 그때 좀더 다듬어서 보내는거..
 		//<> <--제네릭, 들어오는 값들을 체크함. (여기서는 string타입만 들어올 수 있다는 뜻), 타입을 강하게 check해줌
 		log.info("POST  : uploadAjax");
 		//업로드한 파일 정보와 http 상태 코드를 함께 리턴 // 객체생성하면 바로 보내버리기, file은 첨부파일 하나
+										//("c:developer/upload", "파일이름", 파일크기)
 		return new ResponseEntity<String>(UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()), HttpStatus.OK);
 						//ajax끝나고 다시 view단으로 갈때 같이 보냄       경로     순수하게 파일 이름만       첨부파일의 크기     성공:200
-		//c:/developer/upload/2020/04/08/s_1kdjfoiwjlgoi_ddsun.png",200 이 들어옴
+		//c:/developer/upload/2020/04/08/s_1kdjfoiwjlgoi_ddsun.png",200 이 들어옴 ==> AJAX의 결과로 return
 		//썸네일 경로..
 		//확장자가 붙어있으면 파일. 
 	}

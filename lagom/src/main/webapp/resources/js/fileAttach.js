@@ -40,6 +40,7 @@
 	} 
 	
 	//첨부파일 출력
+	//data는 register의 printFile... ajax의 data	
 	function printFiles(data, path) {
 		//파일 정보 처리
 		var fileInfo = getFileInfo(data, path);
@@ -53,8 +54,8 @@
 		if(fileInfo.fullName.substr(12,2) === "s_"){
 			//마지막에 추가된 첨부파일 템플릿 선택자
 			var that = $(".uploadedList li").last();
-			//lightbox속성추가
-			that.find(".mailbox-attachment-name").attr("data-lightbox", "uploadImages");
+			//lightbox속성추가= 여기서는 안쓰고 있음..
+			//that.find(".mailbox-attachment-name").attr("data-lightbox", "uploadImages");
 			//파일 아이콘에서 이미지 아이콘으로 변경
 			that.find(".fa-paperclip").attr("class", "fa fa-camera");
 			}

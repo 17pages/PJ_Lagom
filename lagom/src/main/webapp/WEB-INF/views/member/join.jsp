@@ -439,7 +439,7 @@ to {
 								<h3 class="join_title">
 									<label for="pswd2">비밀번호 재확인</label>
 								</h3>
-								<span class="ps_box int_pass"> <input type="text"
+								<span class="ps_box int_pass"> <input type="password"
 									id="urpw" name="rpw" class="int"> <span
 									class="step_url"> <span class="repw_lock"></span>
 								</span>

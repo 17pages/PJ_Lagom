@@ -346,8 +346,14 @@ display : none;
 				var files=e.originalEvent.dataTransfer.files; //드래그에 전달된 첨부파일 // 배열로 들어가게됨
 				var file=files[0]; // 그중 하나만 꺼내옴 // 가장 첫번째로 넣었던거
 				
+				//비즈니스 로직
+				//사용자가 첨부파일을 드래그앤드롭하는 순간
+				//AJax를 활용해서 LOCAL DRIVE에 저장
+				
 				var formData = new FormData(); // 폼 객체 생성
 				formData.append('file', file) // 폼에 파일 1개 추가
+				//사용자가 드래그앤드롭한 첨부파일 1개를
+				//formData에 'file'이라는 이름표를 붙여서 저장
 				
 				//서버에 파일 업로드 // 제이쿼리코드
 				$.ajax({

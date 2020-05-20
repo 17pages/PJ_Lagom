@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM tbl_board b, tbl_member m 
 		<include refid="search" />		
 		<if test="map.sort_option == 'new'">
-			ORDER BY ref DESC, re_step ASC
+			ORDER BY ref DESC, re_step ASC, bno DESC
 		</if>
 		<if test="map.sort_option == 'cnt'">
 			ORDER BY viewcnt DESC
