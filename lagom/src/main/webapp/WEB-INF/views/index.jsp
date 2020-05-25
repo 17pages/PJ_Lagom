@@ -587,6 +587,9 @@ h2 {
 }
 
 
+
+
+
 </style>
 </head>
 <body>
@@ -674,6 +677,7 @@ h2 {
 
 				</ul>
 			</nav>
+			
 			
 			<div class="today_reco">
 				<header class="today_home_reco">

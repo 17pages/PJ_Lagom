@@ -339,6 +339,91 @@ padding-top : 3px;
 withd : 20px;
 height : 20px;
 }
+
+/*출석체크*/
+/*출석체크 css*/
+.daily_wrap {
+padding: 15px;
+}
+
+.daily_wrap_inner {
+padding: 15px;
+border: 1px solid rgba(20,23,28,.1);
+border-radius: 2px;
+box-shadow: 0 0 1px 1px rgba(20,23,28,.1), 0 3px 1px 0 rgba(20,23,28,.1);
+}
+
+.dailycheck_write_wrap {
+display: flex;
+align-items: center;
+justify-content: space-between;
+height: 53px;
+}
+
+.input_daily_wrap {
+border: 1px solid rgba(20,23,28,.1);
+display: inline-block;
+height: 52px;
+position: relative;
+border-radius: 2px;
+width: 845px;
+}
+
+.input_daily {
+padding-left: 10px;
+height : 100%;
+width : 845px;
+background-color: white;
+border : none;
+}
+
+.input_daily:focus{
+outline : none;
+}
+
+.btn_which {
+position: absolute;
+top: 0px;
+right: 0px;
+}
+.btn_search{
+    height: 100%;
+    display: inline-block;
+    font-weight: 600;
+    text-align: center;
+    font-size: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 11px 12px;
+    border: 1px solid transparent;
+}
+
+
+.today_time {
+font-size: 14px;
+padding: 0 15px;
+}
+
+.dailycheck_view_wrap {
+border-top: 1px solid rgba(20,23,28,.1);
+}
+
+.dailycheck_view_line {
+display: flex;
+justify-content: space-between;
+align-items: center;
+font-size: 14px;
+padding: 15px;
+border-bottom: 1px solid rgba(20,23,28,.1);
+}
+
+.daily_view_writer {
+color: #007791;
+}
+
+.dailycheck_view_wrap {
+margin: 15px 0;
+}
 </style>
 </head>
 <body>
@@ -357,6 +442,33 @@ height : 20px;
 			<div class="board_content">
 				<div class="board_data">
 					<div class="page_body">
+					<div class="category_wrap">
+ 						
+ 						 <div class="content_menu_title">출석체크</div>
+							  <div class="category_menu daily_wrap">
+    							<div class="daily_wrap_inner">
+      								<div class="dailycheck_write_wrap">
+       									 <div class="input_daily_wrap">
+          									<input type="text" placeholder="" name="dailyContent" class="input_search input_daily">
+          									<button type="button" id="btn_daily" class="btn btn_search btn_which"><i class="fas fa-check"></i></button>
+        								 </div>
+        								<div class="today_time"><span>${today}</span></div>
+      								</div>
+     			 					<div class="dailycheck_view_wrap">
+        								<div class="dailycheck_view_line">
+          									<div class="daily_view_content">안녕하세요:)</div><div class="daily_view_writer">체리링</div>
+        								</div>
+        							<div class="dailycheck_view_line">
+          							<div class="daily_view_content">크크크</div><div class="daily_view_writer">제리링</div>
+        							</div>
+        							<div class="dailycheck_view_line">
+          							<div class="daily_view_content">안녕하세요 오늘 하루도 수공!</div><div class="daily_view_writer">초롱이</div>
+        							</div>
+      								</div>
+    							</div>
+  							</div>
+						</div>
+						
 						<div class="board_title">
 							<div class="title_box">
 								<span class="title_name">자유게시판</span>
@@ -555,6 +667,28 @@ height : 20px;
 		
 	});
 	
+	$(document).on('click', '#btn_daily', function(){
+		var content = $('.input_daily').val();
+		var writer = '${name}';
+		
+		if(writer==''){
+			$('.modal_wrap').css('display', 'flex');
+			$('#input_id').focus();
+			$('.login_error').css('display', 'block')
+							.text('로그인이 필요한 기능입니다.');
+			
+			return false;
+		}
+		alert(content);
+		if(content == '' || content.length == 0){
+			alert('값을 입력해주세요.')
+			//err메시지 출력
+			return false;
+		}
+		alert(content);
+		location.href='${path}/daily/create?content='+content+'&writer='+writer;
+		
+	});
 	
 
 		
