@@ -1,9 +1,12 @@
 package com.lagom.service.daily;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.lagom.domain.DailyDTO;
 import com.lagom.persistence.DailyDAO;
 
 @Service
@@ -29,7 +32,12 @@ public class DailyService {
 	public void dailyCreate() {
 		
 	}
-	public void dailyRead() {
+	//DailyDTO에 있는 애들만!!! 받을 수 있음. 
+	public List<DailyDTO> dailyRead() {
+		//비즈니스 로직
+		//DB에 가서 오늘 출석글만 LIST로 담아와서 
+		//Controller단으로 전달 -> return
+		return dDao.dailyRead();
 		
 	}
 	public void dailyUpdate() {

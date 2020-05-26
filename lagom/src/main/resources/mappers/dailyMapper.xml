@@ -3,5 +3,8 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lagom.persistence.DailyDAO">
-
+	<select id="dailyRead" resultType="DailyDTO">
+		SELECT*FROM tbl_daily
+		WHERE TO_CHAR(regdate, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
+	</select>
 </mapper>

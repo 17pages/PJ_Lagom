@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.lagom.domain.BoardDTO;
 import com.lagom.service.board.BoardService;
 import com.lagom.service.board.Pager;
+import com.lagom.service.daily.DailyService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,7 +30,11 @@ public class BoardController {
 	//service = 비즈니스로직 (DB에 가서 가져와야 출력할 수 있음)
 	@Autowired
 	BoardService bService;
+	@Autowired
+	DailyService dService;
 	
+
+
 	
 	@GetMapping("/list")
 	public String boardView(
@@ -67,6 +72,11 @@ public class BoardController {
 		model.addAttribute("map", map);
 		
 		log.info(pager.toString());
+		
+		model.addAttribute("DailyList",dService.dailyRead());
+		//오늘의 출석명단을 조회 결과
+		
+				
 		return "board/list";
 	}
 	

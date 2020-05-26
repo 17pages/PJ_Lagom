@@ -424,6 +424,57 @@ color: #007791;
 .dailycheck_view_wrap {
 margin: 15px 0;
 }
+
+.daily_small_btn{
+border-radius : 2px;
+padding  : 5px 7px; 
+margin-right : 5px;
+font-weight : normal;
+font-size : 12px;
+background-color : white;
+cursor : pointer;
+outline : none;
+}
+
+.daily_view_update{
+border : 1px solid #EBA444;
+color : #EBA444;
+}
+
+.daily_view_update:hover{
+background-color : #EBA444;
+color : white;
+}
+
+.daily_view_delete{
+border : 1px solid toamto;
+color : tomato;
+}
+.daily_view_delete:hover{
+background-color : tomato;
+color : white;
+}
+.daily_view_cancel{
+border : 1px solid #2f3138;
+color : #2f3138}
+
+.daily_view_cancel:hover{
+border : 1px solid black;
+color : black;
+}
+
+#btn_daily_cancel{
+display : none;
+}
+.dailyTT{
+width : 720px;
+resize : none;
+font-size : 20px;
+height : 28px;
+outline : none;
+}
+
+
 </style>
 </head>
 <body>
@@ -455,15 +506,20 @@ margin: 15px 0;
         								<div class="today_time"><span>${today}</span></div>
       								</div>
      			 					<div class="dailycheck_view_wrap">
+     			 					<c:forEach items="${DailyList}" var="one">
         								<div class="dailycheck_view_line">
-          									<div class="daily_view_content">안녕하세요:)</div><div class="daily_view_writer">체리링</div>
+          									<div class="daily_view_content">${one.content}</div>
+          									<div class="daily_view_writer">
+          									<c:if test="${one.writer == name}">
+          										<button type="button" class="daily_view_cancel daily_small_btn" id="btn_daily_cancel">취소</button>
+          										<button type="button" class="daily_view_update daily_small_btn" id="btn_daily_update">수정</button>
+          										<button type="button" class="daily_view_delete daily_small_btn" id="btn_daily_delete">삭제</button>
+          									</c:if>
+          									${one.writer}
+          									</div>
         								</div>
-        							<div class="dailycheck_view_line">
-          							<div class="daily_view_content">크크크</div><div class="daily_view_writer">제리링</div>
-        							</div>
-        							<div class="dailycheck_view_line">
-          							<div class="daily_view_content">안녕하세요 오늘 하루도 수공!</div><div class="daily_view_writer">초롱이</div>
-        							</div>
+        								</c:forEach>
+        												
       								</div>
     							</div>
   							</div>
@@ -657,8 +713,6 @@ margin: 15px 0;
 			$('#sort_' + sort_option).css('font-weight', 'bold');
 		}
 		
-		
-	
 	});
 	
 	$(document).on('click','.write_btn',function(){
@@ -679,16 +733,35 @@ margin: 15px 0;
 			
 			return false;
 		}
-		alert(content);
+		//alert(content);
 		if(content == '' || content.length == 0){
 			alert('값을 입력해주세요.')
 			//err메시지 출력
 			return false;
 		}
-		alert(content);
+		//alert(content);
 		location.href='${path}/daily/create?content='+content+'&writer='+writer;
 		
 	});
+	
+	$(document).on('click', '#btn_daily_update', function(){
+		$('#btn_daily_cancel').css('display', 'inline-block');
+		//alert($(this).parents().prev().text());
+		$(this).parent().prev().contents().unwrap().wrap('<textarea class="dailyTT"></textarea>');
+		$(this).removeAttr.('id');
+		$(this).attr('id', 'daily_update_action');
+	});
+	
+	$(document).on('click', '#btn_daily_cancel', function(){
+		$(this).parent().prev().contents().unwrap().wrap('<div class="daily_view_content"></div>');
+		$(this).css('display','none');
+		$(this).removeAttr.('id');
+		$(this).attr('id', 'btn_daily_update');
+	});
+	
+	function listDaily(){
+		
+	}
 	
 
 		
